@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>部屋カルテ</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&display=swap');
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Noto Sans JP', sans-serif; background: #f7f4f0; min-height: 100vh; color: #1a1a1a; }
+    .header { background: linear-gradient(135deg, #5b4fcf 0%, #9b59b6 100%); padding: 24px 20px 16px; color: white; }
+    .header-sub { font-size: 11px; opacity: .75; letter-spacing: 3px; margin-bottom: 4px; }
+    .header-title { font-size: 26px; font-weight: 900; }
+    .header-desc { font-size: 12px; opacity: .7; margin-top: 4px; }
+    .tabs { display: flex; background: white; border-bottom: 1px solid #ede9e4; position: sticky; top: 0; z-index: 100; }
+    .tab { flex: 1; padding: 14px 4px; font-size: 12px; font-family: inherit; background: none; border: none; border-bottom: 2px solid transparent; cursor: pointer; color: #aaa; font-weight: 400; transition: all .2s; }
+    .tab.active { color: #5b4fcf; font-weight: 700; border-bottom-color: #5b4fcf; }
+    .content { max-width: 480px; margin: 0 auto; padding: 20px 16px; }
+    .upload-area { border: 2px dashed #c4b8f0; border-radius: 16px; padding: 40px 20px; text-align: center; cursor: pointer; background: #f5f0ff; margin-bottom: 16px; transition: all .3s; }
+    .upload-area.has-image { border: none; padding: 0; background: transparent; }
+    .upload-area img { width: 100%; border-radius: 16px; display: block; }
+    .upload-icon { font-size: 48px; margin-bottom: 12px; }
+    .upload-title { font-size: 15px; font-weight: 700; color: #5b4fcf; margin-bottom: 4px; }
+    .upload-sub { font-size: 12px; color: #aaa; }
+    .upload-overlay { position: absolute; bottom: 12px; right: 12px; background: rgba(0,0,0,.6); color: white; border-radius: 20px; padding: 6px 12px; font-size: 12px; }
+    .img-wrap { position: relative; }
+    .btn { width: 100%; padding: 16px; border-radius: 12px; border: none; font-size: 15px; font-weight: 700; cursor: pointer; font-family: inherit; transition: all .3s; margin-bottom: 12px; }
+    .btn-primary { background: linear-gradient(135deg, #5b4fcf, #9b59b6); color: white; }
+    .btn-primary:disabled { background: #c4b8f0; cursor: not-allowed; }
+    .btn-pink { background: linear-gradient(135deg, #f093fb, #f5576c); color: white; }
+    .card { background: white; border-radius: 16px; padding: 20px; margin-bottom: 12px; box-shadow: 0 2px 12px rgba(0,0,0,.06); }
+    .score-wrap { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+    .score-label { font-size: 12px; color: #aaa; margin-bottom: 2px; }
+    .score-text { font-size: 18px; font-weight: 800; }
+    .score-ring { width: 64px; height: 64px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+    .score-inner { background: white; width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 18px; }
+    .sec-title { font-size: 12px; font-weight: 700; color: #5b4fcf; margin-bottom: 10px; }
+    .problem-item { display: flex; align-items: flex-start; gap: 8px; margin-bottom: 6px; }
+    .dot { width: 6px; height: 6px; border-radius: 50%; background: #f87171; margin-top: 6px; flex-shrink: 0; }
+    .problem-text { font-size: 13px; color: #444; }
+    .step-item { display: flex; gap: 12px; margin-bottom: 12px; align-items: flex-start; }
+    .step-badge { background: linear-gradient(135deg, #5b4fcf, #9b59b6); color: white; border-radius: 20px; padding: 4px 10px; font-size: 11px; font-weight: 700; white-space: nowrap; flex-shrink: 0; }
+    .step-text { font-size: 13px; color: #333; padding-top: 3px; }
+    .tip-card { background: linear-gradient(135deg, #fef3c7, #fde68a); border-radius: 16px; padding: 16px; margin-bottom: 12px; }
+    .tip-title { font-size: 12px; font-weight: 700; color: #92400e; margin-bottom: 4px; }
+    .tip-text { font-size: 13px; color: #78350f; }
+    .howto-item { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+    .howto-num { width: 28px; height: 28px; border-radius: 50%; flex-shrink: 0; background: linear-gradient(135deg, #5b4fcf, #9b59b6); color: white; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; }
+    .howto-text { font-size: 13px; color: #555; }
+    .product-card { background: white; border-radius: 16px; padding: 16px; margin-bottom: 12px; box-shadow: 0 2px 12px rgba(0,0,0,.06); display: flex; gap: 14px; align-items: center; }
+    .product-icon { font-size: 32px; width: 52px; height: 52px; background: #f5f0ff; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .product-info { flex: 1; min-width: 0; }
+    .product-tag { background: #ede9ff; color: #5b4fcf; border-radius: 20px; padding: 2px 8px; font-size: 10px; font-weight: 700; display: inline-block; margin-bottom: 4px; }
+    .product-name { font-size: 14px; font-weight: 700; margin-bottom: 2px; }
+    .product-reason { font-size: 12px; color: #666; margin-bottom: 8px; }
+    .product-footer { display: flex; align-items: center; justify-content: space-between; }
+    .product-price { font-size: 16px; font-weight: 800; color: #f5576c; }
+    .btn-amazon { background: #FF9900; color: white; border: none; border-radius: 20px; padding: 6px 14px; font-size: 12px; font-weight: 700; cursor: pointer; font-family: inherit; }
+    .affiliate-note { text-align: center; font-size: 11px; color: #ccc; margin-top: 8px; }
+    .reminder-card { background: white; border-radius: 16px; padding: 16px; margin-bottom: 10px; box-shadow: 0 2px 12px rgba(0,0,0,.06); transition: opacity .3s; }
+    .reminder-card.disabled { opacity: .5; }
+    .reminder-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+    .reminder-left { display: flex; align-items: center; gap: 8px; }
+    .reminder-name { font-size: 14px; font-weight: 700; }
+    .reminder-time { font-size: 12px; color: #aaa; }
+    .reminder-right { display: flex; gap: 8px; align-items: center; }
+    .toggle { width: 44px; height: 24px; border-radius: 12px; border: none; cursor: pointer; position: relative; transition: background .3s; }
+    .toggle-thumb { width: 18px; height: 18px; border-radius: 50%; background: white; position: absolute; top: 3px; transition: left .3s; box-shadow: 0 1px 4px rgba(0,0,0,.2); }
+    .btn-delete { background: none; border: none; cursor: pointer; font-size: 18px; color: #f87171; }
+    .day-tags { display: flex; gap: 4px; flex-wrap: wrap; }
+    .day-tag { background: #ede9ff; color: #5b4fcf; border-radius: 20px; padding: 3px 10px; font-size: 12px; font-weight: 700; }
+    .form-label { font-size: 12px; color: #666; margin-bottom: 6px; }
+    .form-select, .form-time { width: 100%; padding: 10px 12px; border-radius: 10px; border: 1px solid #e5e0da; font-size: 14px; background: #faf8f5; color: #333; font-family: inherit; margin-bottom: 14px; }
+    .day-btns { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 14px; }
+    .day-btn { width: 40px; height: 40px; border-radius: 50%; border: 2px solid #e5e0da; background: white; color: #666; font-size: 13px; font-weight: 700; cursor: pointer; transition: all .2s; font-family: inherit; }
+    .day-btn.selected { background: #5b4fcf; border-color: #5b4fcf; color: white; }
+    .preview-box { background: #f0f9ff; border-radius: 10px; padding: 12px; margin-bottom: 16px; font-size: 12px; color: #0369a1; }
+    .error-box { background: #fff0f0; border: 1px solid #fca5a5; border-radius: 12px; padding: 16px; margin-bottom: 16px; color: #dc2626; font-size: 14px; }
+    .toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); background: #1a1a1a; color: white; border-radius: 20px; padding: 10px 20px; font-size: 13px; font-weight: 600; z-index: 999; white-space: nowrap; box-shadow: 0 4px 20px rgba(0,0,0,.3); display: none; }
+    .toast.show { display: block; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .spinner { display: inline-block; width: 16px; height: 16px; border: 2px solid rgba(255,255,255,.4); border-top-color: white; border-radius: 50%; animation: spin .8s linear infinite; vertical-align: middle; margin-right: 6px; }
+  </style>
+</head>
+<body>
+<div class="header">
+  <div class="header-sub">AI片付けアシスタント</div>
+  <div class="header-title">部屋カルテ ✨</div>
+  <div class="header-desc">写真を撮るだけで片付けをサポート</div>
+</div>
+<div class="tabs">
+  <button class="tab active" onclick="switchTab(0)">📸 部屋分析</button>
+  <button class="tab" onclick="switchTab(1)">🛍️ おすすめグッズ</button>
+  <button class="tab" onclick="switchTab(2)">🗑️ ゴミリマインダー</button>
+</div>
+<div class="content" id="tab-0">
+  <div id="upload-area" class="upload-area" onclick="document.getElementById('file-input').click()">
+    <div class="upload-icon">📸</div>
+    <div class="upload-title">部屋の写真をアップロード</div>
+    <div class="upload-sub">タップして写真を選択</div>
+  </div>
+  <input type="file" id="file-input" accept="image/*" style="display:none" onchange="handleImage(event)" />
+  <button class="btn btn-primary" id="analyze-btn" style="display:none" onclick="analyzeRoom()">✨ AIで部屋を分析する</button>
+  <div class="error-box" id="error-box" style="display:none"></div>
+  <div id="analysis-result" style="display:none"></div>
+  <div class="card" id="howto">
+    <div class="sec-title" style="margin-bottom:12px">📱 使い方</div>
+    <div class="howto-item"><div class="howto-num">1</div><div class="howto-text">部屋の写真を撮る</div></div>
+    <div class="howto-item"><div class="howto-num">2</div><div class="howto-text">AIが自動で分析</div></div>
+    <div class="howto-item"><div class="howto-num">3</div><div class="howto-text">手順通りに片付ける</div></div>
+    <div class="howto-item"><div class="howto-num">4</div><div class="howto-text">おすすめグッズをチェック</div></div>
+  </div>
+</div>
+<div class="content" id="tab-1" style="display:none">
+  <div style="font-size:13px;color:#aaa;margin-bottom:16px">AIが分析した部屋に合わせたおすすめグッズです</div>
+  <div id="products-list"></div>
+  <div class="affiliate-note">※ 商品リンクはアフィリエイトリンクです</div>
+</div>
+<div class="content" id="tab-2" style="display:none">
+  <div id="reminders-list"></div>
+  <div class="card">
+    <div class="sec-title" style="margin-bottom:16px">＋ リマインダーを追加</div>
+    <div class="form-label">ゴミの種類</div>
+    <select class="form-select" id="new-type" onchange="updatePreview()">
+      <option>燃えるゴミ</option><option>燃えないゴミ</option><option>資源ゴミ</option><option>ペットボトル</option><option>段ボール</option>
+    </select>
+    <div class="form-label">収集曜日（複数選択可）</div>
+    <div class="day-btns">
+      <button class="day-btn" onclick="toggleDay(this,'月')">月</button>
+      <button class="day-btn" onclick="toggleDay(this,'火')">火</button>
+      <button class="day-btn" onclick="toggleDay(this,'水')">水</button>
+      <button class="day-btn" onclick="toggleDay(this,'木')">木</button>
+      <button class="day-btn" onclick="toggleDay(this,'金')">金</button>
+      <button class="day-btn" onclick="toggleDay(this,'土')">土</button>
+      <button class="day-btn" onclick="toggleDay(this,'日')">日</button>
+    </div>
+    <div class="form-label">通知時間（前日）</div>
+    <input type="time" class="form-time" id="new-time" value="20:00" onchange="updatePreview()" />
+    <div class="preview-box" id="preview-box">💬 前日20:00に「明日は燃えるゴミの日です！5分だけ片付けましょう」と通知されます</div>
+    <button class="btn btn-primary" onclick="addReminder()">リマインダーを追加する</button>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+<script>
+const PRODUCTS=[
+  {name:"2段ハンガーラック",reason:"ハンガーパイプを2倍に増やせます",price:"¥2,980",icon:"🪝",tag:"衣類収納",url:"https://www.amazon.co.jp/s?k=2段ハンガーラック"},
+  {name:"引き出し式衣装ケース（3段）",reason:"床の服を全部収納できます",price:"¥3,480",icon:"🗃️",tag:"衣類収納",url:"https://www.amazon.co.jp/s?k=引き出し式衣装ケース"},
+  {name:"突っ張り棒＋ラック",reason:"壁面を縦に活用できます",price:"¥1,980",icon:"📦",tag:"壁面収納",url:"https://www.amazon.co.jp/s?k=突っ張り棒+ラック"},
+  {name:"引き出し用仕切りケース",reason:"下着・靴下が崩れず取り出しやすい",price:"¥890",icon:"🧺",tag:"小物整理",url:"https://www.amazon.co.jp/s?k=引き出し用仕切りケース"},
+  {name:"圧縮袋（布団・毛布用）",reason:"冬物をコンパクトに保管できます",price:"¥1,280",icon:"🛏️",tag:"季節もの",url:"https://www.amazon.co.jp/s?k=布団圧縮袋"},
+  {name:"バッグ収納フック（扉裏用）",reason:"バッグを床から撤去できます",price:"¥680",icon:"👜",tag:"バッグ収納",url:"https://www.amazon.co.jp/s?k=扉裏バッグ収納フック"},
+];
+let reminders=[{type:"燃えるゴミ",days:["火","金"],time:"20:00",enabled:true}];
+let selectedDays=[];
+let imageFile=null;
+
+const pl=document.getElementById(‘products-list’);
+PRODUCTS.forEach(p=>{
+pl.innerHTML+=`<div class="product-card"><div class="product-icon">${p.icon}</div><div class="product-info"><span class="product-tag">${p.tag}</span><div class="product-name">${p.name}</div><div class="product-reason">${p.reason}</div><div class="product-footer"><span class="product-price">${p.price}</span><button class="btn-amazon" onclick="window.open('${p.url}','_blank')">Amazonで見る →</button></div></div></div>`;
+});
+
+function renderReminders(){
+const el=document.getElementById(‘reminders-list’);
+if(!reminders.length){el.innerHTML=’’;return;}
+let h=’<div style="font-size:13px;font-weight:700;color:#333;margin-bottom:12px">設定済みリマインダー</div>’;
+reminders.forEach((r,i)=>{
+const col=r.enabled?’#5b4fcf’:’#ddd’;
+const left=r.enabled?‘23px’:‘3px’;
+h+=`<div class="reminder-card ${r.enabled?'':'disabled'}"><div class="reminder-header"><div class="reminder-left"><span style="font-size:20px">🗑️</span><div><div class="reminder-name">${r.type}</div><div class="reminder-time">前日 ${r.time} に通知</div></div></div><div class="reminder-right"><button class="toggle" style="background:${col}" onclick="toggleReminder(${i})"><div class="toggle-thumb" style="left:${left}"></div></button><button class="btn-delete" onclick="deleteReminder(${i})">×</button></div></div><div class="day-tags">${r.days.map(d=>`<span class="day-tag">${d}曜日</span>`).join('')}</div></div>`;
+});
+el.innerHTML=h;
+}
+renderReminders();
+
+function switchTab(i){
+document.querySelectorAll(’.tab’).forEach((t,j)=>t.classList.toggle(‘active’,i===j));
+[0,1,2].forEach(j=>document.getElementById(‘tab-’+j).style.display=i===j?‘block’:‘none’);
+}
+
+function handleImage(e){
+const file=e.target.files[0];
+if(!file)return;
+imageFile=file;
+const url=URL.createObjectURL(file);
+const area=document.getElementById(‘upload-area’);
+area.className=‘upload-area has-image’;
+area.innerHTML=`<div class="img-wrap"><img src="${url}" alt="部屋"/><div class="upload-overlay">📷 タップで変更</div></div>`;
+document.getElementById(‘analyze-btn’).style.display=‘block’;
+document.getElementById(‘analysis-result’).style.display=‘none’;
+document.getElementById(‘howto’).style.display=‘none’;
+document.getElementById(‘error-box’).style.display=‘none’;
+}
+
+async function analyzeRoom(){
+if(!imageFile)return;
+const btn=document.getElementById(‘analyze-btn’);
+btn.disabled=true;
+btn.innerHTML=’<span class="spinner"></span>AIが分析中…’;
+document.getElementById(‘error-box’).style.display=‘none’;
+try{
+const base64=await new Promise((res,rej)=>{const r=new FileReader();r.onload=()=>res(r.result.split(’,’)[1]);r.onerror=()=>rej(new Error(‘失敗’));r.readAsDataURL(imageFile);});
+const response=await fetch(‘https://api.anthropic.com/v1/messages’,{method:‘POST’,headers:{‘Content-Type’:‘application/json’},body:JSON.stringify({model:‘claude-sonnet-4-20250514’,max_tokens:1000,messages:[{role:‘user’,content:[{type:‘image’,source:{type:‘base64’,media_type:imageFile.type,data:base64}},{type:‘text’,text:‘この部屋の写真を分析して、以下のJSON形式のみで返してください。前置きや説明は不要です。\n{“score”:散らかり度1-10,“summary”:“状況20文字以内”,“problems”:[“問題1”,“問題2”,“問題3”],“steps”:[{“time”:“15分”,“action”:“やること1”},{“time”:“30分”,“action”:“やること2”},{“time”:“1時間”,“action”:“やること3”}],“tip”:“豆知識40文字以内”}’}]}]})});
+const data=await response.json();
+const text=data.content.map(i=>i.text||’’).join(’’);
+const d=JSON.parse(text.replace(/`json|`/g,’’).trim());
+showAnalysis(d);
+}catch(err){
+document.getElementById(‘error-box’).textContent=‘分析に失敗しました。もう一度お試しください。’;
+document.getElementById(‘error-box’).style.display=‘block’;
+}finally{
+btn.disabled=false;
+btn.innerHTML=‘✨ AIで部屋を分析する’;
+}
+}
+
+function scoreColor(s){return s<=3?’#4ade80’:s<=6?’#facc15’:’#f87171’;}
+
+function showAnalysis(d){
+const col=scoreColor(d.score);
+const pct=d.score*10;
+const problems=d.problems.map(p=>`<div class="problem-item"><div class="dot"></div><div class="problem-text">${p}</div></div>`).join(’’);
+const steps=d.steps.map(s=>`<div class="step-item"><div class="step-badge">${s.time}</div><div class="step-text">${s.action}</div></div>`).join(’’);
+document.getElementById(‘analysis-result’).innerHTML=` <div class="card"><div class="score-wrap"><div><div class="score-label">散らかり度</div><div class="score-text">${d.summary}</div></div><div class="score-ring" style="background:conic-gradient(${col} ${pct}%,#f0ece8 0);box-shadow:0 0 0 4px white,0 0 0 6px ${col}40"><div class="score-inner" style="color:${col}">${d.score}</div></div></div><div class="sec-title">⚠️ 問題点</div>${problems}</div> <div class="card"><div class="sec-title">🧹 片付け手順</div>${steps}</div> <div class="tip-card"><div class="tip-title">💡 豆知識</div><div class="tip-text">${d.tip}</div></div> <button class="btn btn-pink" onclick="switchTab(1)">🛍️ おすすめ収納グッズを見る →</button>`;
+document.getElementById(‘analysis-result’).style.display=‘block’;
+document.getElementById(‘analyze-btn’).style.display=‘none’;
+}
+
+function toggleDay(btn,day){
+if(selectedDays.includes(day)){selectedDays=selectedDays.filter(d=>d!==day);btn.classList.remove(‘selected’);}
+else{selectedDays.push(day);btn.classList.add(‘selected’);}
+updatePreview();
+}
+
+function updatePreview(){
+const type=document.getElementById(‘new-type’).value;
+const time=document.getElementById(‘new-time’).value;
+document.getElementById(‘preview-box’).textContent=`💬 前日${time}に「明日は${type}の日です！5分だけ片付けましょう」と通知されます`;
+}
+
+function addReminder(){
+if(!selectedDays.length){showToast(‘曜日を選択してください’);return;}
+reminders.push({type:document.getElementById(‘new-type’).value,days:[…selectedDays],time:document.getElementById(‘new-time’).value,enabled:true});
+selectedDays=[];
+document.querySelectorAll(’.day-btn’).forEach(b=>b.classList.remove(‘selected’));
+renderReminders();
+showToast(‘リマインダーを追加しました！’);
+}
+
+function toggleReminder(i){reminders[i].enabled=!reminders[i].enabled;renderReminders();}
+function deleteReminder(i){reminders.splice(i,1);renderReminders();showToast(‘削除しました’);}
+
+function showToast(msg){
+const t=document.getElementById(‘toast’);
+t.textContent=msg;t.classList.add(‘show’);
+setTimeout(()=>t.classList.remove(‘show’),3000);
+}
+</script>
+
+</body>
+</html>
