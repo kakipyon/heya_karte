@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="ja">
 <head>
   <meta charset="UTF-8" />
@@ -155,107 +154,121 @@ let reminders=[{type:"燃えるゴミ",days:["火","金"],time:"20:00",enabled:t
 let selectedDays=[];
 let imageFile=null;
 
-const pl=document.getElementById(‘products-list’);
+const pl=document.getElementById('products-list');
 PRODUCTS.forEach(p=>{
-pl.innerHTML+=`<div class="product-card"><div class="product-icon">${p.icon}</div><div class="product-info"><span class="product-tag">${p.tag}</span><div class="product-name">${p.name}</div><div class="product-reason">${p.reason}</div><div class="product-footer"><span class="product-price">${p.price}</span><button class="btn-amazon" onclick="window.open('${p.url}','_blank')">Amazonで見る →</button></div></div></div>`;
+  pl.innerHTML+=`<div class="product-card"><div class="product-icon">${p.icon}</div><div class="product-info"><span class="product-tag">${p.tag}</span><div class="product-name">${p.name}</div><div class="product-reason">${p.reason}</div><div class="product-footer"><span class="product-price">${p.price}</span><button class="btn-amazon" onclick="window.open('${p.url}','_blank')">Amazonで見る →</button></div></div></div>`;
 });
 
 function renderReminders(){
-const el=document.getElementById(‘reminders-list’);
-if(!reminders.length){el.innerHTML=’’;return;}
-let h=’<div style="font-size:13px;font-weight:700;color:#333;margin-bottom:12px">設定済みリマインダー</div>’;
-reminders.forEach((r,i)=>{
-const col=r.enabled?’#5b4fcf’:’#ddd’;
-const left=r.enabled?‘23px’:‘3px’;
-h+=`<div class="reminder-card ${r.enabled?'':'disabled'}"><div class="reminder-header"><div class="reminder-left"><span style="font-size:20px">🗑️</span><div><div class="reminder-name">${r.type}</div><div class="reminder-time">前日 ${r.time} に通知</div></div></div><div class="reminder-right"><button class="toggle" style="background:${col}" onclick="toggleReminder(${i})"><div class="toggle-thumb" style="left:${left}"></div></button><button class="btn-delete" onclick="deleteReminder(${i})">×</button></div></div><div class="day-tags">${r.days.map(d=>`<span class="day-tag">${d}曜日</span>`).join('')}</div></div>`;
-});
-el.innerHTML=h;
+  const el=document.getElementById('reminders-list');
+  if(!reminders.length){el.innerHTML='';return;}
+  let h='<div style="font-size:13px;font-weight:700;color:#333;margin-bottom:12px">設定済みリマインダー</div>';
+  reminders.forEach((r,i)=>{
+    const col=r.enabled?'#5b4fcf':'#ddd';
+    const left=r.enabled?'23px':'3px';
+    h+=`<div class="reminder-card ${r.enabled?'':'disabled'}"><div class="reminder-header"><div class="reminder-left"><span style="font-size:20px">🗑️</span><div><div class="reminder-name">${r.type}</div><div class="reminder-time">前日 ${r.time} に通知</div></div></div><div class="reminder-right"><button class="toggle" style="background:${col}" onclick="toggleReminder(${i})"><div class="toggle-thumb" style="left:${left}"></div></button><button class="btn-delete" onclick="deleteReminder(${i})">×</button></div></div><div class="day-tags">${r.days.map(d=>`<span class="day-tag">${d}曜日</span>`).join('')}</div></div>`;
+  });
+  el.innerHTML=h;
 }
 renderReminders();
 
 function switchTab(i){
-document.querySelectorAll(’.tab’).forEach((t,j)=>t.classList.toggle(‘active’,i===j));
-[0,1,2].forEach(j=>document.getElementById(‘tab-’+j).style.display=i===j?‘block’:‘none’);
+  document.querySelectorAll('.tab').forEach((t,j)=>t.classList.toggle('active',i===j));
+  [0,1,2].forEach(j=>document.getElementById('tab-'+j).style.display=i===j?'block':'none');
 }
 
 function handleImage(e){
-const file=e.target.files[0];
-if(!file)return;
-imageFile=file;
-const url=URL.createObjectURL(file);
-const area=document.getElementById(‘upload-area’);
-area.className=‘upload-area has-image’;
-area.innerHTML=`<div class="img-wrap"><img src="${url}" alt="部屋"/><div class="upload-overlay">📷 タップで変更</div></div>`;
-document.getElementById(‘analyze-btn’).style.display=‘block’;
-document.getElementById(‘analysis-result’).style.display=‘none’;
-document.getElementById(‘howto’).style.display=‘none’;
-document.getElementById(‘error-box’).style.display=‘none’;
+  const file=e.target.files[0];
+  if(!file)return;
+  imageFile=file;
+  const url=URL.createObjectURL(file);
+  const area=document.getElementById('upload-area');
+  area.className='upload-area has-image';
+  area.innerHTML=`<div class="img-wrap"><img src="${url}" alt="部屋"/><div class="upload-overlay">📷 タップで変更</div></div>`;
+  document.getElementById('analyze-btn').style.display='block';
+  document.getElementById('analysis-result').style.display='none';
+  document.getElementById('howto').style.display='none';
+  document.getElementById('error-box').style.display='none';
 }
 
 async function analyzeRoom(){
-if(!imageFile)return;
-const btn=document.getElementById(‘analyze-btn’);
-btn.disabled=true;
-btn.innerHTML=’<span class="spinner"></span>AIが分析中…’;
-document.getElementById(‘error-box’).style.display=‘none’;
-try{
-const base64=await new Promise((res,rej)=>{const r=new FileReader();r.onload=()=>res(r.result.split(’,’)[1]);r.onerror=()=>rej(new Error(‘失敗’));r.readAsDataURL(imageFile);});
-const response=await fetch(‘https://api.anthropic.com/v1/messages’,{method:‘POST’,headers:{‘Content-Type’:‘application/json’},body:JSON.stringify({model:‘claude-sonnet-4-20250514’,max_tokens:1000,messages:[{role:‘user’,content:[{type:‘image’,source:{type:‘base64’,media_type:imageFile.type,data:base64}},{type:‘text’,text:‘この部屋の写真を分析して、以下のJSON形式のみで返してください。前置きや説明は不要です。\n{“score”:散らかり度1-10,“summary”:“状況20文字以内”,“problems”:[“問題1”,“問題2”,“問題3”],“steps”:[{“time”:“15分”,“action”:“やること1”},{“time”:“30分”,“action”:“やること2”},{“time”:“1時間”,“action”:“やること3”}],“tip”:“豆知識40文字以内”}’}]}]})});
-const data=await response.json();
-const text=data.content.map(i=>i.text||’’).join(’’);
-const d=JSON.parse(text.replace(/`json|`/g,’’).trim());
-showAnalysis(d);
-}catch(err){
-document.getElementById(‘error-box’).textContent=‘分析に失敗しました。もう一度お試しください。’;
-document.getElementById(‘error-box’).style.display=‘block’;
-}finally{
-btn.disabled=false;
-btn.innerHTML=‘✨ AIで部屋を分析する’;
-}
+  if(!imageFile)return;
+  const btn=document.getElementById('analyze-btn');
+  btn.disabled=true;
+  btn.innerHTML='<span class="spinner"></span>AIが分析中...';
+  document.getElementById('error-box').style.display='none';
+  try{
+    const base64=await new Promise((res,rej)=>{
+      const r=new FileReader();
+      r.onload=()=>res(r.result.split(',')[1]);
+      r.onerror=()=>rej(new Error('失敗'));
+      r.readAsDataURL(imageFile);
+    });
+
+    // サーバー経由でAPIを呼ぶ（APIキーが安全）
+    const response=await fetch('/api/analyze',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({image:base64, mediaType:imageFile.type})
+    });
+
+    if(!response.ok) throw new Error('サーバーエラー');
+    const d=await response.json();
+    showAnalysis(d);
+  }catch(err){
+    document.getElementById('error-box').textContent='分析に失敗しました。もう一度お試しください。';
+    document.getElementById('error-box').style.display='block';
+  }finally{
+    btn.disabled=false;
+    btn.innerHTML='✨ AIで部屋を分析する';
+  }
 }
 
-function scoreColor(s){return s<=3?’#4ade80’:s<=6?’#facc15’:’#f87171’;}
+function scoreColor(s){return s<=3?'#4ade80':s<=6?'#facc15':'#f87171';}
 
 function showAnalysis(d){
-const col=scoreColor(d.score);
-const pct=d.score*10;
-const problems=d.problems.map(p=>`<div class="problem-item"><div class="dot"></div><div class="problem-text">${p}</div></div>`).join(’’);
-const steps=d.steps.map(s=>`<div class="step-item"><div class="step-badge">${s.time}</div><div class="step-text">${s.action}</div></div>`).join(’’);
-document.getElementById(‘analysis-result’).innerHTML=` <div class="card"><div class="score-wrap"><div><div class="score-label">散らかり度</div><div class="score-text">${d.summary}</div></div><div class="score-ring" style="background:conic-gradient(${col} ${pct}%,#f0ece8 0);box-shadow:0 0 0 4px white,0 0 0 6px ${col}40"><div class="score-inner" style="color:${col}">${d.score}</div></div></div><div class="sec-title">⚠️ 問題点</div>${problems}</div> <div class="card"><div class="sec-title">🧹 片付け手順</div>${steps}</div> <div class="tip-card"><div class="tip-title">💡 豆知識</div><div class="tip-text">${d.tip}</div></div> <button class="btn btn-pink" onclick="switchTab(1)">🛍️ おすすめ収納グッズを見る →</button>`;
-document.getElementById(‘analysis-result’).style.display=‘block’;
-document.getElementById(‘analyze-btn’).style.display=‘none’;
+  const col=scoreColor(d.score);
+  const pct=d.score*10;
+  const problems=d.problems.map(p=>`<div class="problem-item"><div class="dot"></div><div class="problem-text">${p}</div></div>`).join('');
+  const steps=d.steps.map(s=>`<div class="step-item"><div class="step-badge">${s.time}</div><div class="step-text">${s.action}</div></div>`).join('');
+  document.getElementById('analysis-result').innerHTML=`
+    <div class="card"><div class="score-wrap"><div><div class="score-label">散らかり度</div><div class="score-text">${d.summary}</div></div><div class="score-ring" style="background:conic-gradient(${col} ${pct}%,#f0ece8 0);box-shadow:0 0 0 4px white,0 0 0 6px ${col}40"><div class="score-inner" style="color:${col}">${d.score}</div></div></div><div class="sec-title">⚠️ 問題点</div>${problems}</div>
+    <div class="card"><div class="sec-title">🧹 片付け手順</div>${steps}</div>
+    <div class="tip-card"><div class="tip-title">💡 豆知識</div><div class="tip-text">${d.tip}</div></div>
+    <button class="btn btn-pink" onclick="switchTab(1)">🛍️ おすすめ収納グッズを見る →</button>`;
+  document.getElementById('analysis-result').style.display='block';
+  document.getElementById('analyze-btn').style.display='none';
 }
 
 function toggleDay(btn,day){
-if(selectedDays.includes(day)){selectedDays=selectedDays.filter(d=>d!==day);btn.classList.remove(‘selected’);}
-else{selectedDays.push(day);btn.classList.add(‘selected’);}
-updatePreview();
+  if(selectedDays.includes(day)){selectedDays=selectedDays.filter(d=>d!==day);btn.classList.remove('selected');}
+  else{selectedDays.push(day);btn.classList.add('selected');}
+  updatePreview();
 }
 
 function updatePreview(){
-const type=document.getElementById(‘new-type’).value;
-const time=document.getElementById(‘new-time’).value;
-document.getElementById(‘preview-box’).textContent=`💬 前日${time}に「明日は${type}の日です！5分だけ片付けましょう」と通知されます`;
+  const type=document.getElementById('new-type').value;
+  const time=document.getElementById('new-time').value;
+  document.getElementById('preview-box').textContent=`💬 前日${time}に「明日は${type}の日です！5分だけ片付けましょう」と通知されます`;
 }
 
 function addReminder(){
-if(!selectedDays.length){showToast(‘曜日を選択してください’);return;}
-reminders.push({type:document.getElementById(‘new-type’).value,days:[…selectedDays],time:document.getElementById(‘new-time’).value,enabled:true});
-selectedDays=[];
-document.querySelectorAll(’.day-btn’).forEach(b=>b.classList.remove(‘selected’));
-renderReminders();
-showToast(‘リマインダーを追加しました！’);
+  if(!selectedDays.length){showToast('曜日を選択してください');return;}
+  reminders.push({type:document.getElementById('new-type').value,days:[...selectedDays],time:document.getElementById('new-time').value,enabled:true});
+  selectedDays=[];
+  document.querySelectorAll('.day-btn').forEach(b=>b.classList.remove('selected'));
+  renderReminders();
+  showToast('リマインダーを追加しました！');
 }
 
 function toggleReminder(i){reminders[i].enabled=!reminders[i].enabled;renderReminders();}
-function deleteReminder(i){reminders.splice(i,1);renderReminders();showToast(‘削除しました’);}
+function deleteReminder(i){reminders.splice(i,1);renderReminders();showToast('削除しました');}
 
 function showToast(msg){
-const t=document.getElementById(‘toast’);
-t.textContent=msg;t.classList.add(‘show’);
-setTimeout(()=>t.classList.remove(‘show’),3000);
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),3000);
 }
 </script>
-
 </body>
 </html>
