@@ -25,19 +25,30 @@ export default async function handler(req, res) {
             },
             {
               type: 'text',
-              text: 'この部屋の写真を分析して、以下のJSON形式のみで返してください。前置きや説明は不要です。\n{"score":散らかり度1-10,"summary":"状況20文字以内","problems":["問題1","問題2","問題3"],"steps":[{"time":"15分","action":"やること1"},{"time":"30分","action":"やること2"},{"time":"1時間","action":"やること3"}],"tip":"豆知識40文字以内"}'
+              text: 'この部屋の写真を分析してください。必ず以下のJSON形式のみで返してください。JSONの前後に文字を入れないでください。\n{"score":7,"summary":"服が床に散乱","problems":["床に衣類が多い","収納が不足","通路が塞がれている"],"steps":[{"time":"15分","action":"ゴミだけ捨てる"},{"time":"30分","action":"服をハンガーにかける"},{"time":"1時間","action":"床のものを収納に移す"}],"tip":"ハンガーは同じ向きに揃えると取り出しやすくなります"}'
             }
           ]
         }]
       })
     });
 
+    if (!response.ok) {
+      const errText = await response.text();
+      return res.status(500).json({ error: 'API error: ' + errText });
+    }
+
     const data = await response.json();
     const text = data.content.map(i => i.text || '').join('');
-    const clean = text.replace(/```json|```/g, '').trim();
-    const result = JSON.parse(clean);
+    
+    // JSONを安全に抽出
+    const match = text.match(/\{[\s\S]*\}/);
+    if (!match) {
+      return res.status(500).json({ error: 'JSON not found in response' });
+    }
+    
+    const result = JSON.parse(match[0]);
     res.status(200).json(result);
   } catch (err) {
-    res.status(500).json({ error: '分析に失敗しました' });
+    res.status(500).json({ error: err.message || '分析に失敗しました' });
   }
 }
