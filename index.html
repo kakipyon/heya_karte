@@ -184,7 +184,7 @@ function handleImage(e){
   const url=URL.createObjectURL(file);
   const area=document.getElementById('upload-area');
   area.className='upload-area has-image';
-  area.innerHTML=`<div class="img-wrap"><img src="${url}" alt="部屋"/><div class="upload-overlay">📷 タップで変更</div></div>`;
+  area.innerHTML='<div class="img-wrap"><img src="'+url+'" alt="部屋"/><div class="upload-overlay">📷 タップで変更</div></div>';
   document.getElementById('analyze-btn').style.display='block';
   document.getElementById('analysis-result').style.display='none';
   document.getElementById('howto').style.display='none';
