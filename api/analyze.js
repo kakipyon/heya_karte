@@ -35,7 +35,8 @@
     if (!response.ok) {
       const errText = await response.text();
       
-return res.status(500).json({ error: 'API error', detail: errText, status: response.status });
+      return res.status(500).json({ error: 'API error', detail: errText, status: response.status });
+    }
     const data = await response.json();
     const text = data.content.map(i => i.text || '').join('');
     
