@@ -34,9 +34,8 @@ export default async function handler(req, res) {
 
     if (!response.ok) {
       const errText = await response.text();
-      return res.status(500).json({ error: 'API error: ' + errText });
-    }
-
+      
+return res.status(500).json({ error: 'API error', detail: errText, status: response.status });
     const data = await response.json();
     const text = data.content.map(i => i.text || '').join('');
     
@@ -49,6 +48,6 @@ export default async function handler(req, res) {
     const result = JSON.parse(match[0]);
     res.status(200).json(result);
   } catch (err) {
-    res.status(500).json({ error: err.message || '分析に失敗しました' });
+    res.status(500).json({ error: err.message , stack: err.stack });
   }
 }
