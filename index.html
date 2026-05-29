@@ -225,7 +225,7 @@ async function analyzeRoom(){
     const d=await response.json();
     showAnalysis(d);
   }catch(err){
-    document.getElementById('error-box').textContent='分析に失敗しました。もう一度お試しください。';
+    document.getElementById('error-box').textContent='エラー: ' + err.message;
     document.getElementById('error-box').style.display='block';
   }finally{
     btn.disabled=false;
