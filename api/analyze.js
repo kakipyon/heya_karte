@@ -1,4 +1,4 @@
-  module.exports = async function handler(req, res) {
+module.exports = async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
@@ -34,21 +34,18 @@
 
     if (!response.ok) {
       const errText = await response.text();
-      
-      return res.status(500).json({ error: 'API error', detail: errText, status: response.status });
+      return res.status(500).json({ error: 'API error', detail: errText });
     }
+
     const data = await response.json();
     const text = data.content.map(i => i.text || '').join('');
-    
-    // JSONを安全に抽出
     const match = text.match(/\{[\s\S]*\}/);
     if (!match) {
       return res.status(500).json({ error: 'JSON not found in response' });
     }
-    
     const result = JSON.parse(match[0]);
     res.status(200).json(result);
   } catch (err) {
-    res.status(500).json({ error: err.message , stack: err.stack });
+    res.status(500).json({ error: err.message, detail: String(err) });
   }
-}
+} 
