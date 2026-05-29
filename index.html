@@ -211,7 +211,7 @@ async function analyzeRoom(){
         canvas.getContext('2d').drawImage(img, 0, 0, w, h);
         res(canvas.toDataURL('image/jpeg', 0.5).split(',')[1]);
       };
-      img.onerror = rej;
+      img.onerror = () => rej(new Error('画像の読み込み失敗: ' + imageFile.type));
       img.src = URL.createObjectURL(imageFile);
     });
     // サーバー経由でAPIを呼ぶ（APIキーが安全）
