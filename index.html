@@ -210,7 +210,7 @@ async function analyzeRoom(){
     const response=await fetch('/api/analyze',{
       method:'POST',
       headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({image:base64, mediaType:imageFile.type})
+      body:JSON.stringify({image:base64, mediaType:mediaType})
     });
 
     if(!response.ok) throw new Error('サーバーエラー');
