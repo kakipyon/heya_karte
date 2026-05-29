@@ -205,7 +205,6 @@ async function analyzeRoom(){
       reader.readAsDataURL(imageFile);
     });
     const mediaType = imageFile.type || 'image/jpeg';
-    });
     // サーバー経由でAPIを呼ぶ（APIキーが安全）
     const response=await fetch('/api/analyze',{
       method:'POST',
