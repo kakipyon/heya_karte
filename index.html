@@ -225,7 +225,45 @@ async function analyzeRoom(){
 }
 
 function scoreColor(s){return s<=3?'#4ade80':s<=6?'#facc15':'#f87171';}
+let timerInterval = null;
+let timerSeconds = 0;
 
+function startTimer() {
+  const btn = document.getElementById('timer-btn');
+  if (timerInterval) {
+    clearInterval(timerInterval);
+    timerInterval = null;
+    btn.innerHTML = '▶ 片付け開始';
+    btn.style.background = 'linear-gradient(135deg, #5b4fcf, #9b59b6)';
+    document.getElementById('timer-display').style.display = 'none';
+    return;
+  }
+  const minutes = parseInt(document.getElementById('timer-input').value) || 10;
+  timerSeconds = minutes * 60;
+  document.getElementById('timer-display').style.display = 'block';
+  btn.innerHTML = '⏹ 止める';
+  btn.style.background = '#f87171';
+  updateTimerDisplay();
+  timerInterval = setInterval(() => {
+    timerSeconds--;
+    updateTimerDisplay();
+    if (timerSeconds <= 0) {
+      clearInterval(timerInterval);
+      timerInterval = null;
+      btn.innerHTML = '▶ 片付け開始';
+      btn.style.background = 'linear-gradient(135deg, #5b4fcf, #9b59b6)';
+      document.getElementById('timer-display').textContent = '終了！';
+      document.getElementById('timer-display').style.color = '#4ade80';
+      showToast('⏰ お疲れ様でした！片付け完了！');
+    }
+  }, 1000);
+}
+
+function updateTimerDisplay() {
+  const m = Math.floor(timerSeconds / 60).toString().padStart(2, '0');
+  const s = (timerSeconds % 60).toString().padStart(2, '0');
+  document.getElementById('timer-display').textContent = m + ':' + s;
+}
 function showAnalysis(d){
   const col=scoreColor(d.score);
   const pct=d.score*10;
