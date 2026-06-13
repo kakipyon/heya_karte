@@ -59,10 +59,13 @@
     @keyframes spin { to { transform: rotate(360deg); } }
     .spinner { display: inline-block; width: 16px; height: 16px; border: 2px solid rgba(255,255,255,.4); border-top-color: white; border-radius: 50%; animation: spin .8s linear infinite; vertical-align: middle; margin-right: 6px; }
     /* タスクリスト */
-    .task-item { display: flex; align-items: center; gap: 10px; background: white; border-radius: 12px; padding: 14px; margin-bottom: 8px; box-shadow: 0 2px 8px rgba(0,0,0,.05); }
-    .task-check { width: 24px; height: 24px; border-radius: 50%; border: 2px solid #c4b8f0; background: white; cursor: pointer; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 14px; transition: all .2s; }
+    .task-item { display: flex; align-items: center; gap: 10px; background: white; border-radius: 12px; padding: 14px; margin-bottom: 8px; box-shadow: 0 2px 8px rgba(0,0,0,.05); transition: opacity .3s; }
+    .task-item.done { opacity: .5; }
+    .task-check { width: 28px; height: 28px; border-radius: 50%; border: 2px solid #c4b8f0; background: white; cursor: pointer; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 14px; transition: all .2s; }
     .task-check.selected { background: #5b4fcf; border-color: #5b4fcf; color: white; }
+    .task-check.checked { background: #4ade80; border-color: #4ade80; color: white; }
     .task-text { font-size: 14px; color: #333; flex: 1; }
+    .task-text.done { text-decoration: line-through; color: #aaa; }
     .task-delete { background: none; border: none; cursor: pointer; font-size: 18px; color: #f87171; padding: 0 4px; }
     .task-add { display: flex; gap: 8px; margin-bottom: 12px; }
     .task-add input { flex: 1; padding: 10px 12px; border-radius: 10px; border: 1px solid #e5e0da; font-size: 14px; font-family: inherit; }
@@ -70,15 +73,21 @@
     .selected-count { font-size: 13px; color: #5b4fcf; font-weight: 700; margin-bottom: 12px; text-align: center; }
     /* タイマー画面 */
     .timer-screen { text-align: center; padding: 20px 16px; max-width: 480px; margin: 0 auto; }
-    .timer-task { font-size: 20px; font-weight: 800; color: #1a1a1a; margin-bottom: 8px; }
-    .timer-step { font-size: 13px; color: #aaa; margin-bottom: 24px; }
-    .timer-display { font-size: 72px; font-weight: 900; color: #5b4fcf; margin-bottom: 24px; font-variant-numeric: tabular-nums; }
+    .timer-display { font-size: 80px; font-weight: 900; color: #5b4fcf; margin-bottom: 8px; font-variant-numeric: tabular-nums; line-height: 1; }
     .timer-display.finished { color: #4ade80; }
-    .timer-controls { display: flex; gap: 10px; margin-bottom: 16px; }
-    .timer-controls .btn { margin-bottom: 0; }
+    .timer-display.warning { color: #f87171; }
     .timer-set { display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 20px; }
     .timer-set input { width: 80px; padding: 10px; border-radius: 10px; border: 1px solid #e5e0da; font-size: 24px; font-weight: 700; text-align: center; font-family: inherit; }
-    /* 終了後画面 */
+    .timer-label { font-size: 13px; color: #aaa; margin-bottom: 20px; }
+    /* タイマー中タスクリスト */
+    .timer-task-list { text-align: left; margin-bottom: 20px; }
+    .timer-task-item { display: flex; align-items: center; gap: 12px; background: white; border-radius: 12px; padding: 14px 16px; margin-bottom: 8px; box-shadow: 0 2px 8px rgba(0,0,0,.05); cursor: pointer; transition: all .2s; }
+    .timer-task-item.done { opacity: .5; background: #f5f5f5; }
+    .timer-task-check { width: 28px; height: 28px; border-radius: 50%; border: 2px solid #c4b8f0; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 14px; transition: all .2s; }
+    .timer-task-check.done { background: #4ade80; border-color: #4ade80; color: white; }
+    .timer-task-text { font-size: 14px; color: #333; flex: 1; font-weight: 600; }
+    .timer-task-text.done { text-decoration: line-through; color: #aaa; font-weight: 400; }
+    /* 終了画面 */
     .finish-screen { text-align: center; padding: 40px 16px; max-width: 480px; margin: 0 auto; }
     .finish-emoji { font-size: 64px; margin-bottom: 16px; }
     .finish-title { font-size: 24px; font-weight: 900; margin-bottom: 8px; }
@@ -94,6 +103,9 @@
     .howto-item { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
     .howto-num { width: 28px; height: 28px; border-radius: 50%; flex-shrink: 0; background: linear-gradient(135deg, #5b4fcf, #9b59b6); color: white; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; }
     .howto-text { font-size: 13px; color: #555; }
+    /* 進捗バー */
+    .progress-bar { background: #f0ece8; border-radius: 10px; height: 8px; margin-bottom: 20px; overflow: hidden; }
+    .progress-fill { height: 100%; border-radius: 10px; background: linear-gradient(135deg, #5b4fcf, #9b59b6); transition: width 1s linear; }
   </style>
 </head>
 <body>
@@ -127,7 +139,7 @@
         <div class="howto-item"><div class="howto-num">1</div><div class="howto-text">部屋の写真を撮る</div></div>
         <div class="howto-item"><div class="howto-num">2</div><div class="howto-text">AIが自動で分析</div></div>
         <div class="howto-item"><div class="howto-num">3</div><div class="howto-text">タスクを3つ選ぶ</div></div>
-        <div class="howto-item"><div class="howto-num">4</div><div class="howto-text">タイマーで片付ける</div></div>
+        <div class="howto-item"><div class="howto-num">4</div><div class="howto-text">10分でまとめて片付ける</div></div>
       </div>
     </div>
   </div>
@@ -136,7 +148,7 @@
   <div class="screen" id="screen-tasks">
     <div class="content">
       <div class="card">
-        <div class="sec-title" style="margin-bottom:4px">🎯 今日やることを3つ選ぶ</div>
+        <div class="sec-title" style="margin-bottom:4px">🎯 今日やることを最大3つ選ぶ</div>
         <p style="font-size:12px;color:#aaa;margin-bottom:16px">AIの提案から選ぶか、自分で追加できます</p>
         <div class="selected-count" id="selected-count">0 / 3 選択中</div>
         <div id="task-list"></div>
@@ -145,7 +157,18 @@
           <button onclick="addCustomTask()">追加</button>
         </div>
       </div>
-      <button class="btn btn-primary" id="start-btn" onclick="goToTimer()" disabled style="opacity:.5">▶ 片付け開始（3つ選んでください）</button>
+
+      <!-- 時間設定 -->
+      <div class="card">
+        <div class="sec-title">⏱️ 合計時間を設定</div>
+        <div style="display:flex;align-items:center;gap:12px">
+          <input type="number" id="total-time-input" value="10" min="1" max="60"
+            style="width:80px;padding:10px;border-radius:10px;border:1px solid #e5e0da;font-size:24px;font-weight:700;text-align:center;font-family:inherit" />
+          <span style="font-size:15px;color:#666">分で3つまとめてやる</span>
+        </div>
+      </div>
+
+      <button class="btn btn-primary" id="start-btn" onclick="goToTimer()" disabled style="opacity:.5">▶ 片付け開始（1つ以上選んでください）</button>
       <button class="btn btn-gray" onclick="goToScreen('screen-analyze')">← 分析に戻る</button>
     </div>
   </div>
@@ -153,52 +176,53 @@
   <!-- タイマー画面 -->
   <div class="screen" id="screen-timer">
     <div class="timer-screen">
-      <div style="font-size:12px;color:#aaa;margin-bottom:16px" id="timer-step-info"></div>
-      <div class="timer-task" id="timer-current-task">タスク名</div>
+      <div class="timer-label" id="timer-label">準備ができたらスタート！</div>
       <div class="timer-display" id="timer-display">10:00</div>
-      <div class="timer-set" id="timer-set-area">
-        <input type="number" id="timer-input" value="10" min="1" max="60" />
-        <span style="font-size:14px;color:#666">分</span>
+      <div class="progress-bar">
+        <div class="progress-fill" id="progress-fill" style="width:100%"></div>
       </div>
-      <div class="timer-controls">
-        <button class="btn btn-primary" id="timer-start-btn" onclick="toggleTimer()">▶ スタート</button>
-      </div>
-      <button class="btn btn-green" id="timer-next-btn" onclick="nextTask()" style="display:none">✅ 完了！次のタスクへ</button>
+      <div class="timer-task-list" id="timer-task-list"></div>
+      <button class="btn btn-primary" id="timer-start-btn" onclick="toggleTimer()">▶ スタート</button>
+      <button class="btn btn-green" id="timer-finish-btn" onclick="goToFinish()" style="display:none">🎉 片付け完了！</button>
       <p style="font-size:11px;color:#aaa;margin-top:8px">※ 画面を開いたまま使用してください</p>
     </div>
   </div>
 
   <!-- 終了画面 -->
   <div class="screen" id="screen-finish">
-    <div class="finish-screen" id="finish-step-1">
-      <div class="finish-emoji">🎉</div>
-      <div class="finish-title">お疲れ様でした！</div>
-      <div class="finish-sub">片付け完了です✨</div>
-      <button class="choice-btn purple" onclick="showContinueChoice()">
-        <span class="choice-icon">💪</span>
-        <span>続けて片付ける</span>
-      </button>
-      <button class="choice-btn gray" onclick="endCleaning()">
-        <span class="choice-icon">🌙</span>
-        <span>今日は終わりにする</span>
-      </button>
+    <div id="finish-step-1">
+      <div class="finish-screen">
+        <div class="finish-emoji">🎉</div>
+        <div class="finish-title">お疲れ様でした！</div>
+        <div class="finish-sub">片付け完了です✨</div>
+        <button class="choice-btn purple" onclick="showContinueChoice()">
+          <span class="choice-icon">💪</span>
+          <span>続けて片付ける</span>
+        </button>
+        <button class="choice-btn gray" onclick="endCleaning()">
+          <span class="choice-icon">🌙</span>
+          <span>今日は終わりにする</span>
+        </button>
+      </div>
     </div>
-    <div class="finish-screen" id="finish-step-2" style="display:none">
-      <div class="finish-emoji">🤔</div>
-      <div class="finish-title">どうしますか？</div>
-      <div class="finish-sub" style="margin-bottom:20px"></div>
-      <button class="choice-btn purple" onclick="continueSameGoal()">
-        <span class="choice-icon">🔄</span>
-        <span>同じ目標で続ける</span>
-      </button>
-      <button class="choice-btn blue" onclick="goToScreen('screen-tasks')">
-        <span class="choice-icon">📝</span>
-        <span>新しい目標を立てる</span>
-      </button>
-      <button class="choice-btn gray" onclick="reAnalyze()">
-        <span class="choice-icon">📸</span>
-        <span>部屋を再分析する</span>
-      </button>
+    <div id="finish-step-2" style="display:none">
+      <div class="finish-screen">
+        <div class="finish-emoji">🤔</div>
+        <div class="finish-title">どうしますか？</div>
+        <div style="margin-bottom:24px"></div>
+        <button class="choice-btn purple" onclick="continueSameGoal()">
+          <span class="choice-icon">🔄</span>
+          <span>同じ目標で続ける</span>
+        </button>
+        <button class="choice-btn blue" onclick="goToScreen('screen-tasks')">
+          <span class="choice-icon">📝</span>
+          <span>新しい目標を立てる</span>
+        </button>
+        <button class="choice-btn gray" onclick="reAnalyze()">
+          <span class="choice-icon">📸</span>
+          <span>部屋を再分析する</span>
+        </button>
+      </div>
     </div>
   </div>
 
@@ -214,22 +238,32 @@
 <div class="toast" id="toast"></div>
 
 <script>
-const PRODUCTS=[
-  {name:"2段ハンガーラック",reason:"ハンガーパイプを2倍に増やせます",price:"¥2,980",icon:"🪝",tag:"衣類収納",url:"https://www.amazon.co.jp/s?k=2段ハンガーラック"},
-  {name:"引き出し式衣装ケース（3段）",reason:"床の服を全部収納できます",price:"¥3,480",icon:"🗃️",tag:"衣類収納",url:"https://www.amazon.co.jp/s?k=引き出し式衣装ケース"},
-  {name:"突っ張り棒＋ラック",reason:"壁面を縦に活用できます",price:"¥1,980",icon:"📦",tag:"壁面収納",url:"https://www.amazon.co.jp/s?k=突っ張り棒+ラック"},
-  {name:"引き出し用仕切りケース",reason:"下着・靴下が崩れず取り出しやすい",price:"¥890",icon:"🧺",tag:"小物整理",url:"https://www.amazon.co.jp/s?k=引き出し用仕切りケース"},
-  {name:"圧縮袋（布団・毛布用）",reason:"冬物をコンパクトに保管できます",price:"¥1,280",icon:"🛏️",tag:"季節もの",url:"https://www.amazon.co.jp/s?k=布団圧縮袋"},
-  {name:"バッグ収納フック（扉裏用）",reason:"バッグを床から撤去できます",price:"¥680",icon:"👜",tag:"バッグ収納",url:"https://www.amazon.co.jp/s?k=扉裏バッグ収納フック"},
+const PRODUCTS = [
+  {name:"2段ハンガーラック",reason:"ハンガーパイプを2倍に増やせます",price:"¥2,980",icon:"🪝",tag:"衣類収納",keywords:["衣類","服","洋服","布団","クローゼット"],url:"https://www.amazon.co.jp/s?k=2段ハンガーラック"},
+  {name:"引き出し式衣装ケース（3段）",reason:"床の服を全部収納できます",price:"¥3,480",icon:"🗃️",tag:"衣類収納",keywords:["衣類","服","洋服"],url:"https://www.amazon.co.jp/s?k=引き出し式衣装ケース"},
+  {name:"布団圧縮袋",reason:"布団・毛布をコンパクトに保管できます",price:"¥1,280",icon:"🛏️",tag:"布団収納",keywords:["布団","毛布","季節"],url:"https://www.amazon.co.jp/s?k=布団圧縮袋"},
+  {name:"水取りゾウさん",reason:"湿気・カビ対策に効果的です",price:"¥580",icon:"💧",tag:"湿気対策",keywords:["布団","湿気","カビ","衣類"],url:"https://www.amazon.co.jp/s?k=水取りゾウさん"},
+  {name:"扉裏バッグ収納フック",reason:"バッグを床から撤去できます",price:"¥680",icon:"👜",tag:"バッグ収納",keywords:["バッグ","カバン","鞄"],url:"https://www.amazon.co.jp/s?k=扉裏バッグ収納フック"},
+  {name:"バッグ用ハンガー",reason:"バッグの形を崩さず収納できます",price:"¥890",icon:"🎒",tag:"バッグ収納",keywords:["バッグ","カバン","鞄"],url:"https://www.amazon.co.jp/s?k=バッグ用ハンガー収納"},
+  {name:"ブックスタンド",reason:"本・雑誌をすっきり整頓できます",price:"¥980",icon:"📚",tag:"本収納",keywords:["本","雑誌","書籍","漫画"],url:"https://www.amazon.co.jp/s?k=ブックスタンド"},
+  {name:"飾れる壁付け棚",reason:"ぬいぐるみ・フィギュアをおしゃれに飾れます",price:"¥1,980",icon:"🪆",tag:"ディスプレイ",keywords:["ぬいぐるみ","フィギュア","化粧品","コレクション"],url:"https://www.amazon.co.jp/s?k=壁付け飾り棚"},
+  {name:"メイクポーチ・コスメ収納",reason:"化粧品をまとめてすっきり管理できます",price:"¥1,280",icon:"💄",tag:"化粧品収納",keywords:["化粧品","コスメ","メイク"],url:"https://www.amazon.co.jp/s?k=メイクポーチ収納"},
+  {name:"ケーブルまとめクリップ",reason:"コードの絡まりをすっきり解消できます",price:"¥580",icon:"🔌",tag:"コード整理",keywords:["コード","ケーブル","ガジェット","充電"],url:"https://www.amazon.co.jp/s?k=ケーブルまとめクリップ"},
+  {name:"ゴミ袋（まとめ買い）",reason:"ゴミ捨てをスムーズに進められます",price:"¥480",icon:"🗑️",tag:"ゴミ処理",keywords:["ゴミ","汚れ","散乱"],url:"https://www.amazon.co.jp/s?k=ゴミ袋まとめ買い"},
+  {name:"コロコロ（粘着クリーナー）",reason:"床のホコリ・ゴミを手軽に除去できます",price:"¥680",icon:"🧹",tag:"掃除用品",keywords:["ゴミ","ホコリ","汚れ","床"],url:"https://www.amazon.co.jp/s?k=コロコロ粘着クリーナー"},
+  {name:"クイックルワイパー",reason:"フローリングをさっと拭き掃除できます",price:"¥1,480",icon:"🧽",tag:"掃除用品",keywords:["ゴミ","ホコリ","汚れ","床"],url:"https://www.amazon.co.jp/s?k=クイックルワイパー"},
+  {name:"シューズラック",reason:"玄関の靴をすっきり収納できます",price:"¥2,480",icon:"👟",tag:"靴収納",keywords:["靴","シューズ","玄関"],url:"https://www.amazon.co.jp/s?k=シューズラック"},
+  {name:"ファイルボックス",reason:"書類・紙類を種類別に整理できます",price:"¥780",icon:"📁",tag:"書類整理",keywords:["書類","紙","プリント","書類"],url:"https://www.amazon.co.jp/s?k=ファイルボックス"},
 ];
 
 let imageFile = null;
 let aiTasks = [];
 let selectedTasks = [];
-let currentTaskIndex = 0;
 let timerInterval = null;
 let timerSeconds = 0;
+let totalSeconds = 0;
 let timerRunning = false;
+let checkedTasks = [];
 
 // 商品リスト描画
 const pl = document.getElementById('products-list');
@@ -299,6 +333,7 @@ function showAnalysis(d) {
   const col = scoreColor(d.score);
   const pct = d.score * 10;
   const problems = d.problems.map(p => `<div class="problem-item"><div class="dot"></div><div class="problem-text">${p}</div></div>`).join('');
+  const stepsEncoded = encodeURIComponent(JSON.stringify(d.steps));
   document.getElementById('analysis-result').innerHTML = `
     <div class="card">
       <div class="score-wrap">
@@ -314,14 +349,15 @@ function showAnalysis(d) {
       ${problems}
     </div>
     <div class="tip-card"><div class="tip-title">💡 豆知識</div><div class="tip-text">${d.tip}</div></div>
-    <button class="btn btn-primary" onclick="goToTaskScreen(${JSON.stringify(d.steps).replace(/"/g, '&quot;')})">🎯 片付けタスクを選ぶ →</button>
+    <button class="btn btn-primary" onclick="goToTaskScreen('${stepsEncoded}')">🎯 片付けタスクを選ぶ →</button>
     <button class="btn btn-pink" onclick="switchTab(1)">🛍️ おすすめ収納グッズを見る →</button>`;
   document.getElementById('analysis-result').style.display = 'block';
   document.getElementById('analyze-btn').style.display = 'none';
   aiTasks = d.steps.map(s => s.action);
 }
 
-function goToTaskScreen(steps) {
+function goToTaskScreen(stepsEncoded) {
+  const steps = JSON.parse(decodeURIComponent(stepsEncoded));
   aiTasks = steps.map(s => s.action);
   selectedTasks = [];
   renderTaskList();
@@ -336,9 +372,7 @@ function renderTaskList() {
     const div = document.createElement('div');
     div.className = 'task-item';
     div.innerHTML = `
-      <div class="task-check ${isSelected ? 'selected' : ''}" onclick="toggleTask('${task.replace(/'/g, "\\'")}', this)">
-        ${isSelected ? '✓' : ''}
-      </div>
+      <div class="task-check ${isSelected ? 'selected' : ''}" onclick="toggleTask(${i})">${isSelected ? '✓' : ''}</div>
       <div class="task-text">${task}</div>
       <button class="task-delete" onclick="removeTask(${i})">×</button>`;
     list.appendChild(div);
@@ -346,21 +380,18 @@ function renderTaskList() {
   updateSelectedCount();
 }
 
-function toggleTask(task, el) {
+function toggleTask(i) {
+  const task = aiTasks[i];
   if (selectedTasks.includes(task)) {
     selectedTasks = selectedTasks.filter(t => t !== task);
-    el.classList.remove('selected');
-    el.textContent = '';
   } else {
     if (selectedTasks.length >= 3) {
       showToast('3つまでしか選べません！');
       return;
     }
     selectedTasks.push(task);
-    el.classList.add('selected');
-    el.textContent = '✓';
   }
-  updateSelectedCount();
+  renderTaskList();
 }
 
 function updateSelectedCount() {
@@ -389,6 +420,7 @@ function addCustomTask() {
   const input = document.getElementById('new-task-input');
   const val = input.value.trim();
   if (!val) return;
+  if (aiTasks.length >= 10) { showToast('タスクが多すぎます'); return; }
   aiTasks.push(val);
   input.value = '';
   renderTaskList();
@@ -396,26 +428,50 @@ function addCustomTask() {
 
 function goToTimer() {
   if (selectedTasks.length === 0) return;
-  currentTaskIndex = 0;
+  const minutes = parseInt(document.getElementById('total-time-input').value) || 10;
+  totalSeconds = minutes * 60;
+  timerSeconds = totalSeconds;
   timerRunning = false;
+  checkedTasks = new Array(selectedTasks.length).fill(false);
   if (timerInterval) { clearInterval(timerInterval); timerInterval = null; }
   goToScreen('screen-timer');
-  updateTimerScreen();
-}
-
-function updateTimerScreen() {
-  const task = selectedTasks[currentTaskIndex];
-  document.getElementById('timer-current-task').textContent = task;
-  document.getElementById('timer-step-info').textContent = `タスク ${currentTaskIndex + 1} / ${selectedTasks.length}`;
-  document.getElementById('timer-display').textContent = '10:00';
-  document.getElementById('timer-display').className = 'timer-display';
-  document.getElementById('timer-input').value = 10;
+  renderTimerTaskList();
+  updateTimerDisplay();
+  document.getElementById('timer-label').textContent = '準備ができたらスタート！';
   document.getElementById('timer-start-btn').textContent = '▶ スタート';
   document.getElementById('timer-start-btn').style.background = 'linear-gradient(135deg, #5b4fcf, #9b59b6)';
-  document.getElementById('timer-set-area').style.display = 'flex';
-  document.getElementById('timer-next-btn').style.display = 'none';
-  timerRunning = false;
-  timerSeconds = 0;
+  document.getElementById('timer-start-btn').style.display = 'block';
+  document.getElementById('timer-finish-btn').style.display = 'none';
+  document.getElementById('timer-display').className = 'timer-display';
+  document.getElementById('progress-fill').style.width = '100%';
+}
+
+function renderTimerTaskList() {
+  const list = document.getElementById('timer-task-list');
+  list.innerHTML = '';
+  selectedTasks.forEach((task, i) => {
+    const done = checkedTasks[i];
+    const div = document.createElement('div');
+    div.className = `timer-task-item ${done ? 'done' : ''}`;
+    div.onclick = () => checkTimerTask(i);
+    div.innerHTML = `
+      <div class="timer-task-check ${done ? 'done' : ''}">${done ? '✓' : ''}</div>
+      <div class="timer-task-text ${done ? 'done' : ''}">${task}</div>`;
+    list.appendChild(div);
+  });
+}
+
+function checkTimerTask(i) {
+  checkedTasks[i] = !checkedTasks[i];
+  renderTimerTaskList();
+  const allDone = checkedTasks.every(c => c);
+  if (allDone) {
+    showToast('全部完了！すごい！🎉');
+    if (timerInterval) { clearInterval(timerInterval); timerInterval = null; timerRunning = false; }
+    document.getElementById('timer-start-btn').style.display = 'none';
+    document.getElementById('timer-finish-btn').style.display = 'block';
+    document.getElementById('timer-display').className = 'timer-display finished';
+  }
 }
 
 function toggleTimer() {
@@ -425,18 +481,20 @@ function toggleTimer() {
     timerRunning = false;
     document.getElementById('timer-start-btn').textContent = '▶ 再開';
     document.getElementById('timer-start-btn').style.background = 'linear-gradient(135deg, #5b4fcf, #9b59b6)';
+    document.getElementById('timer-label').textContent = '一時停止中';
   } else {
-    if (timerSeconds === 0) {
-      const minutes = parseInt(document.getElementById('timer-input').value) || 10;
-      timerSeconds = minutes * 60;
-      document.getElementById('timer-set-area').style.display = 'none';
-    }
     timerRunning = true;
     document.getElementById('timer-start-btn').textContent = '⏸ 一時停止';
     document.getElementById('timer-start-btn').style.background = '#f87171';
+    document.getElementById('timer-label').textContent = 'がんばれ！チェックしながら進めよう💪';
     timerInterval = setInterval(() => {
       timerSeconds--;
       updateTimerDisplay();
+      const pct = (timerSeconds / totalSeconds) * 100;
+      document.getElementById('progress-fill').style.width = pct + '%';
+      if (timerSeconds <= 60 && timerSeconds > 0) {
+        document.getElementById('timer-display').className = 'timer-display warning';
+      }
       if (timerSeconds <= 0) {
         clearInterval(timerInterval);
         timerInterval = null;
@@ -444,8 +502,9 @@ function toggleTimer() {
         document.getElementById('timer-display').textContent = '終了！';
         document.getElementById('timer-display').className = 'timer-display finished';
         document.getElementById('timer-start-btn').style.display = 'none';
-        document.getElementById('timer-next-btn').style.display = 'block';
-        showToast('⏰ 時間です！');
+        document.getElementById('timer-finish-btn').style.display = 'block';
+        document.getElementById('timer-label').textContent = '時間です！お疲れ様でした🎉';
+        showToast('⏰ 時間です！お疲れ様でした！');
       }
     }, 1000);
   }
@@ -457,17 +516,11 @@ function updateTimerDisplay() {
   document.getElementById('timer-display').textContent = m + ':' + s;
 }
 
-function nextTask() {
+function goToFinish() {
   if (timerInterval) { clearInterval(timerInterval); timerInterval = null; }
-  currentTaskIndex++;
-  if (currentTaskIndex >= selectedTasks.length) {
-    goToScreen('screen-finish');
-    document.getElementById('finish-step-1').style.display = 'block';
-    document.getElementById('finish-step-2').style.display = 'none';
-    document.getElementById('timer-start-btn').style.display = 'block';
-  } else {
-    updateTimerScreen();
-  }
+  goToScreen('screen-finish');
+  document.getElementById('finish-step-1').style.display = 'block';
+  document.getElementById('finish-step-2').style.display = 'none';
 }
 
 function showContinueChoice() {
@@ -476,9 +529,8 @@ function showContinueChoice() {
 }
 
 function continueSameGoal() {
-  currentTaskIndex = 0;
+  goToTimer();
   goToScreen('screen-timer');
-  updateTimerScreen();
 }
 
 function reAnalyze() {
