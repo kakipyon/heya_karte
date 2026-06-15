@@ -196,6 +196,7 @@
         <div class="finish-emoji">🎉</div>
         <div class="finish-title">お疲れ様でした！</div>
         <div class="finish-sub">片付け完了です✨</div>
+        <div id="finish-products"></div>
         <button class="choice-btn purple" onclick="showContinueChoice()">
           <span class="choice-icon">💪</span>
           <span>続けて片付ける</span>
@@ -256,7 +257,14 @@ const PRODUCTS = [
   {name:"シューズラック",reason:"玄関の靴をすっきり収納できます",price:"¥2,480",icon:"👟",tag:"靴収納",keywords:["靴","シューズ","玄関"],url:"https://www.amazon.co.jp/s?k=シューズラック"},
   {name:"ファイルボックス",reason:"書類・紙類を種類別に整理できます",price:"¥780",icon:"📁",tag:"書類整理",keywords:["書類","紙","プリント","書類"],url:"https://www.amazon.co.jp/s?k=ファイルボックス"},
 ];
-
+function getRecommendedProducts(problems) {
+  const problemsText = problems.join(' ');
+  const matched = PRODUCTS.filter(p =>
+    p.keywords.some(k => problemsText.includes(k))
+  );
+  const unique = [...new Map(matched.map(p => [p.name, p])).values()];
+  return unique.slice(0, 5);
+}
 let imageFile = null;
 let aiTasks = [];
 let selectedTasks = [];
