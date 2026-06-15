@@ -131,6 +131,17 @@
         <div class="upload-sub">タップして写真を選択</div>
       </div>
       <input type="file" id="file-input" accept="image/*" style="display:none" onchange="handleImage(event)" />
+      <div style="margin-bottom:12px">
+  <div onclick="toggleTips()" style="display:flex;align-items:center;justify-content:space-between;cursor:pointer;padding:10px 14px;background:white;border-radius:10px;font-size:13px;color:#5b4fcf;font-weight:700;box-shadow:0 2px 8px rgba(0,0,0,.05)">
+    <span>📸 写真の撮り方のコツ</span>
+    <span id="tips-arrow">▼</span>
+  </div>
+  <div id="tips-content" style="display:none;background:white;border-radius:10px;padding:14px;margin-top:6px;font-size:13px;color:#555;line-height:1.7">
+    <p>🔹 <b>部屋の隅から対角線で撮る</b><br>部屋全体が入りやすく、散らかり具合が伝わりやすくなります</p>
+    <p style="margin-top:8px">🔹 <b>低めの位置から床を広く撮る</b><br>「足の踏み場」の有無が判断材料になります</p>
+    <p style="margin-top:8px">🔹 <b>明るい場所で撮る</b><br>暗いと物の量が認識されにくくなります</p>
+  </div>
+</div>
       <button class="btn btn-primary" id="analyze-btn" style="display:none" onclick="analyzeRoom()">✨ AIで部屋を分析する</button>
       <div class="error-box" id="error-box" style="display:none"></div>
       <div id="analysis-result" style="display:none"></div>
