@@ -601,6 +601,17 @@ function showToast(msg) {
   t.classList.add('show');
   setTimeout(() => t.classList.remove('show'), 3000);
 }
+  function toggleTips() {
+  const content = document.getElementById('tips-content');
+  const arrow = document.getElementById('tips-arrow');
+  if (content.style.display === 'none') {
+    content.style.display = 'block';
+    arrow.textContent = '▲';
+  } else {
+    content.style.display = 'none';
+    arrow.textContent = '▼';
+  }
+}
 </script>
 </body>
 </html>
