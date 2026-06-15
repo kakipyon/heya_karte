@@ -1,0 +1,7 @@
+{
+  "name": "heya-karte",
+  "version": "1.0.0",
+  "dependencies": {
+    "heic-convert": "^2.1.0"
+  }
+}
