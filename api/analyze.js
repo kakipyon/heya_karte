@@ -6,7 +6,6 @@ module.exports = async function handler(req, res) {
 
   try {
     const { image, mediaType } = req.body;
-    const { image, mediaType } = req.body;
 
 let finalImage = image;
 let finalMediaType = mediaType;
@@ -37,7 +36,7 @@ if (mediaType === 'image/heic' || mediaType === 'image/heif') {
           content: [
             {
               type: 'image',
-              source: { type: 'base64', media_type: mediaType, data: image }
+              source: { type: 'base64', media_type: finalMediaType, data: finalImage }
             },
             {
               type: 'text',
