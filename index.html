@@ -363,6 +363,7 @@ function showAnalysis(d) {
   document.getElementById('analysis-result').style.display = 'block';
   document.getElementById('analyze-btn').style.display = 'none';
   aiTasks = d.steps.map(s => s.action);
+  window.lastProblems = d.problems;
 }
 
 function goToTaskScreen(stepsEncoded) {
@@ -524,13 +525,38 @@ function updateTimerDisplay() {
   const s = (timerSeconds % 60).toString().padStart(2, '0');
   document.getElementById('timer-display').textContent = m + ':' + s;
 }
-
 function goToFinish() {
   if (timerInterval) { clearInterval(timerInterval); timerInterval = null; }
   goToScreen('screen-finish');
   document.getElementById('finish-step-1').style.display = 'block';
   document.getElementById('finish-step-2').style.display = 'none';
+
+  const products = getRecommendedProducts(window.lastProblems || []);
+  const el = document.getElementById('finish-products');
+  if (products.length > 0) {
+    el.innerHTML = `
+      <div class="card" style="text-align:left">
+        <div class="sec-title">💡 あなたの部屋に合うアイテム</div>
+        ${products.map(p => `
+          <div class="product-card">
+            <div class="product-icon">${p.icon}</div>
+            <div class="product-info">
+              <span class="product-tag">${p.tag}</span>
+              <div class="product-name">${p.name}</div>
+              <div class="product-reason">${p.reason}</div>
+              <div class="product-footer">
+                <span class="product-price">${p.price}</span>
+                <button class="btn-amazon" onclick="window.open('${p.url}','_blank')">Amazonで見る →</button>
+              </div>
+            </div>
+          </div>
+        `).join('')}
+      </div>`;
+  } else {
+    el.innerHTML = '';
+  }
 }
+
 
 function showContinueChoice() {
   document.getElementById('finish-step-1').style.display = 'none';
