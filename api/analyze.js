@@ -1,3 +1,4 @@
+const convert = require('heic-convert');
 module.exports = async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
@@ -5,6 +6,21 @@ module.exports = async function handler(req, res) {
 
   try {
     const { image, mediaType } = req.body;
+    const { image, mediaType } = req.body;
+
+let finalImage = image;
+let finalMediaType = mediaType;
+
+if (mediaType === 'image/heic' || mediaType === 'image/heif') {
+  const inputBuffer = Buffer.from(image, 'base64');
+  const outputBuffer = await convert({
+    buffer: inputBuffer,
+    format: 'JPEG',
+    quality: 0.7
+  });
+  finalImage = outputBuffer.toString('base64');
+  finalMediaType = 'image/jpeg';
+}
 
     const response = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
