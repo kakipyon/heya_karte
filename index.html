@@ -249,23 +249,7 @@
 <div class="toast" id="toast"></div>
 
 <script>
-const PRODUCTS = [
-  {name:"2段ハンガーラック",reason:"ハンガーパイプを2倍に増やせます",price:"¥2,980",icon:"🪝",tag:"衣類収納",keywords:["衣類","服","洋服","布団","クローゼット"],url:"https://www.amazon.co.jp/s?k=2段ハンガーラック"},
-  {name:"引き出し式衣装ケース（3段）",reason:"床の服を全部収納できます",price:"¥3,480",icon:"🗃️",tag:"衣類収納",keywords:["衣類","服","洋服"],url:"https://www.amazon.co.jp/s?k=引き出し式衣装ケース"},
-  {name:"布団圧縮袋",reason:"布団・毛布をコンパクトに保管できます",price:"¥1,280",icon:"🛏️",tag:"布団収納",keywords:["布団","毛布","季節"],url:"https://www.amazon.co.jp/s?k=布団圧縮袋"},
-  {name:"水取りゾウさん",reason:"湿気・カビ対策に効果的です",price:"¥580",icon:"💧",tag:"湿気対策",keywords:["布団","湿気","カビ","衣類"],url:"https://www.amazon.co.jp/s?k=水取りゾウさん"},
-  {name:"扉裏バッグ収納フック",reason:"バッグを床から撤去できます",price:"¥680",icon:"👜",tag:"バッグ収納",keywords:["バッグ","カバン","鞄"],url:"https://www.amazon.co.jp/s?k=扉裏バッグ収納フック"},
-  {name:"バッグ用ハンガー",reason:"バッグの形を崩さず収納できます",price:"¥890",icon:"🎒",tag:"バッグ収納",keywords:["バッグ","カバン","鞄"],url:"https://www.amazon.co.jp/s?k=バッグ用ハンガー収納"},
-  {name:"ブックスタンド",reason:"本・雑誌をすっきり整頓できます",price:"¥980",icon:"📚",tag:"本収納",keywords:["本","雑誌","書籍","漫画"],url:"https://www.amazon.co.jp/s?k=ブックスタンド"},
-  {name:"飾れる壁付け棚",reason:"ぬいぐるみ・フィギュアをおしゃれに飾れます",price:"¥1,980",icon:"🪆",tag:"ディスプレイ",keywords:["ぬいぐるみ","フィギュア","化粧品","コレクション"],url:"https://www.amazon.co.jp/s?k=壁付け飾り棚"},
-  {name:"メイクポーチ・コスメ収納",reason:"化粧品をまとめてすっきり管理できます",price:"¥1,280",icon:"💄",tag:"化粧品収納",keywords:["化粧品","コスメ","メイク"],url:"https://www.amazon.co.jp/s?k=メイクポーチ収納"},
-  {name:"ケーブルまとめクリップ",reason:"コードの絡まりをすっきり解消できます",price:"¥580",icon:"🔌",tag:"コード整理",keywords:["コード","ケーブル","ガジェット","充電"],url:"https://www.amazon.co.jp/s?k=ケーブルまとめクリップ"},
-  {name:"ゴミ袋（まとめ買い）",reason:"ゴミ捨てをスムーズに進められます",price:"¥480",icon:"🗑️",tag:"ゴミ処理",keywords:["ゴミ","汚れ","散乱"],url:"https://www.amazon.co.jp/s?k=ゴミ袋まとめ買い"},
-  {name:"コロコロ（粘着クリーナー）",reason:"床のホコリ・ゴミを手軽に除去できます",price:"¥680",icon:"🧹",tag:"掃除用品",keywords:["ゴミ","ホコリ","汚れ","床"],url:"https://www.amazon.co.jp/s?k=コロコロ粘着クリーナー"},
-  {name:"クイックルワイパー",reason:"フローリングをさっと拭き掃除できます",price:"¥1,480",icon:"🧽",tag:"掃除用品",keywords:["ゴミ","ホコリ","汚れ","床"],url:"https://www.amazon.co.jp/s?k=クイックルワイパー"},
-  {name:"シューズラック",reason:"玄関の靴をすっきり収納できます",price:"¥2,480",icon:"👟",tag:"靴収納",keywords:["靴","シューズ","玄関"],url:"https://www.amazon.co.jp/s?k=シューズラック"},
-  {name:"ファイルボックス",reason:"書類・紙類を種類別に整理できます",price:"¥780",icon:"📁",tag:"書類整理",keywords:["書類","紙","プリント","書類"],url:"https://www.amazon.co.jp/s?k=ファイルボックス"},
-];
+
 function getRecommendedProducts(problems) {
   const problemsText = problems.join(' ');
   const matched = PRODUCTS.filter(p =>
@@ -282,12 +266,6 @@ let timerSeconds = 0;
 let totalSeconds = 0;
 let timerRunning = false;
 let checkedTasks = [];
-
-// 商品リスト描画
-const pl = document.getElementById('products-list');
-PRODUCTS.forEach(p => {
-  pl.innerHTML += `<div class="product-card"><div class="product-icon">${p.icon}</div><div class="product-info"><span class="product-tag">${p.tag}</span><div class="product-name">${p.name}</div><div class="product-reason">${p.reason}</div><div class="product-footer"><span class="product-price">${p.price}</span><button class="btn-amazon" onclick="window.open('${p.url}','_blank')">Amazonで見る →</button></div></div></div>`;
-});
 
 function switchTab(i) {
   document.querySelectorAll('.tab').forEach((t, j) => t.classList.toggle('active', i === j));
