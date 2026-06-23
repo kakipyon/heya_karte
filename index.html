@@ -249,14 +249,6 @@
 
 <script>
 
-function getRecommendedProducts(problems) {
-  const problemsText = problems.join(' ');
-  const matched = PRODUCTS.filter(p =>
-    p.keywords.some(k => problemsText.includes(k))
-  );
-  const unique = [...new Map(matched.map(p => [p.name, p])).values()];
-  return unique.slice(0, 5);
-}
 let imageFile = null;
 let aiTasks = [];
 let selectedTasks = [];
