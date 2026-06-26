@@ -5,6 +5,7 @@ const IDEAS = [
     icon: '👗',
     title: '服・衣類の収納が追いつかない',
     sub: '手放す基準から収納術まで',
+    image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80',
     column: `
       <div class="column-title">📖 まずは「手放す」ことから始めよう</div>
       <div class="column-h2">手放す基準を作る</div>
@@ -62,55 +63,70 @@ const IDEAS = [
   // 今後ここにカテゴリを追加していく
 ];
 
-// アイデアタブを描画する関数
+// 一覧を描画
 function renderIdeas() {
   const container = document.getElementById('ideas-container');
   if (!container) return;
-
   container.innerHTML = IDEAS.map(idea => `
-    <div class="idea-card">
-      <div class="idea-header" onclick="toggleIdea('${idea.id}')">
+    <div class="idea-card" onclick="openIdea('${idea.id}')">
+      <div class="idea-header">
         <div>
           <div class="idea-icon">${idea.icon}</div>
           <div class="idea-title">${idea.title}</div>
           <div class="idea-sub">${idea.sub}</div>
         </div>
-        <div class="idea-arrow" id="arrow-${idea.id}">▼</div>
-      </div>
-      <div class="idea-content" id="content-${idea.id}" style="display:none">
-        <div class="column-section">${idea.column}</div>
-        <div class="products-section">
-          <div class="products-title">🛍️ 収納を整えるならこれ</div>
-          ${idea.productGroups.map(group => `
-            <div class="product-group-title">${group.title}</div>
-            ${group.products.map(p => `
-              <div class="idea-product-card" onclick="window.open('${p.url}','_blank')">
-                <div class="idea-product-info">
-                  <div class="idea-product-name">${p.name}</div>
-                  <div class="idea-product-sub">${p.sub}</div>
-                </div>
-                <div class="idea-product-btn">Amazon →</div>
-              </div>
-            `).join('')}
-          `).join('')}
-          <div class="affiliate-note">※ 商品リンクはアフィリエイトリンクです（PR）</div>
-        </div>
+        <div class="idea-arrow">›</div>
       </div>
     </div>
   `).join('') + '<div style="text-align:center;padding:20px;color:#ccc;font-size:13px">他のカテゴリも順次追加予定です</div>';
 }
 
-function toggleIdea(id) {
-  const content = document.getElementById('content-' + id);
-  const arrow = document.getElementById('arrow-' + id);
-  if (content.style.display === 'none') {
-    content.style.display = 'block';
-    arrow.textContent = '▲';
-  } else {
-    content.style.display = 'none';
-    arrow.textContent = '▼';
-  }
+// 詳細ページを開く
+function openIdea(id) {
+  const idea = IDEAS.find(i => i.id === id);
+  if (!idea) return;
+
+  const detail = document.getElementById('idea-detail');
+  const body = document.getElementById('idea-detail-body');
+
+  body.innerHTML = `
+    ${idea.image ? `<img src="${idea.image}" class="idea-detail-image" alt="${idea.title}">` : ''}
+    <div class="idea-detail-header">
+      <div class="idea-detail-icon">${idea.icon}</div>
+      <div class="idea-detail-title">${idea.title}</div>
+      <div class="idea-detail-sub">${idea.sub}</div>
+    </div>
+    <div class="column-section">${idea.column}</div>
+    <div class="products-section">
+      <div class="products-title">🛍️ 収納を整えるならこれ</div>
+      ${idea.productGroups.map(group => `
+        <div class="product-group-title">${group.title}</div>
+        ${group.products.map(p => `
+          <div class="idea-product-card" onclick="window.open('${p.url}','_blank')">
+            <div class="idea-product-info">
+              <div class="idea-product-name">${p.name}</div>
+              <div class="idea-product-sub">${p.sub}</div>
+            </div>
+            <div class="idea-product-btn">Amazon →</div>
+          </div>
+        `).join('')}
+      `).join('')}
+      <div class="affiliate-note">※ 商品リンクはアフィリエイトリンクです（PR）</div>
+    </div>
+  `;
+
+  detail.style.display = 'block';
+  history.pushState({ ideaId: id }, '', '');
+  window.scrollTo(0, 0);
 }
 
-// ページ読み込み時に描画
+// 戻るボタン対応
+window.addEventListener('popstate', function(e) {
+  const detail = document.getElementById('idea-detail');
+  if (detail && detail.style.display === 'block') {
+    detail.style.display = 'none';
+    window.scrollTo(0, 0);
+  }
+});
+
 document.addEventListener('DOMContentLoaded', renderIdeas);
