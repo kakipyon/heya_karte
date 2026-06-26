@@ -118,6 +118,27 @@ function openIdea(id) {
   detail.style.display = 'block';
   history.pushState({ ideaId: id }, '', '');
   window.scrollTo(0, 0);
+  // 他の記事一覧を追加
+  const others = IDEAS.filter(i => i.id !== id);
+  if (others.length > 0) {
+    body.innerHTML += `
+      <div class="other-ideas-section">
+        <div class="other-ideas-title">他の記事を読む</div>
+        ${others.map(o => `
+          <div class="idea-card" onclick="openIdea('${o.id}')">
+            <div class="idea-header">
+              <div>
+                <div class="idea-icon">${o.icon}</div>
+                <div class="idea-title">${o.title}</div>
+                <div class="idea-sub">${o.sub}</div>
+              </div>
+              <div class="idea-arrow">›</div>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    `;
+  }
 }
 
 // 戻るボタン対応
