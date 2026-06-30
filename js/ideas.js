@@ -115,6 +115,7 @@ function openIdea(id) {
       <div class="products-title">🛍️ 収納を整えるならこれ</div>
       ${idea.productGroups.map(group => `
         <div class="product-group-title">${group.title}</div>
+        ${group.note ? `<p class="product-group-note">${group.note}</p>` : ''}
         ${group.products.map(p => `
           <div class="idea-product-card" onclick="window.open('${p.url}','_blank')">
             <div class="idea-product-info">
