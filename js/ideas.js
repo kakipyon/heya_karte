@@ -7,21 +7,22 @@ const IDEAS = [
     sub: '手放す基準から収納術まで',
     image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80',
     column: `
-      <div class="column-title">📖 まずは「手放す」ことから始めよう</div>
-      <div class="column-h2">手放す基準を作る</div>
-      <ul class="column-list">
-        <li>3年間着ていない服</li>
-        <li>サイズが合わない服</li>
-        <li>着心地の悪い服</li>
-      </ul>
-      <div class="column-h2">「捨てる」以外の方法を選ぶ</div>
-      <p class="column-text">ゴミ箱に入れることに抵抗がある場合は、以下の方法を検討してみましょう。</p>
+      <div class="column-title">※ 手放す基準を作る</div>
+      <div class="column-h2">⚫︎ 3年間着ていない服</div>
+      <p class="column-text">今日何着よう？と考えて選ばないなら、自分の中で理由があるはずです。</p>
+      <div class="column-h2">⚫︎ サイズが合わない服</div>
+      <p class="column-text">「痩せたら着る」は要注意。もし痩せたら、その時にはまた新しい服が欲しくなりますよね？</p>
+      <div class="column-h2">⚫︎ 着心地の悪い服</div>
+      <p class="column-text">チクチクする、生地が合わないなど、肌に合わない服は思い切ってやめましょう。</p>
+      <div class="column-title">※ 「捨てる」以外の方法を選ぶ</div>
+      <div class="column-h2">⚫︎ 捨てることに抵抗がある場合は、以下の方法を検討してみましょう</div>
       <ul class="column-list">
         <li>フリマアプリに出品</li>
         <li>リサイクルショップに持ち込む</li>
         <li>古着として寄付する</li>
       </ul>
     `,
+  
     productGroups: [
       {
         title: 'ハンガーラック',
