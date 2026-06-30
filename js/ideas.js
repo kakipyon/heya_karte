@@ -98,6 +98,14 @@ function openIdea(id) {
       <div class="idea-detail-sub">${idea.sub}</div>
     </div>
     <div class="column-section">${idea.column}</div>
+    <div class="action-btn-section">
+        <button class="action-btn" onclick="switchTab(0)">📷 部屋を撮って片付けをはじめる</button>
+      </div>
+      <div class="warning-box">
+        <div class="warning-title">⚠️ 新しくものを買う前に確認</div>
+        <p class="warning-text">置く場所がない場合、物を増やす前に手放してから。</p>
+        <p class="warning-text">買う前には必ずサイズを測り、ゴミを買わないように。</p>
+      </div>
     <div class="products-section">
       <div class="products-title">🛍️ 収納を整えるならこれ</div>
       ${idea.productGroups.map(group => `
