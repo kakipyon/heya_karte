@@ -26,6 +26,7 @@ const IDEAS = [
     productGroups: [
       {
         title: 'ハンガーラック',
+        note: 'お気に入りの洋服を掛けて収納できる便利アイテム。クローゼットがなくても、見せる収納としておしゃれに使える。',
         products: [
           { name: 'ドウシシャ 2段ハンガーラック', sub: 'キャスター付き・頑丈', url: 'https://amzn.to/4a9pvcf' },
           { name: 'SONGMICS ハンガーラック', sub: 'キャスター付き', url: 'https://amzn.to/4vZ8mdM' },
@@ -33,6 +34,7 @@ const IDEAS = [
       },
       {
         title: 'ハンガー',
+        note: 'ハンガーラックと合わせて揃えるのがおすすめ。素材や色を統一すると、見た目の統一感がアップ。',
         products: [
           { name: 'Amazonベーシック ハンガー 30本', sub: 'グレー', url: 'https://amzn.to/4uHsOi3' },
           { name: 'MIGABER ハンガー 20本', sub: 'ホワイト', url: 'https://amzn.to/4el5Mc6' },
@@ -40,6 +42,7 @@ const IDEAS = [
       },
       {
         title: 'チェスト',
+        note: '洋服を畳んでしまうのに便利。Tシャツやニットなど、干すと型崩れしやすい衣類の収納にぴったり。',
         products: [
           { name: 'アイリスオーヤマ チェスト 4段', sub: '', url: 'https://amzn.to/4esRyVb' },
           { name: '天馬 チェスト 4段', sub: '組み立て不要', url: 'https://amzn.to/4uHrT15' },
@@ -47,6 +50,7 @@ const IDEAS = [
       },
       {
         title: 'ベッド下収納',
+        note: 'デッドスペースを有効活用できる収納アイテム。購入前にベッド下の高さを確認しておくのが必須。',
         products: [
           { name: 'Amazonベーシック 布製ベッド下収納', sub: '2個セット', url: 'https://amzn.to/4fVvhSu' },
           { name: 'アイリスオーヤマ 収納ケース', sub: 'クリア', url: 'https://amzn.to/3QrQvwW' },
@@ -54,12 +58,13 @@ const IDEAS = [
       },
       {
         title: '圧縮袋',
+        note: 'オフシーズンの衣類をコンパクトに収納できる便利グッズ。衣替えのタイミングでまとめて使うのがおすすめ。',
         products: [
           { name: 'Amazonベーシック 衣類圧縮袋 15枚', sub: '掃除機不要・ハンドポンプ付き', url: 'https://amzn.to/4xIAmUE' },
           { name: 'WANALIT 圧縮袋 12枚', sub: 'コードレス充電式ポンプ付き', url: 'https://amzn.to/3Sxsk0A' },
         ]
       },
-    ]
+    ],
   },
   // 今後ここにカテゴリを追加していく
 ];
