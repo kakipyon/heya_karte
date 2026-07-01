@@ -538,7 +538,7 @@ function renderTimerTaskList() {
   });
 }
 
-function checkTimerTask(i) 
+function checkTimerTask(i) {
 　 if (!timerStarted) { showToast('先にスタートを押してください！'); return; }
   checkedTasks[i] = !checkedTasks[i];
   renderTimerTaskList();
