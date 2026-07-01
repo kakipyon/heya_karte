@@ -194,6 +194,7 @@
         <div class="howto-item"><div class="howto-num">4</div><div class="howto-text">時間を決めて片付ける</div></div>
       </div>
     </div>
+    <button class="btn btn-gray" onclick="goToTimerOnlyMode()">⏱️ 撮影せずタイマーだけ使う</button>
   </div>
 
   <!-- タスク選択画面 -->
@@ -305,6 +306,8 @@ let timerSeconds = 0;
 let totalSeconds = 0;
 let timerRunning = false;
 let checkedTasks = [];
+let timerOnlyMode = false; 
+
 
 function switchTab(i) {
   document.querySelectorAll('.tab').forEach((t, j) => t.classList.toggle('active', i === j));
@@ -318,7 +321,15 @@ function goToScreen(screenId) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   document.getElementById(screenId).classList.add('active');
 }
-
+  
+function goToTimerOnlyMode() {
+  timerOnlyMode = true;
+  aiTasks = [];
+  selectedTasks = [];
+  renderTaskList();
+  goToScreen('screen-tasks');
+}
+  
 function handleImage(e) {
   const file = e.target.files[0];
   if (!file) return;
@@ -419,6 +430,7 @@ function showAnalysis(d) {
 }
 
 function goToTaskScreen(stepsEncoded) {
+  timerOnlyMode = false;
   const steps = JSON.parse(decodeURIComponent(stepsEncoded));
   aiTasks = steps.map(s => s.action);
   selectedTasks = [];
@@ -455,7 +467,6 @@ function toggleTask(i) {
   }
   renderTaskList();
 }
-
 function updateSelectedCount() {
   const count = selectedTasks.length;
   document.getElementById('selected-count').textContent = `${count} / 3 選択中`;
@@ -464,6 +475,10 @@ function updateSelectedCount() {
     btn.disabled = false;
     btn.style.opacity = '1';
     btn.textContent = `▶ ${count}つのタスクで片付け開始`;
+  } else if (timerOnlyMode) {
+    btn.disabled = false;
+    btn.style.opacity = '1';
+    btn.textContent = '▶ タイマーだけ開始';
   } else {
     btn.disabled = true;
     btn.style.opacity = '.5';
