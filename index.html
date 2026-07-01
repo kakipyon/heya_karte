@@ -504,7 +504,7 @@ function addCustomTask() {
 }
 
 function goToTimer() {
-  if (selectedTasks.length === 0) return;
+  if (selectedTasks.length === 0 && !timerOnlyMode) return;
   const minutes = parseInt(document.getElementById('total-time-input').value) || 10;
   totalSeconds = minutes * 60;
   timerSeconds = totalSeconds;
