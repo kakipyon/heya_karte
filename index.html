@@ -565,7 +565,7 @@ function toggleTimer() {
     document.getElementById('timer-stop-btn').textContent = '⏹ やめる / 終わる';
     document.getElementById('timer-start-btn').textContent = '⏸ 一時停止';
     document.getElementById('timer-start-btn').style.background = '#f87171';
-    document.getElementById('timer-label').textContent = 'がんばれ！チェックしながら進めよう💪';
+    document.getElementById('timer-label').textContent = selectedTasks.length > 0 ? 'がんばれ！チェックしながら進めよう💪' : 'がんばれ！';
     timerInterval = setInterval(() => {
       timerSeconds--;
       updateTimerDisplay();
