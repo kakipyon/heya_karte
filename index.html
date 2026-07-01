@@ -589,10 +589,11 @@ function toggleTimer() {
     }, 1000);
   }
 }
-
 function goBackFromTimer() {
   if (timerStarted) {
-    goToFinish();
+    if (confirm('片付けを終了しますか？')) {
+      goToFinish();
+    }
   } else {
     goToScreen('screen-tasks');
   }
