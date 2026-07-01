@@ -562,6 +562,7 @@ function toggleTimer() {
     document.getElementById('timer-label').textContent = '一時停止中';
   } else {
     timerRunning = true;
+    timerStarted = true; 
     document.getElementById('timer-stop-btn').textContent = '⏹ やめる / 終わる';
     document.getElementById('timer-start-btn').textContent = '⏸ 一時停止';
     document.getElementById('timer-start-btn').style.background = '#f87171';
