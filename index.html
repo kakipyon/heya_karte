@@ -237,7 +237,7 @@
       <div class="timer-task-list" id="timer-task-list"></div>
       <button class="btn btn-primary" id="timer-start-btn" onclick="toggleTimer()">▶ スタート</button>
 　　　　<button class="btn btn-green" id="timer-finish-btn" onclick="goToFinish()" style="display:none">🎉 片付け完了！</button>
-　　　　<button class="btn btn-gray" onclick="goToFinish()">⏹ やめる / 終わる</button>
+      <button class="btn btn-gray" id="timer-stop-btn" onclick="goBackFromTimer()">← タスク選択に戻る</button>
       <p style="font-size:11px;color:#aaa;margin-top:8px">※ 画面を開いたまま使用してください</p>
     </div>
   </div>
@@ -307,6 +307,7 @@ let totalSeconds = 0;
 let timerRunning = false;
 let checkedTasks = [];
 let timerOnlyMode = false; 
+let timerStarted = false;
 
 
 function switchTab(i) {
@@ -513,6 +514,8 @@ function goToTimer() {
   updateTimerDisplay();
   document.getElementById('timer-label').textContent = '準備ができたらスタート！';
   document.getElementById('timer-start-btn').textContent = '▶ スタート';
+  timerStarted = false;
+  document.getElementById('timer-stop-btn').textContent = '← タスク選択に戻る';
   document.getElementById('timer-start-btn').style.background = 'linear-gradient(135deg, #5b4fcf, #9b59b6)';
   document.getElementById('timer-start-btn').style.display = 'block';
   document.getElementById('timer-finish-btn').style.display = 'none';
@@ -558,6 +561,7 @@ function toggleTimer() {
     document.getElementById('timer-label').textContent = '一時停止中';
   } else {
     timerRunning = true;
+    document.getElementById('timer-stop-btn').textContent = '⏹ やめる / 終わる';
     document.getElementById('timer-start-btn').textContent = '⏸ 一時停止';
     document.getElementById('timer-start-btn').style.background = '#f87171';
     document.getElementById('timer-label').textContent = 'がんばれ！チェックしながら進めよう💪';
@@ -581,6 +585,14 @@ function toggleTimer() {
         showToast('⏰ 時間です！お疲れ様でした！');
       }
     }, 1000);
+  }
+}
+
+function goBackFromTimer() {
+  if (timerStarted) {
+    goToFinish();
+  } else {
+    goToScreen('screen-tasks');
   }
 }
 
