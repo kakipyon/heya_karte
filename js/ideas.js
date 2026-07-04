@@ -96,19 +96,21 @@ const IDEAS = [
     `,
     productGroups: [
       {
-        title: 'カゴ・ボックス',
+        title: '収納バスケット',
         note: '定位置作りに最適な収納アイテム。蓋なしで取り出しやすく、戻すハードルが低いのがポイント。',
         products: [
-          { name: 'IKEA KALLAX インサート', sub: 'ボックス収納', url: 'https://www.ikea.com/jp/ja/p/kallax-insert-with-2-drawers-white-90278167/' },
-          { name: 'tower 収納ボックス', sub: 'スタッキング可能', url: 'https://amzn.to/3QrQvwW' },
+          { name: '不二貿易 折りたたみコンテナ かご', sub: 'ブラック・取っ手付き', url: 'https://amzn.to/4bqRpkm' },
+          { name: 'X XUNTAO 収納ボックス 折り畳み', sub: '蓋付き・積み重ね可能', url: 'https://amzn.to/4az6BLY' },
+          { name: '山善 どこでも収納ボックス 3個セット', sub: 'カラーボックス対応', url: 'https://amzn.to/4aURgWr' },
         ]
       },
       {
         title: 'フック・壁面収納',
         note: 'カバンや上着など「とりあえず置きがち」なものの定位置作りに。壁を使えば床が広くなる。',
         products: [
-          { name: '山崎実業 マグネットフック', sub: '玄関・冷蔵庫に', url: 'https://amzn.to/3Sxsk0A' },
-          { name: 'DRAW A LINE 壁面収納', sub: 'つっぱり棒タイプ', url: 'https://amzn.to/4xIAmUE' },
+          { name: '山崎実業 ジョイントハンガー リングス', sub: 'ブラック', url: 'https://amzn.to/4y0uhD2' },
+          { name: 'umbra フリップフック 壁掛けフック', sub: 'シャインホワイト', url: 'https://amzn.to/3RfLsQw' },
+          { name: '萩原 突っ張りラック 壁面収納', sub: '木目調スリム・ブラウン', url: 'https://amzn.to/44Jt4CB' },
         ]
       },
     ]
