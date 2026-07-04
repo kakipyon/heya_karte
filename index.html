@@ -542,14 +542,6 @@ function checkTimerTask(i) {
 　 if (!timerStarted) { showToast('先にスタートを押してください！'); return; }
   checkedTasks[i] = !checkedTasks[i];
   renderTimerTaskList();
-  const allDone = checkedTasks.every(c => c);
-  if (allDone) {
-    showToast('全部完了！すごい！🎉');
-    if (timerInterval) { clearInterval(timerInterval); timerInterval = null; timerRunning = false; }
-    document.getElementById('timer-start-btn').style.display = 'none';
-    document.getElementById('timer-finish-btn').style.display = 'block';
-    document.getElementById('timer-display').className = 'timer-display finished';
-  }
 }
 
 function toggleTimer() {
