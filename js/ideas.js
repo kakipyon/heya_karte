@@ -66,6 +66,53 @@ const IDEAS = [
       },
     ],
   },
+  {
+    id: 'floor',
+    icon: '🛋️',
+    title: '床にものが散乱している',
+    sub: '定位置を作る考え方',
+    image: 'https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=600&q=80',
+    column: `
+      <div class="column-title">※ なぜ床に物が散乱するのか</div>
+      <div class="column-h2">⚫︎ 定位置がないから</div>
+      <p class="column-text">床に物が散らかる一番の原因は「定位置がないこと」。置く場所が決まっていないと、床が一番楽な置き場所になってしまう。</p>
+      <div class="column-title">※ 定位置を作る2つの方法</div>
+      <div class="column-h2">⚫︎ 物を減らす</div>
+      <p class="column-text">定位置がない＝今の収納に対して物が多すぎるサイン。まず手放せるものがないか見直してみよう。</p>
+      <div class="column-h2">⚫︎ 収納を増やす</div>
+      <p class="column-text">どうしても減らしたくない物には、置き場所を作ることで解決できる。ただし収納を買う前に、今ある空きスペースを確認してから。</p>
+      <div class="column-title">※ 定位置を決めるコツ</div>
+      <div class="column-h2">⚫︎ 「使う場所の近く」に置き場を作る</div>
+      <p class="column-text">リモコンはソファの横、カバンは玄関の近くなど、使う場所のそばに定位置を作ると自然と戻せるようになる。</p>
+      <div class="column-h2">⚫︎ 戻すのが楽な仕組みにする</div>
+      <p class="column-text">蓋あり収納より蓋なし、引き出しより棚の方が戻すハードルが下がる。「めんどくさくない」が続けるコツ。</p>
+      <div class="column-h2">⚫︎ 床に直置きしないルールを作る</div>
+      <p class="column-text">「床には何も置かない」と決めるだけで意識が変わる。</p>
+      <div class="column-title">※ まず今日できること</div>
+      <div class="column-h2">⚫︎ 床のものを全部拾って分類する</div>
+      <p class="column-text">まず全部拾って「いる・いらない・置き場所が必要」の3つに分けてみよう。</p>
+      <div class="column-h2">⚫︎ 「ここに置く」と決めるだけでOK</div>
+      <p class="column-text">収納グッズは後から。まず定位置を決めることが先。</p>
+    `,
+    productGroups: [
+      {
+        title: 'カゴ・ボックス',
+        note: '定位置作りに最適な収納アイテム。蓋なしで取り出しやすく、戻すハードルが低いのがポイント。',
+        products: [
+          { name: 'IKEA KALLAX インサート', sub: 'ボックス収納', url: 'https://www.ikea.com/jp/ja/p/kallax-insert-with-2-drawers-white-90278167/' },
+          { name: 'tower 収納ボックス', sub: 'スタッキング可能', url: 'https://amzn.to/3QrQvwW' },
+        ]
+      },
+      {
+        title: 'フック・壁面収納',
+        note: 'カバンや上着など「とりあえず置きがち」なものの定位置作りに。壁を使えば床が広くなる。',
+        products: [
+          { name: '山崎実業 マグネットフック', sub: '玄関・冷蔵庫に', url: 'https://amzn.to/3Sxsk0A' },
+          { name: 'DRAW A LINE 壁面収納', sub: 'つっぱり棒タイプ', url: 'https://amzn.to/4xIAmUE' },
+        ]
+      },
+    ]
+  },
   // 今後ここにカテゴリを追加していく
 ];
 
