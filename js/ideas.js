@@ -8,14 +8,14 @@ const IDEAS = [
     image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80',
     column: `
       <div class="column-title">手放す基準を作る</div>
-      <div class="column-h2">⚫︎ 3年間着ていない服</div>
+      <div class="column-h2">⚫︎２年間着ていない服</div>
       <p class="column-text">今日何着よう？と考えてその服を選ばないなら、自分の中で理由があるはず。</p>
-      <div class="column-h2">⚫︎ サイズが合わない服</div>
+      <div class="column-h2">⚫︎サイズが合わない服</div>
       <p class="column-text">「痩せたら着る」は要注意。もし痩せたら、その時にはまた新しい服が欲しくなるかも？</p>
-      <div class="column-h2">⚫︎ 着心地の悪い服</div>
+      <div class="column-h2">⚫︎着心地の悪い服</div>
       <p class="column-text">チクチクする、生地が合わないなど、肌に合わない服は思い切って手放してみて。</p>
       <div class="column-title">「捨てる」以外の方法を選ぶ</div>
-      <div class="column-h2">⚫︎ 捨てることに抵抗がある場合は、以下の方法を検討してみては</div>
+      <div class="column-h2">⚫︎捨てることに抵抗がある場合は、以下の方法を検討してみては</div>
       <ul class="column-list">
         <li>フリマアプリに出品</li>
         <li>リサイクルショップに持ち込む</li>
