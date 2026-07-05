@@ -184,22 +184,22 @@ const IDEAS = [
     image: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=600&q=80',
     column: `
       <p class="column-text">この隙間どうにかしたい、、そんな悩みはありませんか？実は隙間こそ、使い方次第で便利な収納スペースになる。</p>
-      <div class="column-title">※ 隙間収納が活躍する場所</div>
-      <div class="column-h2">⚫︎ 冷蔵庫・洗濯機の横</div>
+      <div class="column-title">隙間収納が活躍する場所</div>
+      <div class="column-h2">⚫︎冷蔵庫・洗濯機の横</div>
       <p class="column-text">キッチンや洗面所の数センチの隙間に、スリムワゴンを入れるだけで収納量が大幅にアップする。</p>
-      <div class="column-h2">⚫︎ デスクや棚の隙間</div>
+      <div class="column-h2">⚫︎デスクや棚の隙間</div>
       <p class="column-text">本や書類など縦に収納できるものに向いている。薄型ラックを入れるとデッドスペースが活きる。</p>
-      <div class="column-h2">⚫︎ トイレ・洗面台の横</div>
+      <div class="column-h2">⚫︎トイレ・洗面台の横</div>
       <p class="column-text">ストック品や掃除グッズの置き場として最適。取り出しやすいキャスター付きがおすすめ。</p>
-      <div class="column-title">※ 隙間収納を選ぶポイント</div>
-      <div class="column-h2">⚫︎ まず幅を測ってから買う</div>
+      <div class="column-title">隙間収納を選ぶポイント</div>
+      <div class="column-h2">⚫︎まず幅を測ってから買う</div>
       <p class="column-text">隙間収納は数センチの差で入らないことがある。買う前に必ず幅・奥行き・高さを測ろう。</p>
-      <div class="column-h2">⚫︎ キャスター付きが便利</div>
+      <div class="column-h2">⚫︎キャスター付きが便利</div>
       <p class="column-text">掃除のときに動かせるので、キャスター付きがおすすめ。奥の掃除もラクになる。</p>
-      <div class="column-title">※ 何を入れる？</div>
-      <div class="column-h2">⚫︎ ストック品・掃除用具など出番が少ないものに向いている</div>
+      <div class="column-title">何を入れる？</div>
+      <div class="column-h2">⚫︎ストック品・掃除用具など出番が少ないものに向いている</div>
       <p class="column-text">隙間収納は取り出す頻度が低いものと相性がいい。シャンプーの詰め替えや掃除グッズなど、まとめ買いしたストック品の置き場として活躍する。</p>
-      <div class="column-h2">⚫︎ 毎日使うものは手前に置こう</div>
+      <div class="column-h2">⚫︎毎日使うものは手前に置こう</div>
       <p class="column-text">毎日使うものは取り出しやすい場所に置くのが基本。隙間収納に詰め込みすぎないのがコツ。</p>
     `,
     productGroups: [
@@ -273,7 +273,7 @@ const IDEAS = [
   },
   {
     id: 'horyubox',
-    icon: '📦',
+    icon: '🧺',
     title: '保留ボックスのすすめ（捨てるか迷ったら）',
     sub: '迷ったら捨てなくていい、一度保管しよう',
     image: 'https://images.unsplash.com/photo-1586892478025-2b5472316994?w=600&q=80',
@@ -296,6 +296,48 @@ const IDEAS = [
       <p class="column-text">片付けは一度で完璧にしなくていい。迷ったら保留、期限が来たら判断。その繰り返しで少しずつ部屋は整っていく。</p>
     `,
     productGroups: []
+  },
+  {
+    id: 'desk',
+    icon: '🖥️',
+    title: '机周りの収納',
+    sub: '作業スペースを確保しながらすっきり整理',
+    image: 'https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?w=600&q=80',
+    column: `
+      <div class="column-title">机周り収納を選ぶポイント</div>
+      <div class="column-h2">⚫︎机と色・材質をそろえる</div>
+      <p class="column-text">机本体と同じ色や材質のものを選ぶと統一感が出る。バラバラだと片付いていても雑然とした印象になりやすい。</p>
+      <div class="column-h2">⚫︎作業スペースを確保する</div>
+      <p class="column-text">収納を増やしすぎて作業スペースがなくなっては本末転倒。机の上に何も置いていない状態で、どのくらいのスペースが使えるか確認してから選ぼう。</p>
+      <div class="column-h2">⚫︎しまうものを分けて考える</div>
+      <p class="column-text">書類・ガジェット・文房具など、種類ごとに置き場所を分けると取り出しやすくなる。</p>
+    `,
+    productGroups: [
+      {
+        title: '机に取り付けるタイプ',
+        note: '机の表面積を減らさずに収納を増やせる。スペースを有効活用したい人におすすめ。',
+        products: [
+          { name: 'Hoshinoi 卓上ラック 有孔ボード付き', sub: '木製・大容量', url: 'https://amzn.to/4ffr1wd' },
+          { name: 'VOOCYE 後付け引き出し テーブル下収納', sub: '穴あけ不要', url: 'https://amzn.to/4fnlrXJ' },
+        ]
+      },
+      {
+        title: '机に置くタイプ',
+        note: '手軽に設置できる卓上収納。よく使うものをまとめて置くのに便利。',
+        products: [
+          { name: 'Aibiju 卓上本棚 デスク収納 2段', sub: '棚板高さ調節可・工具不要', url: 'https://amzn.to/4p8P4jY' },
+          { name: 'QIYVLOS デスクオーガナイザー 小物入れ', sub: '組立不要・大容量', url: 'https://amzn.to/4fjUlSg' },
+        ]
+      },
+      {
+        title: '書類管理',
+        note: '書類や雑誌が散らかりがちな人に。立てて収納するだけで机の上がすっきり。',
+        products: [
+          { name: 'ALIOBC 伸縮自在ブックエンド 卓上本棚', sub: '倒れない・金属製', url: 'https://amzn.to/4p0R8Kx' },
+          { name: 'ライクイット A4ファイルボックス', sub: 'A4対応', url: 'https://amzn.to/4ve4CUK' },
+        ]
+      },
+    ]
   },
   // 今後ここにカテゴリを追加していく
 ];
