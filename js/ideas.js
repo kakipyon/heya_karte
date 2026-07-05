@@ -176,6 +176,51 @@ const IDEAS = [
       },
     ]
   },
+  {
+    id: 'sukima',
+    icon: '📐',
+    title: '隙間収納を活用したい',
+    sub: 'この隙間どうにかしたい…を解決',
+    image: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=600&q=80',
+    column: `
+      <p class="column-text">この隙間どうにかしたい、、そんな悩みはありませんか？実は隙間こそ、使い方次第で便利な収納スペースになる。</p>
+      <div class="column-title">※ 隙間収納が活躍する場所</div>
+      <div class="column-h2">⚫︎ 冷蔵庫・洗濯機の横</div>
+      <p class="column-text">キッチンや洗面所の数センチの隙間に、スリムワゴンを入れるだけで収納量が大幅にアップする。</p>
+      <div class="column-h2">⚫︎ デスクや棚の隙間</div>
+      <p class="column-text">本や書類など縦に収納できるものに向いている。薄型ラックを入れるとデッドスペースが活きる。</p>
+      <div class="column-h2">⚫︎ トイレ・洗面台の横</div>
+      <p class="column-text">ストック品や掃除グッズの置き場として最適。取り出しやすいキャスター付きがおすすめ。</p>
+      <div class="column-title">※ 隙間収納を選ぶポイント</div>
+      <div class="column-h2">⚫︎ まず幅を測ってから買う</div>
+      <p class="column-text">隙間収納は数センチの差で入らないことがある。買う前に必ず幅・奥行き・高さを測ろう。</p>
+      <div class="column-h2">⚫︎ キャスター付きが便利</div>
+      <p class="column-text">掃除のときに動かせるので、キャスター付きがおすすめ。奥の掃除もラクになる。</p>
+      <div class="column-title">※ 何を入れる？</div>
+      <div class="column-h2">⚫︎ ストック品・掃除用具など出番が少ないものに向いている</div>
+      <p class="column-text">隙間収納は取り出す頻度が低いものと相性がいい。シャンプーの詰め替えや掃除グッズなど、まとめ買いしたストック品の置き場として活躍する。</p>
+      <div class="column-h2">⚫︎ 毎日使うものは手前に置こう</div>
+      <p class="column-text">毎日使うものは取り出しやすい場所に置くのが基本。隙間収納に詰め込みすぎないのがコツ。</p>
+    `,
+    productGroups: [
+      {
+        title: 'スリム収納ワゴン',
+        note: 'キャスター付きで移動が簡単。冷蔵庫横・洗面所の隙間にぴったり。幅13〜14cmの超スリムタイプ。',
+        products: [
+          { name: 'SPACEKEEPER キッチンワゴン 3段', sub: '工具不要・キャスター付き・幅13cm', url: 'https://amzn.to/4uLqCpU' },
+          { name: 'ライクイット キッチン収納 4段', sub: '組立済み・キャスター付き・幅14cm', url: 'https://amzn.to/4vnmXje' },
+        ]
+      },
+      {
+        title: 'スリム棚・ラック',
+        note: '幅30cmのスリムタイプ。本・書類・洗面用品など縦に収納したいものに最適。',
+        products: [
+          { name: 'SoBuy 洗面所 隙間収納 ランドリーラック', sub: '幅30cm・組立時プラスドライバー必須', url: 'https://amzn.to/4wqOald' },
+          { name: 'ぼん家具 本棚 薄型ラック', sub: '幅30cm・木製・組立時ドライバー＆ハンマー必要', url: 'https://amzn.to/4gVOVhw' },
+        ]
+      },
+    ]
+  },
   // 今後ここにカテゴリを追加していく
 ];
 
