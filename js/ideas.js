@@ -221,6 +221,56 @@ const IDEAS = [
       },
     ]
   },
+  {
+    id: 'noassembly',
+    icon: '📦',
+    title: '組立不要の家具がほしい',
+    sub: '届いてすぐ使える家具をご紹介',
+    image: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=600&q=80',
+    column: `
+      <p class="column-text">めんどくさい！得意じゃない！一人じゃできない！そんなお悩みの方に届いてすぐ使える家具をご紹介。</p>
+      <div class="column-title">※ 組立家具が続かない理由</div>
+      <div class="column-h2">⚫︎ 買ったはいいが箱のまま放置</div>
+      <p class="column-text">説明書を広げて、パーツを確認して、工具を用意して…それだけでやる気が失せることも。組立不要ならその日のうちに使いはじめられる。</p>
+      <div class="column-title">※ 組立不要家具のメリット</div>
+      <div class="column-h2">⚫︎ 届いてすぐ使える</div>
+      <p class="column-text">開梱したらそのまま設置できる。組立の手間がないので、買った日に部屋が片付く。</p>
+      <div class="column-h2">⚫︎ 引越しのときも楽</div>
+      <p class="column-text">折りたたみ式や軽量タイプなら引越し時の解体・再組立も不要。一人暮らしの強い味方。</p>
+      <div class="column-h2">⚫︎ 一人暮らしでも安心</div>
+      <p class="column-text">重い板を持ち上げたり、二人がかりで作業したりする必要がない。一人でも安全に設置できる。</p>
+    `,
+    productGroups: [
+      {
+        title: '収納ワゴン',
+        note: '折りたたみ式で組立不要。使わないときはコンパクトに収納できる。',
+        products: [
+          { name: 'Hamone キッチンワゴン スチールラック 3段', sub: '折りたたみ式・組立不要', url: 'https://amzn.to/4y450Yv' },
+        ]
+      },
+      {
+        title: 'カラーボックス・本棚',
+        note: '組立不要で届いてすぐ使える本棚。リビング・寝室・子供部屋にも。',
+        products: [
+          { name: 'ぼん家具 カラーボックス 木製本棚', sub: '収納ボックス・組立不要', url: 'https://amzn.to/4eX9K9T' },
+        ]
+      },
+      {
+        title: 'チェスト',
+        note: '組立済みで届くチェスト。引き出しがすぐ使えるので衣類収納にそのまま活用できる。',
+        products: [
+          { name: '天馬 チェスト 4段タンス', sub: '組立不要・組立済み', url: 'https://amzn.to/4p8TbfU' },
+        ]
+      },
+      {
+        title: 'シューズボックス',
+        note: '3秒で組み立て完了の透明シューズボックス。靴の中身が見えるので取り出しやすい。',
+        products: [
+          { name: 'AP LAB 折りたたみシューズボックス', sub: '3秒組立・透明', url: 'https://amzn.to/4vM1WPg' },
+        ]
+      },
+    ]
+  },
   // 今後ここにカテゴリを追加していく
 ];
 
