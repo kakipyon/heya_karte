@@ -9,13 +9,13 @@ const IDEAS = [
     column: `
       <div class="column-title">手放す基準を作る</div>
       <div class="column-h2">⚫︎ 3年間着ていない服</div>
-      <p class="column-text">今日何着よう？と考えて選ばないなら、自分の中で理由があるはずです。</p>
+      <p class="column-text">今日何着よう？と考えてその服を選ばないなら、自分の中で理由があるはず。</p>
       <div class="column-h2">⚫︎ サイズが合わない服</div>
-      <p class="column-text">「痩せたら着る」は要注意。もし痩せたら、その時にはまた新しい服が欲しくなりますよね？</p>
+      <p class="column-text">「痩せたら着る」は要注意。もし痩せたら、その時にはまた新しい服が欲しくなるかも？</p>
       <div class="column-h2">⚫︎ 着心地の悪い服</div>
-      <p class="column-text">チクチクする、生地が合わないなど、肌に合わない服は思い切ってやめましょう。</p>
+      <p class="column-text">チクチクする、生地が合わないなど、肌に合わない服は思い切って手放してみて。</p>
       <div class="column-title">「捨てる」以外の方法を選ぶ</div>
-      <div class="column-h2">⚫︎ 捨てることに抵抗がある場合は、以下の方法を検討してみましょう</div>
+      <div class="column-h2">⚫︎ 捨てることに抵抗がある場合は、以下の方法を検討してみては</div>
       <ul class="column-list">
         <li>フリマアプリに出品</li>
         <li>リサイクルショップに持ち込む</li>
@@ -73,25 +73,25 @@ const IDEAS = [
     sub: '定位置を作る考え方',
     image: 'https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=600&q=80',
     column: `
-      <div class="column-title">※ なぜ床に物が散乱するのか</div>
-      <div class="column-h2">⚫︎ 定位置がないから</div>
+      <div class="column-title">なぜ床に物が散乱するのか</div>
+      <div class="column-h2">⚫︎定位置がないから</div>
       <p class="column-text">床に物が散らかる一番の原因は「定位置がないこと」。置く場所が決まっていないと、床が一番楽な置き場所になってしまう。</p>
-      <div class="column-title">※ 定位置を作る2つの方法</div>
-      <div class="column-h2">⚫︎ 物を減らす</div>
+      <div class="column-title">定位置を作る2つの方法</div>
+      <div class="column-h2">⚫︎物を減らす</div>
       <p class="column-text">定位置がない＝今の収納に対して物が多すぎるサイン。まず手放せるものがないか見直してみよう。</p>
-      <div class="column-h2">⚫︎ 収納を増やす</div>
+      <div class="column-h2">⚫︎収納を増やす</div>
       <p class="column-text">どうしても減らしたくない物には、置き場所を作ることで解決できる。ただし収納を買う前に、今ある空きスペースを確認してから。</p>
-      <div class="column-title">※ 定位置を決めるコツ</div>
-      <div class="column-h2">⚫︎ 「使う場所の近く」に置き場を作る</div>
+      <div class="column-title">定位置を決めるコツ</div>
+      <div class="column-h2">⚫︎「使う場所の近く」に置き場を作る</div>
       <p class="column-text">リモコンはソファの横、カバンは玄関の近くなど、使う場所のそばに定位置を作ると自然と戻せるようになる。</p>
-      <div class="column-h2">⚫︎ 戻すのが楽な仕組みにする</div>
+      <div class="column-h2">⚫︎戻すのが楽な仕組みにする</div>
       <p class="column-text">蓋あり収納より蓋なし、引き出しより棚の方が戻すハードルが下がる。「めんどくさくない」が続けるコツ。</p>
-      <div class="column-h2">⚫︎ 床に直置きしないルールを作る</div>
+      <div class="column-h2">⚫︎床に直置きしないルールを作る</div>
       <p class="column-text">「床には何も置かない」と決めるだけで意識が変わる。</p>
-      <div class="column-title">※ まず今日できること</div>
-      <div class="column-h2">⚫︎ 床のものを全部拾って分類する</div>
+      <div class="column-title">まず今日できること</div>
+      <div class="column-h2">⚫︎床のものを全部拾って分類する</div>
       <p class="column-text">まず全部拾って「いる・いらない・置き場所が必要」の3つに分けてみよう。</p>
-      <div class="column-h2">⚫︎ 「ここに置く」と決めるだけでOK</div>
+      <div class="column-h2">⚫︎「ここに置く」と決めるだけでOK</div>
       <p class="column-text">収納グッズは後から。まず定位置を決めることが先。</p>
     `,
     productGroups: [
@@ -122,7 +122,7 @@ const IDEAS = [
     sub: '推し達がもっと輝く場所を作ろう',
     image: 'https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=600&q=80',
     column: `
-      <p class="column-text">あなたのお部屋だから、推し達がもっと輝く場所であってほしい！まずは推しの区画にするために場所を用意しよう。</p>
+      <p class="column-text">あなたのお部屋だから、推し達がもっと輝く場所であってほしい！まずは推しの区画にするために場所を用意。</p>
       <div class="column-title">※ まず「推し区画」の場所を決める</div>
       <div class="column-h2">⚫︎ 専用スペースを作ることが大切</div>
       <p class="column-text">推し達を飾るには、まず「ここが推し区画」と決める場所が必要。棚一段・壁一面・デスクの一角など、どこでもOK。スペースを決めることで、それ以外の場所に広がるのを防げる。</p>
@@ -229,15 +229,15 @@ const IDEAS = [
     image: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=600&q=80',
     column: `
       <p class="column-text">めんどくさい！得意じゃない！一人じゃできない！そんなお悩みの方に届いてすぐ使える家具をご紹介。</p>
-      <div class="column-title">※ 組立家具が続かない理由</div>
-      <div class="column-h2">⚫︎ 買ったはいいが箱のまま放置</div>
+      <div class="column-title">組立家具のデメリット</div>
+      <div class="column-h2">⚫︎買ったはいいが箱のまま放置</div>
       <p class="column-text">説明書を広げて、パーツを確認して、工具を用意して…それだけでやる気が失せることも。組立不要ならその日のうちに使いはじめられる。</p>
-      <div class="column-title">※ 組立不要家具のメリット</div>
-      <div class="column-h2">⚫︎ 届いてすぐ使える</div>
+      <div class="column-title">組立不要家具のメリット</div>
+      <div class="column-h2">⚫︎届いてすぐ使える</div>
       <p class="column-text">開梱したらそのまま設置できる。組立の手間がないので、買った日に部屋が片付く。</p>
-      <div class="column-h2">⚫︎ 引越しのときも楽</div>
+      <div class="column-h2">⚫︎引越しのときも楽</div>
       <p class="column-text">折りたたみ式や軽量タイプなら引越し時の解体・再組立も不要。一人暮らしの強い味方。</p>
-      <div class="column-h2">⚫︎ 一人暮らしでも安心</div>
+      <div class="column-h2">⚫︎一人暮らしでも安心</div>
       <p class="column-text">重い板を持ち上げたり、二人がかりで作業したりする必要がない。一人でも安全に設置できる。</p>
     `,
     productGroups: [
@@ -270,6 +270,32 @@ const IDEAS = [
         ]
       },
     ]
+  },
+  {
+    id: 'horyubox',
+    icon: '📦',
+    title: '保留ボックスのすすめ（捨てるか迷ったら）',
+    sub: '迷ったら捨てなくていい、一度保管しよう',
+    image: 'https://images.unsplash.com/photo-1586892478025-2b5472316994?w=600&q=80',
+    column: `
+      <p class="column-text">片付けをしていると必ず出てくる「捨てるか迷うもの」。そんなときは無理に決断しなくていい。一度「保留ボックス」に入れて、時間をおいてから判断しよう。</p>
+      <div class="column-title">保留ボックスとは</div>
+      <div class="column-h2">⚫︎捨てるか迷ったものを一時的に入れておく箱</div>
+      <p class="column-text">捨てるかどうかすぐ決められないものを、とりあえず箱に入れておく仕組み。「捨てる」「残す」の二択で悩む時間を減らせる。いらない箱や紙袋がおすすめ。</p>
+      <div class="column-title">使い方</div>
+      <div class="column-h2">⚫︎期限を決めて保管する</div>
+      <p class="column-text">箱に入れたら3ヶ月〜半年の期限を決めよう。期限が来ても使わなかったものは、なくても困らなかった証拠。</p>
+      <div class="column-h2">⚫︎箱から出して使ったら「必要なもの」</div>
+      <p class="column-text">保留期間中に取り出して使ったものは、ちゃんと定位置を作ってあげよう。</p>
+      <div class="column-title">保留ボックスのポイント</div>
+      <div class="column-h2">⚫︎箱は一つだけにする</div>
+      <p class="column-text">保留ボックスが増えると結局片付かない。箱一つに収まる量だけにするのがルール。</p>
+      <div class="column-h2">⚫︎思い出の品は別で保管</div>
+      <p class="column-text">写真や手紙など思い出の品は別枠でOK。保留ボックスは「使うかどうか迷うもの」専用にしよう。</p>
+      <div class="column-title">まとめ</div>
+      <p class="column-text">片付けは一度で完璧にしなくていい。迷ったら保留、期限が来たら判断。その繰り返しで少しずつ部屋は整っていく。</p>
+    `,
+    productGroups: []
   },
   // 今後ここにカテゴリを追加していく
 ];
