@@ -115,6 +115,67 @@ const IDEAS = [
       },
     ]
   },
+  {
+    id: 'oshi',
+    icon: '🌟',
+    title: '推し活・見せる収納がしたい',
+    sub: '推し達がもっと輝く場所を作ろう',
+    image: 'https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=600&q=80',
+    column: `
+      <p class="column-text">あなたのお部屋だから、推し達がもっと輝く場所であってほしい！まずは推しの区画にするために場所を用意しよう。</p>
+      <div class="column-title">※ まず「推し区画」の場所を決める</div>
+      <div class="column-h2">⚫︎ 専用スペースを作ることが大切</div>
+      <p class="column-text">推し達を飾るには、まず「ここが推し区画」と決める場所が必要。棚一段・壁一面・デスクの一角など、どこでもOK。スペースを決めることで、それ以外の場所に広がるのを防げる。</p>
+      <div class="column-title">※ 見せる収納のコツ</div>
+      <div class="column-h2">⚫︎ 高さをそろえると美しく見える</div>
+      <p class="column-text">グッズの高さをある程度そろえると、まとまりが出てスッキリ見える。アクリルスタンドや小さなイーゼルを使うと高さ調整がしやすい。</p>
+      <div class="column-h2">⚫︎ 色でまとめるとさらにおしゃれに</div>
+      <p class="column-text">推しのイメージカラーに合わせた背景や小物を添えると、一気に「魅せる収納」になる。推しカラーの布やポスターを背景に敷いたり、LEDテープライトで推しカラーに染めるのもおすすめ。</p>
+      <div class="column-title">※ グッズが増えすぎたら</div>
+      <div class="column-h2">⚫︎ 「今推してるもの」だけ飾る</div>
+      <p class="column-text">全部飾ろうとすると収拾がつかなくなる。今一番推しているものだけ飾って、他はボックスに収納するのがおすすめ。</p>
+    `,
+    productGroups: [
+      {
+        title: 'ぬいぐるみ収納',
+        note: 'ハンモック式なら壁に取り付けるだけで、ぬいぐるみをおしゃれに飾れる。床置きしなくて済むので部屋もスッキリ。',
+        products: [
+          { name: 'Honeyera ぬいぐるみ収納ハンモック', sub: 'ハンモック式', url: 'https://amzn.to/4v87GC1' },
+        ]
+      },
+      {
+        title: 'フィギュア・ディスプレイケース',
+        note: 'ホコリから守りながらおしゃれに飾れる。アクリルケースは透明で中身が見えるのがポイント。',
+        products: [
+          { name: 'OOLTAKU フィギュアケース', sub: '組み立て式アクリルケース', url: 'https://amzn.to/4fgS8XM' },
+          { name: '不二貿易 コレクションケース 3段', sub: 'ホワイト・強化ガラス', url: 'https://amzn.to/4eFJMsw' },
+        ]
+      },
+      {
+        title: '棚・ラック',
+        note: '推し区画を作るための土台。大容量でグッズをまとめて飾れる。',
+        products: [
+          { name: 'LOWYA 推し活グッズ収納 コミックラック', sub: 'スリム・大容量・ホワイト', url: 'https://amzn.to/4wmYV7Q' },
+          { name: 'チチロバ ワイヤー収納棚', sub: '大容量・組立簡単', url: 'https://amzn.to/44vvxRj' },
+        ]
+      },
+      {
+        title: '小物・缶バッジ収納',
+        note: '缶バッジやキーホルダーなど細かいグッズの収納に。まとめて飾れるのでコレクションが映える。',
+        products: [
+          { name: 'Leap Raupe キーホルダー めじるしチャーム 120個掛け', sub: '卓上タイプ', url: 'https://amzn.to/4xYyTJP' },
+          { name: 'VENGOO 缶バッジカバー 収納ファイル', sub: '缶バッジ・キーホルダー対応', url: 'https://amzn.to/4vHD1fJ' },
+        ]
+      },
+      {
+        title: '照明',
+        note: '推しカラーのライトで区画を演出。RGB対応なのでどんな推しカラーにも対応できる。',
+        products: [
+          { name: 'Lepro LEDテープライト 5m RGB', sub: '間接照明・テープライト', url: 'https://amzn.to/4p79iKP' },
+        ]
+      },
+    ]
+  },
   // 今後ここにカテゴリを追加していく
 ];
 
