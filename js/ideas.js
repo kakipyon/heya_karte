@@ -343,8 +343,6 @@ function openIdea(id) {
         <p class="warning-text">置く場所がない場合、物を増やす前に手放してから。</p>
         <p class="warning-text">買う前には必ずサイズを測り、ゴミを買わないように。</p>
       </div>
-    ` : ''}
-    ${idea.productGroups.length > 0 ? `
       <div class="products-section">
         <div class="products-title">🛍️ 収納を整えるならこれ</div>
         ${idea.productGroups.map(group => `
@@ -363,6 +361,7 @@ function openIdea(id) {
         <div class="affiliate-note">※ 商品リンクはアフィリエイトリンクです（PR）</div>
       </div>
     ` : ''}
+  `;
 
   detail.style.display = 'block';
   history.pushState({ ideaId: id }, '', '');
