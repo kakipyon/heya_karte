@@ -334,7 +334,8 @@ function openIdea(id) {
       <div class="idea-detail-sub">${idea.sub}</div>
     </div>
     <div class="column-section">${idea.column}</div>
-    <div class="action-btn-section">
+    ${idea.productGroups.length > 0 ? `
+      <div class="action-btn-section">
         <button class="action-btn" onclick="switchTab(0)">📷 部屋を撮って片付けをはじめる</button>
       </div>
       <div class="warning-box">
@@ -342,24 +343,26 @@ function openIdea(id) {
         <p class="warning-text">置く場所がない場合、物を増やす前に手放してから。</p>
         <p class="warning-text">買う前には必ずサイズを測り、ゴミを買わないように。</p>
       </div>
-    <div class="products-section">
-      <div class="products-title">🛍️ 収納を整えるならこれ</div>
-      ${idea.productGroups.map(group => `
-        <div class="product-group"><div class="product-group-title">${group.title}</div>
-        ${group.note ? `<p class="product-group-note">${group.note}</p>` : ''}
-        ${group.products.map(p => `
-          <div class="idea-product-card" onclick="window.open('${p.url}','_blank')">
-            <div class="idea-product-info">
-              <div class="idea-product-name">${p.name}</div>
-              <div class="idea-product-sub">${p.sub}</div>
+    ` : ''}
+    ${idea.productGroups.length > 0 ? `
+      <div class="products-section">
+        <div class="products-title">🛍️ 収納を整えるならこれ</div>
+        ${idea.productGroups.map(group => `
+          <div class="product-group-title">${group.title}</div>
+          ${group.note ? `<p class="product-group-note">${group.note}</p>` : ''}
+          ${group.products.map(p => `
+            <div class="idea-product-card" onclick="window.open('${p.url}','_blank')">
+              <div class="idea-product-info">
+                <div class="idea-product-name">${p.name}</div>
+                <div class="idea-product-sub">${p.sub}</div>
+              </div>
+              <div class="idea-product-btn">Amazon →</div>
             </div>
-            <div class="idea-product-btn">Amazon →</div>
-          </div>
-        `).join('')}</div>
-      `).join('')}
-      <div class="affiliate-note">※ 商品リンクはアフィリエイトリンクです（PR）</div>
-    </div>
-  `;
+          `).join('')}
+        `).join('')}
+        <div class="affiliate-note">※ 商品リンクはアフィリエイトリンクです（PR）</div>
+      </div>
+    ` : ''}
 
   detail.style.display = 'block';
   history.pushState({ ideaId: id }, '', '');
