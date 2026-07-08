@@ -339,6 +339,55 @@ const IDEAS = [
       },
     ]
   },
+  {
+    id: 'closet',
+    icon: '👔',
+    title: 'クローゼット収納術',
+    sub: '衣類を上手に整理してクローゼットをすっきり',
+    image: 'https://images.unsplash.com/photo-1558997519-83ea9252edf8?w=600&q=80',
+    column: `
+      <div class="column-title">※ クローゼット収納の基本</div>
+      <div class="column-h2">⚫︎ ハンガーにかけるものと畳むものを分ける</div>
+      <p class="column-text">シワになりやすいシャツやブラウスはハンガーへ。ニットなど型崩れしやすい衣類は畳んで収納しよう。</p>
+      <div class="column-h2">⚫︎ 風通しを良くしてカビ対策</div>
+      <p class="column-text">クローゼットは湿気がこもりやすい場所。詰め込みすぎず、除湿剤や防虫剤を活用しよう。</p>
+    `,
+    productGroups: [
+      {
+        title: 'カバン収納',
+        note: 'カバンを床に置かず立てて収納。型崩れ防止にもなり、取り出しやすさもアップ。',
+        products: [
+          { name: '山崎実業 バッグ収納スタンド 2個組', sub: 'ホワイト', url: 'https://amzn.to/4p4UyvN' },
+          { name: 'Hongmeru 吊り下げ収納 折りたたみ', sub: '省スペース・防湿・取り付け簡単', url: 'https://amzn.to/4fjF2sH' },
+        ]
+      },
+      {
+        title: '下着・靴下収納',
+        note: '引き出しの中を仕切るだけで取り出しやすさが格段にアップ。毎日使うものだからこそ整えよう。',
+        products: [
+          { name: 'Amazonベーシック 引き出し収納オーガナイザー', sub: 'グレー・下着類用', url: 'https://amzn.to/4gmyXwS' },
+          { name: 'Lifewit 引き出し調節可能仕切り', sub: 'プラスチック製', url: 'https://amzn.to/4ykESsO' },
+        ]
+      },
+      {
+        title: '多機能ハンガー',
+        note: '省スペースで効率的に収納できるハンガー。クローゼットの限られたスペースを最大限に活用しよう。',
+        products: [
+          { name: 'チチロバ パンツ・スラックスハンガー', sub: 'ステンレス・省スペース', url: 'https://amzn.to/4wrir3o' },
+          { name: 'DOIOWN ハンガー かたくずれ防止', sub: 'ステンレス・縦横両用・360°回転フック', url: 'https://amzn.to/4p12E8J' },
+        ]
+      },
+      {
+        title: '湿気対策',
+        note: '湿気は衣類の大敵。カビや虫食いを防ぐために除湿剤・防虫剤は必須アイテム。',
+        products: [
+          { name: 'ドライペット 備長炭 除湿剤 タンクタイプ', sub: 'どこでも用', url: 'https://amzn.to/4ya12Ok' },
+          { name: 'ムシューダ 衣類用防虫剤 防カビ剤配合', sub: '衣装ケース用・無香タイプ', url: 'https://amzn.to/3TjIaMD' },
+          { name: 'ムシューダ 衣類用防虫剤 防カビ剤配合', sub: 'クローゼット用・無香タイプ', url: 'https://amzn.to/4eMM2hC' },
+        ]
+      },
+    ]
+  },
   // 今後ここにカテゴリを追加していく
 ];
 
