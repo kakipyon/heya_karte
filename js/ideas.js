@@ -53,7 +53,7 @@ const IDEAS = [
         title: 'ハンガーラック',
         note: 'お気に入りの洋服を掛けて収納できる便利アイテム。クローゼットがなくても、見せる収納としておしゃれに使える。',
         products: [
-          { name: 'ドウシシャ 2段ハンガーラック', sub: 'キャスター付き・頑丈', url: 'https://amzn.to/4a9pvcf' },
+          { name: 'ドウシシャ 2段ハンガーラック', sub: '工具不要で組立可能 夏服約68着収納可能', url: 'https://amzn.to/4a9pvcf' },
           { name: 'SONGMICS ハンガーラック', sub: 'キャスター付き', url: 'https://amzn.to/4vZ8mdM' },
         ]
       },
@@ -61,16 +61,16 @@ const IDEAS = [
         title: 'ハンガー',
         note: 'ハンガーラックと合わせて揃えるのがおすすめ。素材や色を統一すると、見た目の統一感がアップ。',
         products: [
-          { name: 'Amazonベーシック ハンガー 30本', sub: 'グレー', url: 'https://amzn.to/4uHsOi3' },
-          { name: 'MIGABER ハンガー 20本', sub: 'ホワイト', url: 'https://amzn.to/4el5Mc6' },
+          { name: 'Amazonベーシック ハンガー 30本', sub: 'ベルベット素材 超薄型', url: 'https://amzn.to/4uHsOi3' },
+          { name: 'MIGABER ハンガー 20本', sub: '滑り止めPVCコーティング', url: 'https://amzn.to/4el5Mc6' },
         ]
       },
       {
         title: 'チェスト',
         note: '洋服を畳んでしまうのに便利。Tシャツやニットなど、干すと型崩れしやすい衣類の収納にぴったり。',
         products: [
-          { name: 'アイリスオーヤマ チェスト 4段', sub: '', url: 'https://amzn.to/4esRyVb' },
-          { name: '天馬 チェスト 4段', sub: '組み立て不要', url: 'https://amzn.to/4uHrT15' },
+          { name: 'アイリスオーヤマ チェスト 4段', sub: '豊富なサイズ展開 組み立て不要', url: 'https://amzn.to/4esRyVb' },
+          { name: '天馬 チェスト 4段', sub: '豊富なサイズ展開 組み立て不要 安心ロック機能', url: 'https://amzn.to/4uHrT15' },
         ]
       },
       {
