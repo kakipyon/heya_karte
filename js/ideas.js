@@ -1,5 +1,30 @@
 // お部屋づくりアイデア - カテゴリデータ
 const IDEAS = [
+ {
+    id: 'danshari',
+    icon: '✨',
+    title: '断捨離・片付けのメリットを知ろう',
+    sub: '片付けが変える、毎日の気持ち',
+    image: 'https://images.unsplash.com/photo-1484101403633-562f891dc89a?w=600&q=80',
+    column: `
+      <div class="column-title">※ 断捨離とは</div>
+      <div class="column-h2">⚫︎ 「断・捨・離」それぞれの意味</div>
+      <p class="column-text">「断」は新しいものを断つ、「捨」は不要なものを捨てる、「離」はものへの執着から離れること。物を減らすだけでなく、ものとの向き合い方を変える考え方。</p>
+      <div class="column-title">※ 片付けによる心理変化</div>
+      <div class="column-h2">⚫︎ 部屋が片付くと気持ちが楽になる</div>
+      <p class="column-text">散らかった部屋は視覚的なノイズが多く、無意識にストレスをかけている。片付けるだけで頭の中もすっきりする。</p>
+      <div class="column-h2">⚫︎ 自己肯定感が上がる</div>
+      <p class="column-text">「やった」という達成感が積み重なると、自分への自信につながる。小さな片付けでも十分。</p>
+      <div class="column-title">※ 片付けのメリット</div>
+      <div class="column-h2">⚫︎ 探し物がなくなる</div>
+      <p class="column-text">定位置が決まっていれば、どこに何があるか把握できる。毎朝の「あれどこ？」がなくなる。</p>
+      <div class="column-h2">⚫︎ 掃除がしやすくなる</div>
+      <p class="column-text">床に物がなければ掃除機をかけるのも拭き掃除も一瞬で終わる。</p>
+      <div class="column-h2">⚫︎ お金の無駄遣いが減る</div>
+      <p class="column-text">何を持っているか把握できると、同じものを二重買いしなくなる。必要なものだけに囲まれた生活になる。</p>
+    `,
+    productGroups: []
+  },
   {
     id: 'clothes',
     icon: '👗',
