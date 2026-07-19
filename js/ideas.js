@@ -520,7 +520,7 @@ function openIdea(id) {
             </div>
           `).join('')}
         `).join('')}
-        <div class="affiliate-note">※ 商品リンクはアフィリエイトリンクです（PR）</div>
+        <div class="affiliate-note">※ 商品リンクはアフィリエイトリンクです（PR）<br>※ サイズ・カラー・品番などは商品ページでよくご確認のうえ、ご購入ください</div>
       </div>
     ` : ''}
   `;
