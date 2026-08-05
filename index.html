@@ -435,6 +435,7 @@ function showAnalysis(d) {
       ${problems}
     </div>
     <div class="tip-card"><div class="tip-title">💡 豆知識</div><div class="tip-text">${d.tip}</div></div>
+    <div style="font-size:11px;color:#999;text-align:center;margin:-2px 0 14px;line-height:1.6;">※ この診断はAIによるものです。内容が実際の状況と異なる場合があります</div>
     <button class="btn btn-primary" onclick="goToTaskScreen('${stepsEncoded}')">🎯 片付けタスクを選ぶ →</button>
     <button class="btn btn-pink" onclick="switchTab(1)">🛍️ おすすめ収納グッズを見る →</button>`;
   document.getElementById('analysis-result').style.display = 'block';
