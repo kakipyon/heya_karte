@@ -389,7 +389,9 @@ async function analyzeRoom() {
   }
 });
     
-    const mediaType = imageFile.type || 'image/jpeg';
+    const mediaType = (imageFile.type === 'image/heic' || imageFile.type === 'image/heif')
+  ? imageFile.type
+  : 'image/jpeg';
     const response = await fetch('/api/analyze', {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
