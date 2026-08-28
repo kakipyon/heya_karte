@@ -274,24 +274,25 @@
       </div>
     </div>
     <div id="finish-step-2" style="display:none">
-      <div class="finish-screen">
-        <div class="finish-emoji">🤔</div>
-        <div class="finish-title">どうしますか？</div>
-        <div style="margin-bottom:24px"></div>
-        <button class="choice-btn green" onclick="continueSameGoal()">
-          <span class="choice-icon">🔄</span>
-          <span>同じ目標で続ける</span>
-        </button>
-        <button class="choice-btn blue" onclick="goToScreen('screen-tasks')">
-          <span class="choice-icon">📝</span>
-          <span>新しい目標を立てる</span>
-        </button>
-        <button class="choice-btn gray" onclick="reAnalyze()">
-          <span class="choice-icon">📸</span>
-          <span>部屋を再分析する</span>
-        </button>
-      </div>
-    </div>
+  <div class="finish-screen">
+    <div class="finish-emoji">🤔</div>
+    <div class="finish-title">どうしますか？</div>
+    <div style="margin-bottom:24px"></div>
+    <button class="choice-btn blue" onclick="goToTaskSetting()">
+      <span class="choice-icon">⏱️</span>
+      <span>時間・目標を設定する</span>
+    </button>
+    <button class="choice-btn gray" onclick="reAnalyze()">
+      <span class="choice-icon">📷</span>
+      <span>部屋を再分析する</span>
+    </button>
+    <button class="choice-btn gray" onclick="endCleaning()">
+      <span class="choice-icon">🌙</span>
+      <span>終わりにする</span>
+    </button>
+  </div>
+</div>
+    
   </div>
 
 </div>
@@ -515,6 +516,12 @@ function addCustomTask() {
   aiTasks.push(val);
   input.value = '';
   renderTaskList();
+}
+
+function goToTaskSetting() {
+  selectedTasks = selectedTasks.filter((task, i) => !checkedTasks[i]);
+  renderTaskList();
+  goToScreen('screen-tasks');
 }
 
 function goToTimer() {
