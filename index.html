@@ -587,11 +587,8 @@ function toggleTimer() {
         clearInterval(timerInterval);
         timerInterval = null;
         timerRunning = false;
-        document.getElementById('timer-display').textContent = '終了！';
-        document.getElementById('timer-display').className = 'timer-display finished';
-        document.getElementById('timer-start-btn').style.display = 'none';
-        document.getElementById('timer-finish-btn').style.display = 'block';
-        document.getElementById('timer-label').textContent = '時間です！お疲れ様でした🎉';
+        goToFinish();
+
         showToast('⏰ 時間です！お疲れ様でした！');
       }
     }, 1000);
