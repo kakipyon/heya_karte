@@ -2,6 +2,8 @@
 const IDEAS = [
  {
     id: 'danshari',
+    genre: 'A',
+    order: 10,
     icon: '✨',
     title: '断捨離・片付けのメリットを知ろう',
     sub: '片付けが変える、毎日の気持ち',
@@ -27,6 +29,8 @@ const IDEAS = [
   },
   {
     id: 'clothes',
+    genre: 'B',
+    order: 10,
     icon: '👗',
     title: '服・衣類の収納が追いつかない',
     sub: '手放す基準から収納術まで',
@@ -93,6 +97,8 @@ const IDEAS = [
   },
   {
     id: 'floor',
+    genre: 'B',
+    order: 20,
     icon: '🛋️',
     title: '床にものが散乱している',
     sub: '定位置を作る考え方',
@@ -142,6 +148,8 @@ const IDEAS = [
   },
   {
     id: 'oshi',
+    genre: 'D',
+    order: 10,
     icon: '🌟',
     title: '推し活・見せる収納がしたい',
     sub: '推し達がもっと輝く場所を作ろう',
@@ -203,6 +211,8 @@ const IDEAS = [
   },
   {
     id: 'sukima',
+    genre: 'B',
+    order: 30,
     icon: '📐',
     title: '隙間収納を活用したい',
     sub: 'この隙間どうにかしたい…を解決',
@@ -248,6 +258,8 @@ const IDEAS = [
   },
   {
     id: 'noassembly',
+    genre: 'D',
+    order: 20,
     icon: '📦',
     title: '組立不要の家具がほしい',
     sub: '届いてすぐ使える家具をご紹介',
@@ -298,6 +310,8 @@ const IDEAS = [
   },
   {
     id: 'horyubox',
+    genre: 'A',
+    order: 20,
     icon: '🧺',
     title: '保留ボックスのすすめ（捨てるか迷ったら）',
     sub: '迷ったら捨てなくていい、一度保管しよう',
@@ -324,6 +338,8 @@ const IDEAS = [
   },
   {
     id: 'desk',
+    genre: 'C',
+    order: 20,
     icon: '🖥️',
     title: '机周りの収納',
     sub: '作業スペースを確保しながらすっきり整理',
@@ -366,6 +382,8 @@ const IDEAS = [
   },
   {
     id: 'closet',
+    genre: 'C',
+    order: 10,
     icon: '👔',
     title: 'クローゼット収納術',
     sub: '衣類を上手に整理してクローゼットをすっきり',
@@ -415,6 +433,8 @@ const IDEAS = [
   },
  {
     id: 'furima',
+    genre: 'A',
+    order: 30,
     icon: '💰',
     title: 'フリマアプリの活用',
     sub: '売れやすいもの10選と出品時の注意点',
@@ -462,11 +482,19 @@ const IDEAS = [
   // 今後ここにカテゴリを追加していく
 ];
 
+// ジャンル→番号の順に並べた記事一覧
+function sortedIdeas() {
+  return [...IDEAS].sort((a, b) => {
+    if (a.genre !== b.genre) return a.genre.localeCompare(b.genre);
+    return a.order - b.order;
+  });
+}
+
 // 一覧を描画
 function renderIdeas() {
   const container = document.getElementById('ideas-container');
   if (!container) return;
-  container.innerHTML = IDEAS.map(idea => `
+  container.innerHTML = sortedIdeas().map(idea => `
     <div class="idea-card" onclick="openIdea('${idea.id}')">
       <div class="idea-header">
         <div>
@@ -529,7 +557,7 @@ function openIdea(id) {
   history.pushState({ ideaId: id }, '', '');
   window.scrollTo(0, 0);
   // 他の記事一覧を追加
-  const others = IDEAS.filter(i => i.id !== id);
+  const others = sortedIdeas().filter(i => i.id !== id);
   if (others.length > 0) {
     body.innerHTML += `
       <div class="other-ideas-section">
