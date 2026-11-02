@@ -235,7 +235,7 @@
       </div>
 
       <button class="btn btn-primary" id="start-btn" onclick="goToTimer()" disabled style="opacity:.5">▶ 片付け開始（1つ以上選んでください）</button>
-      <button class="btn btn-gray" onclick="goToScreen('screen-analyze')">← 分析に戻る</button>
+      <button class="btn btn-gray" onclick="goBack()">← 前の画面に戻る</button>
     </div>
   </div>
 
@@ -290,6 +290,7 @@
       <span class="choice-icon">🌙</span>
       <span>終わりにする</span>
     </button>
+    <button class="btn btn-gray" onclick="backToFinishStep1()">← 前の画面に戻る</button>
   </div>
 </div>
     
@@ -332,9 +333,25 @@ function switchTab(i) {
     if (detail) detail.style.display = 'none';
 }
 
-function goToScreen(screenId) {
+// 画面履歴（戻るボタン用）。screen-analyze がスタート地点
+let screenHistory = [];
+let currentScreen = 'screen-analyze';
+
+function goToScreen(screenId, isBack = false) {
+  if (screenId === 'screen-analyze') {
+    screenHistory = [];
+  } else if (!isBack && currentScreen !== screenId) {
+    screenHistory.push(currentScreen);
+  }
+  currentScreen = screenId;
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   document.getElementById(screenId).classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+function goBack() {
+  const prev = screenHistory.pop() || 'screen-analyze';
+  goToScreen(prev, true);
 }
   
 function goToTimerOnlyMode() {
@@ -615,7 +632,7 @@ function goBackFromTimer() {
     endCleaning();
     }
   } else {
-    goToScreen('screen-tasks');
+    goBack();
   }
 }
 
@@ -660,6 +677,13 @@ function goToFinish() {
 function showContinueChoice() {
   document.getElementById('finish-step-1').style.display = 'none';
   document.getElementById('finish-step-2').style.display = 'block';
+  window.scrollTo(0, 0);
+}
+
+function backToFinishStep1() {
+  document.getElementById('finish-step-1').style.display = 'block';
+  document.getElementById('finish-step-2').style.display = 'none';
+  window.scrollTo(0, 0);
 }
 
 function continueSameGoal() {
