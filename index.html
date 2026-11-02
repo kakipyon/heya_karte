@@ -539,7 +539,10 @@ function goToTimer() {
   document.getElementById('timer-start-btn').textContent = '▶ スタート';
   timerStarted = false;
   document.getElementById('timer-stop-btn').textContent = '← タスク選択に戻る';
+  document.getElementById('timer-stop-btn').style.background = '';
+  document.getElementById('timer-stop-btn').style.color = '';
   document.getElementById('timer-start-btn').style.background = 'linear-gradient(135deg, #88cb7f, #5fa856)';
+  document.getElementById('timer-start-btn').style.color = '';
   document.getElementById('timer-start-btn').style.display = 'block';
   document.getElementById('timer-finish-btn').style.display = 'none';
   document.getElementById('timer-display').className = 'timer-display';
@@ -573,14 +576,19 @@ function toggleTimer() {
     timerInterval = null;
     timerRunning = false;
     document.getElementById('timer-start-btn').textContent = '▶ 再開';
-    document.getElementById('timer-start-btn').style.background = 'linear-gradient(135deg, #88cb7f, #5fa856)';
+    document.getElementById('timer-start-btn').style.background = 'linear-gradient(135deg, #fde047, #facc15)';
+    document.getElementById('timer-start-btn').style.color = '#713f12';
     document.getElementById('timer-label').textContent = '一時停止中';
   } else {
     timerRunning = true;
     timerStarted = true; 
-    document.getElementById('timer-stop-btn').textContent = '⏹ やめる / 終わる';
+    document.getElementById('timer-stop-btn').textContent = '⏹ 中断する';
+    document.getElementById('timer-stop-btn').style.background = 'linear-gradient(135deg, #f87171, #ef4444)';
+    document.getElementById('timer-stop-btn').style.color = 'white';
     document.getElementById('timer-start-btn').textContent = '⏸ 一時停止';
-    document.getElementById('timer-start-btn').style.background = '#f87171';
+    document.getElementById('timer-start-btn').style.background = 'linear-gradient(135deg, #fde047, #facc15)';
+    document.getElementById('timer-start-btn').style.color = '#713f12';
+    document.getElementById('timer-finish-btn').style.display = 'block';
     document.getElementById('timer-label').textContent = selectedTasks.length > 0 ? 'がんばれ！チェックしながら進めよう💪' : 'がんばれ！';
     timerInterval = setInterval(() => {
       timerSeconds--;
