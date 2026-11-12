@@ -2,6 +2,7 @@
 const IDEAS = [
  {
     id: 'danshari',
+    tags: ['mindset'],
     genre: 'A',
     order: 10,
     icon: '✨',
@@ -29,6 +30,7 @@ const IDEAS = [
   },
   {
     id: 'clothes',
+    tags: ['clothes'],
     genre: 'B',
     order: 10,
     icon: '👗',
@@ -97,6 +99,7 @@ const IDEAS = [
   },
   {
     id: 'floor',
+    tags: ['small_items', 'small_space'],
     genre: 'B',
     order: 20,
     icon: '🛋️',
@@ -148,6 +151,7 @@ const IDEAS = [
   },
   {
     id: 'oshi',
+    tags: ['small_items'],
     genre: 'D',
     order: 10,
     icon: '🌟',
@@ -211,6 +215,7 @@ const IDEAS = [
   },
   {
     id: 'sukima',
+    tags: ['small_space'],
     genre: 'B',
     order: 30,
     icon: '📐',
@@ -258,6 +263,7 @@ const IDEAS = [
   },
   {
     id: 'noassembly',
+    tags: ['furniture'],
     genre: 'D',
     order: 20,
     icon: '📦',
@@ -310,6 +316,7 @@ const IDEAS = [
   },
   {
     id: 'horyubox',
+    tags: ['mindset'],
     genre: 'A',
     order: 20,
     icon: '🧺',
@@ -338,6 +345,7 @@ const IDEAS = [
   },
   {
     id: 'desk',
+    tags: ['paper'],
     genre: 'C',
     order: 20,
     icon: '🖥️',
@@ -382,6 +390,7 @@ const IDEAS = [
   },
   {
     id: 'closet',
+    tags: ['clothes', 'small_space'],
     genre: 'C',
     order: 10,
     icon: '👔',
@@ -433,6 +442,7 @@ const IDEAS = [
   },
  {
     id: 'furima',
+    tags: ['mindset'],
     genre: 'A',
     order: 30,
     icon: '💰',
@@ -481,6 +491,7 @@ const IDEAS = [
   },
   {
     id: 'cable',
+    tags: ['cable'],
     genre: 'B',
     order: 40,
     icon: '🔌',
@@ -538,6 +549,74 @@ function sortedIdeas() {
     if (a.genre !== b.genre) return a.genre.localeCompare(b.genre);
     return a.order - b.order;
   });
+}
+
+// ===== 悩み別の記事ルーティング =====
+// 記事の tags と同じキー。新しい悩みを足すときは、ここと api/analyze.js のカテゴリ一覧に追加する
+const CONCERNS = [
+  { key: 'clothes',     icon: '👗', label: '服の収納' },
+  { key: 'small_items', icon: '🧸', label: '小物・鞄・靴・推し活グッズ' },
+  { key: 'small_space', icon: '📐', label: '狭い・隙間を活かしたい' },
+  { key: 'paper',       icon: '🗂️', label: '書類・机まわり' },
+  { key: 'kitchen',     icon: '🍳', label: 'キッチン' },
+  { key: 'mold',        icon: '💧', label: 'カビ・湿気' },
+  { key: 'cable',       icon: '🔌', label: '配線・コード' },
+  { key: 'furniture',   icon: '🛋️', label: '家具を選びたい' },
+  { key: 'mindset',     icon: '🌱', label: '片付けのやる気・手放し方' },
+];
+
+// 指定タグを持つ記事（ジャンル→番号順）
+function ideasByTag(tag) {
+  return sortedIdeas().filter(i => (i.tags || []).includes(tag));
+}
+
+// 記事が1件以上ある悩みだけ（記事がまだ無い悩みは選択肢に出さない）
+function availableConcerns() {
+  return CONCERNS.filter(c => ideasByTag(c.key).length > 0);
+}
+
+// 診断結果から、片付け後に見せる記事を最大max件選ぶ
+// ・各カテゴリから1件ずつ → 枠が余れば同じカテゴリの別記事
+// ・スコア5以上は mindset の記事を必ず入れる（AIの出力には依存させない）
+function pickRecommendedIdeas(categories, score, max = 3) {
+  const known = CONCERNS.map(c => c.key);
+  const cats = [...new Set(categories || [])].filter(c => c !== 'mindset' && known.includes(c));
+  const wantMindset = (score || 0) >= 5;
+  const mindsetSlots = wantMindset ? (cats.length > 0 ? 1 : 2) : 0;
+  const physicalMax = max - mindsetSlots;
+  const picked = [];
+  const has = idea => picked.some(p => p.id === idea.id);
+
+  cats.forEach(c => {
+    if (picked.length >= physicalMax) return;
+    const idea = ideasByTag(c).find(i => !has(i));
+    if (idea) picked.push(idea);
+  });
+  cats.forEach(c => {
+    ideasByTag(c).forEach(i => {
+      if (picked.length < physicalMax && !has(i)) picked.push(i);
+    });
+  });
+
+  if (wantMindset) {
+    ideasByTag('mindset').slice(0, mindsetSlots).forEach(i => { if (!has(i)) picked.push(i); });
+  }
+  return picked;
+}
+
+// 記事カード（一覧と同じ見た目・タップで記事を開く）
+function ideaCardHtml(idea) {
+  return `
+    <div class="idea-card" onclick="openIdea('${idea.id}')">
+      <div class="idea-header">
+        <div>
+          <div class="idea-icon">${idea.icon}</div>
+          <div class="idea-title">${idea.title}</div>
+          <div class="idea-sub">${idea.sub}</div>
+        </div>
+        <div class="idea-arrow">›</div>
+      </div>
+    </div>`;
 }
 
 // 一覧を描画
