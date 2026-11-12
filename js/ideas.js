@@ -479,6 +479,56 @@ const IDEAS = [
     `,
     productGroups: []
   },
+  {
+    id: 'cable',
+    genre: 'B',
+    order: 40,
+    icon: '🔌',
+    title: '配線・コードがごちゃごちゃする',
+    sub: '減らす・まとめる・隠すの3ステップ',
+    column: `
+      <div class="column-title">ごちゃつく原因を知る</div>
+      <div class="column-h2">⚫︎使っていないケーブルが挿さりっぱなし</div>
+      <p class="column-text">もう使っていない機器の充電器、何のケーブルか分からないコード。実は配線の半分くらいは「なくても困らないもの」だったりする。</p>
+      <div class="column-h2">⚫︎コードが長すぎる</div>
+      <p class="column-text">1mで届く場所に2mのケーブルを使うと、余った分が床でとぐろを巻くことに。長さが合っていないことが、散らかって見える一番の原因。</p>
+      <div class="column-h2">⚫︎電源タップが床に直置き</div>
+      <p class="column-text">床にあるタップはホコリがたまり、掃除機もかけにくく、足に引っかかる原因にも。視界にも入りやすいので、生活感が一気に出てしまう。</p>
+      <div class="column-title">3ステップで整える</div>
+      <div class="column-h2">⚫︎ステップ1：抜く・減らす</div>
+      <p class="column-text">まずは全部のケーブルを確認して、今使っていないものを抜いてみよう。残すケーブルにはマスキングテープで「TV」「ルーター」など名前を書いておくと、あとで迷わない。</p>
+      <div class="column-h2">⚫︎ステップ2：まとめる</div>
+      <p class="column-text">余った長さはくるっと束ねて結束バンドで留める。何度でも付け外しできる面ファスナー（マジックテープ）タイプがおすすめ。</p>
+      <div class="column-h2">⚫︎ステップ3：浮かせる・隠す</div>
+      <p class="column-text">タップは床から上げるだけで印象がガラッと変わる。デスク下ならケーブルトレー、テレビ周りやルーター周りならケーブルボックスに入れてしまうのが手軽。</p>
+      <div class="column-title">安全のために気をつけたいこと</div>
+      <ul class="column-list">
+        <li>コンセントやタップにたまったホコリは火災（トラッキング現象）の原因になるので、ときどき掃除を</li>
+        <li>タップにタップをつなぐ「たこ足配線」は避ける</li>
+        <li>ケーブルをきつく折り曲げたり、家具の下敷きにしたりしない</li>
+        <li>ボックスに入れる場合は、熱がこもらないよう通気口のあるものを選ぶ</li>
+      </ul>
+    `,
+    productGroups: [
+      {
+        title: 'まとめる',
+        note: '余ったコードを束ねたり、通り道を固定したりするのに。まずは結束バンドだけでもOK。',
+        products: [
+          { name: '面ファスナーの結束バンド', sub: '何度でも付け外しできる', url: 'https://www.amazon.co.jp/s?k=結束バンド+面ファスナー+ケーブル&tag=heyakarte-22' },
+          { name: '粘着式ケーブルクリップ', sub: 'デスクの裏や壁に沿わせて固定', url: 'https://www.amazon.co.jp/s?k=ケーブルクリップ+粘着&tag=heyakarte-22' },
+        ]
+      },
+      {
+        title: '浮かせる・隠す',
+        note: 'タップやルーターを床から上げて、見えないようにまとめる。掃除もしやすくなる。',
+        products: [
+          { name: 'サンワサプライ クランプ式ケーブルトレー', sub: '天板に挟むだけ・穴あけ不要', url: 'https://www.amazon.co.jp/s?k=サンワサプライ+ケーブルトレー+クランプ&tag=heyakarte-22' },
+          { name: '山崎実業 tower キャスター付きケーブル収納ラック', sub: 'タップもルーターもまとめて収納', url: 'https://www.amazon.co.jp/s?k=山崎実業+キャスター付き+ケーブル収納ラック&tag=heyakarte-22' },
+          { name: '山崎実業 tower 壁付けケーブルラック', sub: 'コンセントごと隠せる・ペットのいたずら対策にも', url: 'https://www.amazon.co.jp/s?k=山崎実業+コンセントごと隠せる+壁付けケーブルラック&tag=heyakarte-22' },
+        ]
+      },
+    ]
+  },
   // 今後ここにカテゴリを追加していく
 ];
 
