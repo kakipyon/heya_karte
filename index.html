@@ -249,7 +249,7 @@
       </div>
       <div class="timer-task-list" id="timer-task-list"></div>
       <button class="btn btn-primary" id="timer-start-btn" onclick="toggleTimer()">▶ スタート</button>
-　　　　<button class="btn btn-green" id="timer-finish-btn" onclick="goToFinish()" style="display:none">🎉 片付け完了！</button>
+　　　　<button class="btn btn-green" id="timer-finish-btn" onclick="confirmFinish()" style="display:none">🎉 片付け完了！</button>
       <button class="btn btn-gray" id="timer-stop-btn" onclick="goBackFromTimer()">← タスク選択に戻る</button>
       <p style="font-size:11px;color:#aaa;margin-top:8px">※ 画面を開いたまま使用してください</p>
     </div>
@@ -585,6 +585,17 @@ function checkTimerTask(i) {
 　 if (!timerStarted) { showToast('先にスタートを押してください！'); return; }
   checkedTasks[i] = !checkedTasks[i];
   renderTimerTaskList();
+  // チェックマークを描画してから確認を出す
+  if (checkedTasks[i]) setTimeout(confirmAllTasksDone, 300);
+}
+
+function allTasksDone() {
+  return selectedTasks.length > 0 && checkedTasks.every(Boolean);
+}
+
+function confirmAllTasksDone() {
+  if (!allTasksDone() || !document.getElementById('screen-timer').classList.contains('active')) return;
+  if (confirm('タスク完了！終わりにしますか？')) goToFinish();
 }
 
 function toggleTimer() {
@@ -634,6 +645,13 @@ function goBackFromTimer() {
   } else {
     goBack();
   }
+}
+function confirmFinish() {
+  let msg;
+  if (selectedTasks.length === 0) msg = '本当に終わりますか？';
+  else if (allTasksDone()) msg = 'タスク完了！終わりにしますか？';
+  else msg = 'タスクが未完了ですが本当に終わりますか？';
+  if (confirm(msg)) goToFinish();
 }
 
 function updateTimerDisplay() {
