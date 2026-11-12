@@ -147,6 +147,12 @@
     .warning-box { margin: 0 20px 20px; padding: 16px; background: #fff8e6; border: 1px solid #ffe0a3; border-radius: 12px; }
     .warning-title { font-size: 13px; font-weight: 700; color: #b8860b; margin-bottom: 8px; }
     .warning-text { font-size: 12px; color: #8a6d3b; line-height: 1.6; margin-bottom: 4px; }
+    /* 片付け後のおすすめ記事 */
+    .rec-title { font-size: 13px; font-weight: 700; color: #4d9146; margin-bottom: 10px; }
+    .rec-more-toggle { display: flex; align-items: center; justify-content: space-between; cursor: pointer; padding: 12px 14px; background: white; border-radius: 10px; font-size: 13px; color: #4d9146; font-weight: 700; box-shadow: 0 2px 8px rgba(0,0,0,.05); margin-bottom: 10px; }
+    .concern-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
+    .concern-chip { border: 1px solid #bfe3b5; background: white; color: #4d9146; border-radius: 20px; padding: 8px 14px; font-size: 13px; font-weight: 700; font-family: inherit; cursor: pointer; transition: all .2s; }
+    .concern-chip.selected { background: #4d9146; border-color: #4d9146; color: white; }
   </style>
 </head>
 <body>
@@ -292,7 +298,20 @@
     </button>
   </div>
 </div>
-    
+
+  </div>
+
+  <!-- おすすめ記事画面（「今日は終わりにする」の後） -->
+  <div class="screen" id="screen-recommend">
+    <div class="finish-screen" style="padding-bottom:24px">
+      <div class="finish-emoji">🌙</div>
+      <div class="finish-title">今日もお疲れ様でした！</div>
+      <div class="finish-sub" id="recommend-sub"></div>
+      <div id="recommend-main" style="text-align:left"></div>
+      <div id="recommend-other" style="text-align:left"></div>
+      <div class="affiliate-note" style="margin:12px 0 20px">※ 記事内の商品リンクはアフィリエイトリンクです（PR）</div>
+      <button class="btn btn-gray" onclick="backToTop()">トップに戻る</button>
+    </div>
   </div>
 
 </div>
@@ -339,6 +358,8 @@ function goToScreen(screenId) {
   
 function goToTimerOnlyMode() {
   timerOnlyMode = true;
+  window.lastCategories = null;
+  window.lastScore = 0;
   aiTasks = [];
   selectedTasks = [];
   renderTaskList();
@@ -445,6 +466,8 @@ function showAnalysis(d) {
   document.getElementById('analyze-btn').style.display = 'none';
   aiTasks = d.steps.map(s => s.action);
   window.lastProblems = d.problems;
+  window.lastCategories = Array.isArray(d.categories) ? d.categories : [];
+  window.lastScore = d.score;
 }
 
 function goToTaskScreen(stepsEncoded) {
@@ -629,31 +652,6 @@ function goToFinish() {
   goToScreen('screen-finish');
   document.getElementById('finish-step-1').style.display = 'block';
   document.getElementById('finish-step-2').style.display = 'none';
-
-  const products = getRecommendedProducts(window.lastProblems || []);
-  const el = document.getElementById('finish-products');
-  if (products.length > 0) {
-    el.innerHTML = `
-      <div class="card" style="text-align:left">
-        <div class="sec-title">💡 あなたの部屋に合うアイテム</div>
-        ${products.map(p => `
-          <div class="product-card">
-            <div class="product-icon">${p.icon}</div>
-            <div class="product-info">
-              <span class="product-tag">${p.tag}</span>
-              <div class="product-name">${p.name}</div>
-              <div class="product-reason">${p.reason}</div>
-              <div class="product-footer">
-                <span class="product-price">${p.price}</span>
-                <button class="btn-amazon" onclick="window.open('${p.url}','_blank')">Amazonで見る →</button>
-              </div>
-            </div>
-          </div>
-        `).join('')}
-      </div>`;
-  } else {
-    el.innerHTML = '';
-  }
 }
 
 
@@ -678,9 +676,69 @@ function reAnalyze() {
   imageFile = null;
 }
 
+// 片付けを終えたら、診断結果に合う記事（Amazonリンク入り）へ案内する
 function endCleaning() {
+  renderRecommend();
+  goToScreen('screen-recommend');
+  window.scrollTo(0, 0);
+}
+
+function backToTop() {
   goToScreen('screen-analyze');
-  showToast('今日もお疲れ様でした！🌙');
+  window.scrollTo(0, 0);
+}
+
+let selectedConcerns = [];
+
+function renderRecommend() {
+  const hasDiagnosis = Array.isArray(window.lastCategories);
+  const picks = hasDiagnosis ? pickRecommendedIdeas(window.lastCategories, window.lastScore || 0) : [];
+  const hasPicks = picks.length > 0;
+
+  document.getElementById('recommend-sub').textContent = hasPicks
+    ? '診断結果から、あなたの部屋に合う記事を選びました'
+    : 'お悩みを選ぶと、役立つ記事が見つかります';
+
+  document.getElementById('recommend-main').innerHTML = hasPicks
+    ? `<div class="rec-title">💡 あなたの部屋に合う記事</div>${picks.map(ideaCardHtml).join('')}`
+    : '';
+
+  // 診断結果に出なかった悩みを拾う導線。診断が無い（タイマーのみ）/記事が少ないときは最初から開く
+  selectedConcerns = [];
+  document.getElementById('recommend-other').innerHTML = `
+    <div class="rec-more-toggle" onclick="toggleConcernPicker()" style="${hasPicks ? 'margin-top:16px' : ''}">
+      <span>${hasPicks ? '他にも気になることはありますか？' : '気になることを選ぶ'}</span>
+      <span id="concern-arrow">${hasPicks ? '▼' : '▲'}</span>
+    </div>
+    <div id="concern-picker" style="display:${hasPicks ? 'none' : 'block'}">
+      <div class="concern-chips" id="concern-chips"></div>
+      <div id="concern-results"></div>
+    </div>`;
+  renderConcernChips();
+}
+
+function toggleConcernPicker() {
+  const picker = document.getElementById('concern-picker');
+  const arrow = document.getElementById('concern-arrow');
+  const open = picker.style.display === 'none';
+  picker.style.display = open ? 'block' : 'none';
+  arrow.textContent = open ? '▲' : '▼';
+}
+
+function toggleConcern(key) {
+  selectedConcerns = selectedConcerns.includes(key)
+    ? selectedConcerns.filter(k => k !== key)
+    : [...selectedConcerns, key];
+  renderConcernChips();
+}
+
+function renderConcernChips() {
+  document.getElementById('concern-chips').innerHTML = availableConcerns().map(c => `
+    <button class="concern-chip ${selectedConcerns.includes(c.key) ? 'selected' : ''}" onclick="toggleConcern('${c.key}')">${c.icon} ${c.label}</button>
+  `).join('');
+
+  const matched = sortedIdeas().filter(i => (i.tags || []).some(t => selectedConcerns.includes(t)));
+  document.getElementById('concern-results').innerHTML = matched.map(ideaCardHtml).join('');
 }
 
 function showToast(msg) {
