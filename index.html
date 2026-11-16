@@ -196,7 +196,7 @@
 </div>
       <div id="analyze-box" style="display:none">
         <button class="btn btn-primary" id="analyze-btn" onclick="analyzeRoom()">✨ AIで部屋を分析する</button>
-        <div style="font-size:11px; color:#999; text-align:center; margin:-4px 0 12px;">※ AI分析は1日3回までです</div>
+        <div id="analyze-note" style="font-size:11px; color:#999; text-align:center; margin:-4px 0 12px;"></div>
       </div>
       <div class="error-box" id="error-box" style="display:none"></div>
       <div id="analysis-result" style="display:none"></div>
@@ -379,6 +379,7 @@ function handleImage(e) {
   area.className = 'upload-area has-image';
   area.innerHTML = `<div class="img-wrap"><img src="${url}" alt="部屋"/><div class="upload-overlay">📷 タップで変更</div></div>`;
   document.getElementById('analyze-box').style.display = 'block';
+  updateAnalyzeNote();
   document.getElementById('analysis-result').style.display = 'none';
   document.getElementById('howto').style.display = 'none';
   document.getElementById('error-box').style.display = 'none';
@@ -395,11 +396,19 @@ function getAnalyzeCount() {
   } catch(e) {}
   return 0;
 }
-function addAnalyzeCount() {
+function setAnalyzeCount(count) {
   const today = new Date().toLocaleDateString('sv-SE');
   try {
-    localStorage.setItem('analyzeCount', JSON.stringify({date: today, count: getAnalyzeCount() + 1}));
+    localStorage.setItem('analyzeCount', JSON.stringify({date: today, count: count}));
   } catch(e) {}
+  updateAnalyzeNote();
+}
+function addAnalyzeCount() {
+  setAnalyzeCount(getAnalyzeCount() + 1);
+}
+function updateAnalyzeNote() {
+  const left = Math.max(DAILY_ANALYZE_LIMIT - getAnalyzeCount(), 0);
+  document.getElementById('analyze-note').textContent = `※ AI分析は1日${DAILY_ANALYZE_LIMIT}回までです（今日の残りはあと${left}回です）`;
 }
 
 async function analyzeRoom() {
@@ -447,7 +456,11 @@ async function analyzeRoom() {
       body: JSON.stringify({image: base64, mediaType: mediaType})
     });
     addAnalyzeCount();
-    if (response.status === 429) throw new Error((await response.json()).error);
+    if (response.status === 429) {
+      // 同じIPの別ブラウザで使い切っている場合もあるので、こちらの残りも0にそろえる
+      setAnalyzeCount(DAILY_ANALYZE_LIMIT);
+      throw new Error((await response.json()).error);
+    }
     if (!response.ok) throw new Error('サーバーエラー');
     const d = await response.json();
     showAnalysis(d);
