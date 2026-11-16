@@ -380,8 +380,31 @@ function handleImage(e) {
   document.getElementById('error-box').style.display = 'none';
 }
 
+const DAILY_ANALYZE_LIMIT = 3;
+
+// localStorage に { date, count } で今日の分析回数を保存する
+function getAnalyzeCount() {
+  const today = new Date().toLocaleDateString('sv-SE');
+  try {
+    const saved = JSON.parse(localStorage.getItem('analyzeCount'));
+    if (saved && saved.date === today) return saved.count;
+  } catch(e) {}
+  return 0;
+}
+function addAnalyzeCount() {
+  const today = new Date().toLocaleDateString('sv-SE');
+  try {
+    localStorage.setItem('analyzeCount', JSON.stringify({date: today, count: getAnalyzeCount() + 1}));
+  } catch(e) {}
+}
+
 async function analyzeRoom() {
   if (!imageFile) return;
+  if (getAnalyzeCount() >= DAILY_ANALYZE_LIMIT) {
+    document.getElementById('error-box').textContent = `AI分析は1日${DAILY_ANALYZE_LIMIT}回までです。また明日お試しください`;
+    document.getElementById('error-box').style.display = 'block';
+    return;
+  }
   const btn = document.getElementById('analyze-btn');
   btn.disabled = true;
   btn.innerHTML = '<span class="spinner"></span>AIが分析中...';
@@ -419,6 +442,8 @@ async function analyzeRoom() {
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({image: base64, mediaType: mediaType})
     });
+    addAnalyzeCount();
+    if (response.status === 429) throw new Error((await response.json()).error);
     if (!response.ok) throw new Error('サーバーエラー');
     const d = await response.json();
     showAnalysis(d);

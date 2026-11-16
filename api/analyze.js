@@ -3,12 +3,43 @@ const convert = require('heic-convert');
 // 記事のtags（js/ideas.js の CONCERNS）と同じキー。mindset はAIに選ばせず、フロント側でスコア5以上のとき付与する
 const ALLOWED_CATEGORIES = ['clothes', 'small_items', 'small_space', 'paper', 'mold', 'kitchen', 'furniture', 'cable'];
 
+const DAILY_LIMIT = 3;
+
+// Upstash Redis（Vercel Marketplace 連携）の REST API で IP ごとの回数を数える
+async function countRequest(ip) {
+  const url = process.env.KV_REST_API_URL || process.env.UPSTASH_REDIS_REST_URL;
+  const token = process.env.KV_REST_API_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN;
+  if (!url || !token) return null; // 未設定（ローカル開発など）の場合は制限しない
+
+  const today = new Date(Date.now() + 9 * 60 * 60 * 1000).toISOString().slice(0, 10); // 日本時間の日付
+  const key = `analyze:${ip}:${today}`;
+  const response = await fetch(`${url}/pipeline`, {
+    method: 'POST',
+    headers: { Authorization: `Bearer ${token}` },
+    body: JSON.stringify([
+      ['INCR', key],
+      ['EXPIRE', key, 60 * 60 * 48],
+    ]),
+  });
+  if (!response.ok) throw new Error('Rate limit store error');
+  const [incr] = await response.json();
+  return incr.result;
+}
+
 module.exports = async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
   try {
+    const ip = (req.headers['x-forwarded-for'] || '').split(',')[0].trim()
+      || req.headers['x-real-ip']
+      || 'unknown';
+    const count = await countRequest(ip);
+    if (count !== null && count > DAILY_LIMIT) {
+      return res.status(429).json({ error: `AI分析は1日${DAILY_LIMIT}回までです。また明日お試しください` });
+    }
+
     const { image, mediaType } = req.body;
 
 let finalImage = image;
