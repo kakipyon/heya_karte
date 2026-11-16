@@ -194,7 +194,10 @@
     <p style="margin-top:8px">🔹 <b>明るい場所で撮る</b><br>暗いと物の量が認識されにくくなります</p>
   </div>
 </div>
-      <button class="btn btn-primary" id="analyze-btn" style="display:none" onclick="analyzeRoom()">✨ AIで部屋を分析する</button>
+      <div id="analyze-box" style="display:none">
+        <button class="btn btn-primary" id="analyze-btn" onclick="analyzeRoom()">✨ AIで部屋を分析する</button>
+        <div style="font-size:11px; color:#999; text-align:center; margin:-4px 0 12px;">※ AI分析は1日3回までです</div>
+      </div>
       <div class="error-box" id="error-box" style="display:none"></div>
       <div id="analysis-result" style="display:none"></div>
       <div class="card" id="howto">
@@ -375,7 +378,7 @@ function handleImage(e) {
   const area = document.getElementById('upload-area');
   area.className = 'upload-area has-image';
   area.innerHTML = `<div class="img-wrap"><img src="${url}" alt="部屋"/><div class="upload-overlay">📷 タップで変更</div></div>`;
-  document.getElementById('analyze-btn').style.display = 'block';
+  document.getElementById('analyze-box').style.display = 'block';
   document.getElementById('analysis-result').style.display = 'none';
   document.getElementById('howto').style.display = 'none';
   document.getElementById('error-box').style.display = 'none';
@@ -462,7 +465,7 @@ function showAnalysis(d) {
   if (d.error) {
     document.getElementById('error-box').textContent = d.error;
     document.getElementById('error-box').style.display = 'block';
-    document.getElementById('analyze-btn').style.display = 'block';
+    document.getElementById('analyze-box').style.display = 'block';
     document.getElementById('howto').style.display = 'block';
     return;
   }
@@ -489,7 +492,7 @@ function showAnalysis(d) {
     <button class="btn btn-primary" onclick="goToTaskScreen('${stepsEncoded}')">🎯 片付けタスクを選ぶ →</button>
     <button class="btn btn-pink" onclick="switchTab(1)">🛍️ おすすめ収納グッズを見る →</button>`;
   document.getElementById('analysis-result').style.display = 'block';
-  document.getElementById('analyze-btn').style.display = 'none';
+  document.getElementById('analyze-box').style.display = 'none';
   aiTasks = d.steps.map(s => s.action);
   window.lastProblems = d.problems;
   window.lastCategories = Array.isArray(d.categories) ? d.categories : [];
@@ -696,7 +699,7 @@ function reAnalyze() {
   document.getElementById('upload-area').className = 'upload-area';
   document.getElementById('upload-area').innerHTML = `<div class="upload-icon">📸</div><div class="upload-title">部屋の写真をアップロード</div><div class="upload-sub">タップして写真を選択</div>`;
   document.getElementById('upload-area').onclick = () => document.getElementById('file-input').click();
-  document.getElementById('analyze-btn').style.display = 'none';
+  document.getElementById('analyze-box').style.display = 'none';
   document.getElementById('analysis-result').style.display = 'none';
   document.getElementById('howto').style.display = 'block';
   imageFile = null;
