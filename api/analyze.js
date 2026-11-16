@@ -26,16 +26,30 @@ async function countRequest(ip) {
   return incr.result;
 }
 
+// IPv6 は端末のアドレス後半が頻繁に変わるので、前半4ブロック（/64）だけで数える
+function clientKey(req) {
+  const raw = (req.headers['x-forwarded-for'] || '').split(',')[0].trim()
+    || req.headers['x-real-ip']
+    || 'unknown';
+  if (!raw.includes(':') || raw.includes('.')) return raw; // IPv4（::ffff:1.2.3.4 形式も含む）はそのまま
+
+  // "2001:db8::1" のような省略表記を8ブロックに戻してから前半を取る
+  const [head, tail = ''] = raw.toLowerCase().split('::');
+  const headBlocks = head ? head.split(':') : [];
+  const tailBlocks = raw.includes('::') && tail ? tail.split(':') : [];
+  const blocks = raw.includes('::')
+    ? [...headBlocks, ...Array(8 - headBlocks.length - tailBlocks.length).fill('0'), ...tailBlocks]
+    : headBlocks;
+  return blocks.slice(0, 4).join(':') + '::/64';
+}
+
 module.exports = async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
   try {
-    const ip = (req.headers['x-forwarded-for'] || '').split(',')[0].trim()
-      || req.headers['x-real-ip']
-      || 'unknown';
-    const count = await countRequest(ip);
+    const count = await countRequest(clientKey(req));
     if (count !== null && count > DAILY_LIMIT) {
       return res.status(429).json({ error: `AI分析は1日${DAILY_LIMIT}回までです。また明日お試しください` });
     }
