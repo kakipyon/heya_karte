@@ -579,6 +579,8 @@ function addCustomTask() {
   if (!val) return;
   if (aiTasks.length >= 10) { showToast('タスクが多すぎます'); return; }
   aiTasks.push(val);
+  // 自分で追加したタスクはやる前提なので最初から選択状態にする
+  if (!selectedTasks.includes(val)) selectedTasks.push(val);
   input.value = '';
   renderTaskList();
 }
