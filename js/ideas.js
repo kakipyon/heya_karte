@@ -497,6 +497,7 @@ const IDEAS = [
     icon: '🔌',
     title: '配線・コードがごちゃごちゃする',
     sub: '減らす・まとめる・隠すの3ステップ',
+    image: 'https://images.unsplash.com/photo-1601467450590-8c3d11cde2fd?w=600&q=80',
     column: `
       <div class="column-title">ごちゃつく原因を知る</div>
       <div class="column-h2">⚫︎使っていないケーブルが挿さりっぱなし</div>
