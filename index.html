@@ -705,7 +705,7 @@ function toggleTimer() {
 function goBackFromTimer() {
   if (timerStarted) {
     if (confirm('片付けを終了しますか？')) {
-    endCleaning();
+    abortCleaning();
     }
   } else {
     goBack();
@@ -760,7 +760,16 @@ function reAnalyze() {
   imageFile = null;
 }
 
+// 「中断する」: 記事には案内せず、そのまま最初の画面に戻る（完了した人だけが記事へ進む）
+function abortCleaning() {
+  if (timerInterval) { clearInterval(timerInterval); timerInterval = null; }
+  timerRunning = false;
+  goToScreen('screen-analyze');
+  showToast('今日もお疲れ様でした！🌙');
+}
+
 // 片付けを終えたら、診断結果に合う記事（Amazonリンク入り）へ案内する
+// 呼ばれるのは完了後の画面（お疲れ様でした）から「今日は終わりにする」を押したときだけ
 function endCleaning() {
   renderRecommend();
   goToScreen('screen-recommend');
