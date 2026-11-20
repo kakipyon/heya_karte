@@ -540,6 +540,88 @@ const IDEAS = [
       },
     ]
   },
+  {
+    id: 'bosai',
+    tags: ['small_items'],
+    genre: 'C',
+    order: 60,
+    icon: '🎒',
+    title: '防災グッズを常備しておこう',
+    sub: '水・食料・トイレから。普段の暮らしの延長で備える',
+    column: `
+      <p class="column-text">防災グッズは「全部そろえなきゃ」と思うと手が止まってしまう。まずは優先度の高いものから、少しずつで大丈夫。しまう場所まで決めておくと、いざというときに慌てない。</p>
+      <div class="column-title">まずそろえたい優先度の高い6つ</div>
+      <p class="column-text">自治体が公開している備蓄の目安では、次の6つが特に優先度の高いものとされている。</p>
+      <ul class="column-list">
+        <li>飲料水</li>
+        <li>食料（主食・おかず）</li>
+        <li>携帯トイレ（簡易トイレ）</li>
+        <li>カセットコンロ・カセットボンベ</li>
+        <li>モバイルバッテリー</li>
+        <li>現金（小銭も）</li>
+      </ul>
+      <div class="column-title">どれくらい用意する？</div>
+      <div class="column-h2">⚫︎期間は「最低3日分、できれば1週間分」</div>
+      <p class="column-text">災害のあと、支援物資がすぐ届くとは限らない。まずは3日分を目標に、慣れてきたら1週間分まで増やしていこう。</p>
+      <div class="column-h2">⚫︎水は1人1日3リットルが目安</div>
+      <p class="column-text">飲み水だけでなく、調理に使う分も含めた量。3日分なら1人9リットル、2リットルのペットボトルで5本ほど。</p>
+      <div class="column-h2">⚫︎トイレは1人1日5回分が目安</div>
+      <p class="column-text">断水すると、トイレが使えなくなることがある。水や食料に比べて後回しにしがちなので、意識して用意しておきたい。</p>
+      <p class="column-text">※ 数字は自治体が公開している目安。家族の人数や住んでいる地域で変わるので、お住まいの自治体の情報も見てみてね。</p>
+      <div class="column-title">「ローリングストック」なら無理なく続く</div>
+      <div class="column-h2">⚫︎普段の食品を少し多めに買って、古いものから使う</div>
+      <p class="column-text">レトルト食品、缶詰、乾麺、飲み物などを少し多めに買い置きして、食べた分だけ買い足す方法。賞味期限が切れる心配が少なく、普段食べ慣れているものを備えられる。非常食を買って棚の奥にしまい込み、期限切れに気づかない…を防げる。</p>
+      <div class="column-title">片付けの視点で「しまう場所」を決める</div>
+      <div class="column-h2">⚫︎1か所にまとめて、家族みんなが分かるように</div>
+      <p class="column-text">あちこちに分散すると、何がどれだけあるか分からなくなる。置き場所を決めて、入っているものをメモしておこう。</p>
+      <div class="column-h2">⚫︎持ち出す袋はすぐ取れる場所に</div>
+      <p class="column-text">避難するときに持ち出すリュックは、玄関や寝室など、すぐ手に取れる場所がおすすめ。重い水などの備蓄は、取り出しやすい低めの位置に置こう。</p>
+      <div class="column-h2">⚫︎ときどき見直す</div>
+      <p class="column-text">賞味期限、電池や充電、薬の期限は定期的にチェック。年に1〜2回、「見直す日」を決めておくと忘れにくい。</p>
+    `,
+    productGroups: [
+      {
+        title: '水・食料',
+        note: 'まずはここから。保存水は長期保存できるタイプが便利。食料は普段食べ慣れたものを少し多めに。',
+        products: [
+          { name: '長期保存できる飲料水（2L×6本）', sub: '1人1日3Lが目安', url: 'https://www.amazon.co.jp/s?k=保存水+2L+6本+長期保存&tag=heyakarte-22' },
+          { name: 'アルファ米の非常食セット', sub: 'お湯や水を注ぐだけ・軽くて場所を取らない', url: 'https://www.amazon.co.jp/s?k=アルファ米+非常食+セット&tag=heyakarte-22' },
+          { name: 'レトルト・缶詰のローリングストックセット', sub: '普段食べながら備える', url: 'https://www.amazon.co.jp/s?k=ローリングストック+非常食+レトルト+缶詰&tag=heyakarte-22' },
+        ]
+      },
+      {
+        title: 'トイレ',
+        note: '断水時に一番困りやすい。凝固剤や消臭袋が入っているタイプが使いやすい。',
+        products: [
+          { name: '携帯トイレ 50回分セット', sub: '1人1日5回が目安', url: 'https://www.amazon.co.jp/s?k=携帯トイレ+簡易トイレ+50回&tag=heyakarte-22' },
+        ]
+      },
+      {
+        title: '調理・明かり・電源',
+        note: '停電や断水のときに、温かい食事と明かり、スマホの充電を確保する。',
+        products: [
+          { name: 'イワタニ カセットコンロ＋カセットボンベ', sub: '温かい食事が取れる', url: 'https://www.amazon.co.jp/s?k=イワタニ+カセットコンロ+カセットボンベ+セット&tag=heyakarte-22' },
+          { name: 'LEDランタン・懐中電灯', sub: '部屋全体を照らせるランタンが便利', url: 'https://www.amazon.co.jp/s?k=LEDランタン+懐中電灯+防災&tag=heyakarte-22' },
+          { name: '大容量モバイルバッテリー', sub: 'スマホを何度か充電できるもの', url: 'https://www.amazon.co.jp/s?k=モバイルバッテリー+大容量+防災&tag=heyakarte-22' },
+          { name: '手回し充電ラジオライト', sub: '情報収集・充電・ライトが1台で', url: 'https://www.amazon.co.jp/s?k=手回し充電+ラジオ+ライト+防災&tag=heyakarte-22' },
+        ]
+      },
+      {
+        title: '持ち出し用リュック',
+        note: '避難が必要なときのために。最初から必要なものが入っているセットなら、迷わずそろえられる。',
+        products: [
+          { name: '防災リュック 1人用セット', sub: '必要なものがまとめて入っている', url: 'https://www.amazon.co.jp/s?k=防災セット+1人用+防災リュック&tag=heyakarte-22' },
+        ]
+      },
+      {
+        title: 'しまう・まとめる',
+        note: '備蓄は置き場所が決まっていると管理しやすい。ふた付きのボックスで、見直す日にそのまま確認できる。',
+        products: [
+          { name: '防災グッズ用の収納ボックス', sub: 'ふた付き・積み重ねOK', url: 'https://www.amazon.co.jp/s?k=防災グッズ+収納ボックス+ふた付き&tag=heyakarte-22' },
+        ]
+      },
+    ]
+  },
   // 今後ここにカテゴリを追加していく
 ];
 
