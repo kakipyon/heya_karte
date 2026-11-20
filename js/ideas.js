@@ -576,17 +576,26 @@ const IDEAS = [
         <li>ストックは「1つ使ったら1つ買う」でため込まない</li>
         <li>詰め込みすぎず、収納は8割を目安に</li>
       </ul>
-
-      <div class="column-title">あると便利なアイテム</div>
-      <ul class="column-list">
-        <li><a href="https://www.amazon.co.jp/s?k=山崎実業+シンク下+伸縮+鍋蓋%26フライパンスタンド+タワー&tag=heyakarte-22" target="_blank" rel="nofollow sponsored noopener">シンク下 伸縮 鍋蓋＆フライパンスタンド（山崎実業 tower）</a>：シンク下の幅に合わせて伸縮。フライパンも鍋ぶたも立てて収納できます</li>
-        <li><a href="https://www.amazon.co.jp/s?k=山崎実業+マグネット+キッチンペーパーホルダー&tag=heyakarte-22" target="_blank" rel="nofollow sponsored noopener">マグネット キッチンペーパーホルダー（山崎実業）</a>：冷蔵庫の側面に貼るだけ。作業台の上がすっきり</li>
-        <li><a href="https://www.amazon.co.jp/s?k=山崎実業+隠せる+調味料ラック+タワー&tag=heyakarte-22" target="_blank" rel="nofollow sponsored noopener">隠せる調味料ラック（山崎実業 tower）</a>：コンロ横に置いて、調味料を油はねから守りながら目隠し</li>
-        <li><a href="https://www.amazon.co.jp/s?k=山崎実業+家電下+引き出し+スライドテーブル&tag=heyakarte-22" target="_blank" rel="nofollow sponsored noopener">家電下引き出し＆スライドテーブル（山崎実業 tower）</a>：炊飯器や電子レンジの下に。引き出せるので、湯気や作業スペースにも困りません</li>
-        <li><a href="https://www.amazon.co.jp/s?k=シンク下+収納ラック+伸縮+2段&tag=heyakarte-22" target="_blank" rel="nofollow sponsored noopener">シンク下 伸縮ラック</a>：排水管をよけて設置できる2段タイプ。洗剤やボトルのストックに</li>
-      </ul>
     `,
-    productGroups: []
+    productGroups: [
+      {
+        title: 'シンク下を立てて使う',
+        note: 'フライパンや鍋ぶたを立てて、排水管まわりのスペースもムダなく使う。',
+        products: [
+          { name: '山崎実業 tower シンク下 伸縮 鍋蓋＆フライパンスタンド', sub: '幅に合わせて伸縮・フライパンも鍋ぶたも立てて収納', url: 'https://www.amazon.co.jp/s?k=山崎実業+シンク下+伸縮+鍋蓋%26フライパンスタンド+タワー&tag=heyakarte-22' },
+          { name: 'シンク下 伸縮ラック 2段', sub: '排水管をよけて設置・洗剤やボトルのストックに', url: 'https://www.amazon.co.jp/s?k=シンク下+収納ラック+伸縮+2段&tag=heyakarte-22' },
+        ]
+      },
+      {
+        title: '作業台を空ける',
+        note: '浮かせる・隠す・引き出すで、作業台の上にモノを置かない。',
+        products: [
+          { name: '山崎実業 マグネット キッチンペーパーホルダー', sub: '冷蔵庫の側面に貼るだけ', url: 'https://www.amazon.co.jp/s?k=山崎実業+マグネット+キッチンペーパーホルダー&tag=heyakarte-22' },
+          { name: '山崎実業 tower 隠せる調味料ラック', sub: 'コンロ横で油はねから守りながら目隠し', url: 'https://www.amazon.co.jp/s?k=山崎実業+隠せる+調味料ラック+タワー&tag=heyakarte-22' },
+          { name: '山崎実業 tower 家電下引き出し＆スライドテーブル', sub: '炊飯器や電子レンジの下に・湯気対策にも', url: 'https://www.amazon.co.jp/s?k=山崎実業+家電下+引き出し+スライドテーブル&tag=heyakarte-22' },
+        ]
+      },
+    ]
   },
   // 今後ここにカテゴリを追加していく
 ];
