@@ -540,6 +540,54 @@ const IDEAS = [
       },
     ]
   },
+  {
+    id: 'kitchen',
+    tags: ['kitchen'],
+    genre: 'B',
+    order: 50,
+    icon: '🍳',
+    title: 'キッチンがすぐごちゃごちゃになる',
+    sub: '作業台・シンク下・コンロ周りの整え方',
+    image: 'https://images.unsplash.com/photo-1556911220-bff31c812dba?w=600&q=80',
+    column: `
+      <div class="column-title">まずは「作業台に何も置かない」</div>
+      <p class="column-text">調味料、キッチンペーパー、洗った食器。気づけば作業台がモノでいっぱいで、料理するスペースがない…ということはありませんか？ 作業台が空いているだけで、料理も片付けもぐっとラクになります。</p>
+
+      <div class="column-title">手放す基準を作る</div>
+      <div class="column-h2">⚫︎1年以上使っていない調理器具</div>
+      <p class="column-text">ホットサンドメーカー、たこ焼き器、何本もあるお玉。「いつか使う」はたいてい来ません。同じ役割のものが2つ以上あれば、1つに絞ってみて。</p>
+      <div class="column-h2">⚫︎賞味期限切れの調味料・食品</div>
+      <p class="column-text">棚の奥に眠っている調味料や乾物は、一度全部出して期限をチェック。同じものが2本出てきたら、ストックの持ちすぎのサインです。</p>
+      <div class="column-h2">⚫︎たまり続ける紙袋・保冷剤・割り箸</div>
+      <p class="column-text">「もらったから取っておく」ものは、上限を決めて。たとえば「紙袋はこの箱に入る分だけ」と決めると、増えすぎを防げます。</p>
+
+      <div class="column-title">場所ごとに整える</div>
+      <div class="column-h2">⚫︎コンロ周り：毎日使うものだけ</div>
+      <p class="column-text">コンロの近くには、毎日使う調味料とよく使うツールだけ。油はねで汚れやすい場所なので、ラックや扉付きの収納に入れておくと掃除もラクです。</p>
+      <div class="column-h2">⚫︎シンク下：「立てる」と取り出しやすい</div>
+      <p class="column-text">フライパンや鍋のふたを重ねて入れると、下のものが取り出しにくくなります。スタンドを使って本棚のように立てて収納すると、ひと目で分かってサッと取り出せます。</p>
+      <div class="column-h2">⚫︎冷蔵庫の側面・壁：「浮かせる」</div>
+      <p class="column-text">キッチンペーパーやラップは、マグネット式のホルダーで冷蔵庫の側面に。作業台の上が一気に空きます。</p>
+
+      <div class="column-title">きれいをキープするコツ</div>
+      <ul class="column-list">
+        <li>使ったら「元の場所に戻す」まででワンセット</li>
+        <li>寝る前に作業台の上だけはリセットする</li>
+        <li>ストックは「1つ使ったら1つ買う」でため込まない</li>
+        <li>詰め込みすぎず、収納は8割を目安に</li>
+      </ul>
+
+      <div class="column-title">あると便利なアイテム</div>
+      <ul class="column-list">
+        <li><a href="https://www.amazon.co.jp/s?k=山崎実業+シンク下+伸縮+鍋蓋%26フライパンスタンド+タワー&tag=heyakarte-22" target="_blank" rel="nofollow sponsored noopener">シンク下 伸縮 鍋蓋＆フライパンスタンド（山崎実業 tower）</a>：シンク下の幅に合わせて伸縮。フライパンも鍋ぶたも立てて収納できます</li>
+        <li><a href="https://www.amazon.co.jp/s?k=山崎実業+マグネット+キッチンペーパーホルダー&tag=heyakarte-22" target="_blank" rel="nofollow sponsored noopener">マグネット キッチンペーパーホルダー（山崎実業）</a>：冷蔵庫の側面に貼るだけ。作業台の上がすっきり</li>
+        <li><a href="https://www.amazon.co.jp/s?k=山崎実業+隠せる+調味料ラック+タワー&tag=heyakarte-22" target="_blank" rel="nofollow sponsored noopener">隠せる調味料ラック（山崎実業 tower）</a>：コンロ横に置いて、調味料を油はねから守りながら目隠し</li>
+        <li><a href="https://www.amazon.co.jp/s?k=山崎実業+家電下+引き出し+スライドテーブル&tag=heyakarte-22" target="_blank" rel="nofollow sponsored noopener">家電下引き出し＆スライドテーブル（山崎実業 tower）</a>：炊飯器や電子レンジの下に。引き出せるので、湯気や作業スペースにも困りません</li>
+        <li><a href="https://www.amazon.co.jp/s?k=シンク下+収納ラック+伸縮+2段&tag=heyakarte-22" target="_blank" rel="nofollow sponsored noopener">シンク下 伸縮ラック</a>：排水管をよけて設置できる2段タイプ。洗剤やボトルのストックに</li>
+      </ul>
+    `,
+    productGroups: []
+  },
   // 今後ここにカテゴリを追加していく
 ];
 
