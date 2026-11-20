@@ -294,7 +294,7 @@
     </button>
     <button class="choice-btn gray" onclick="reAnalyze()">
       <span class="choice-icon">📷</span>
-      <span>部屋を再分析する</span>
+      <span id="reanalyze-label">部屋を再分析する</span>
     </button>
     <button class="choice-btn gray" onclick="endCleaning()">
       <span class="choice-icon">🌙</span>
@@ -702,6 +702,8 @@ function goToFinish() {
 function showContinueChoice() {
   document.getElementById('finish-step-1').style.display = 'none';
   document.getElementById('finish-step-2').style.display = 'block';
+  // 分析せずにタイマーだけで片付けた場合は「再」分析ではないので文言を変える
+  document.getElementById('reanalyze-label').textContent = timerOnlyMode ? '部屋を分析する' : '部屋を再分析する';
 }
 
 function continueSameGoal() {
